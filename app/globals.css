@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*ANIMATION FOR UNDERLINING TEXT USED IN NAVIGATION AROUND PAGES */
+
+.underline-animation {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  transition: text-decoration-color 2s ease;
+}
+
+.underline-animation::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px; /* Thickness of the underline */
+  background-color: #000000; /* Tailwind's slate-400 */
+  transition: width 0.5s;
+}
+
+.underline-animation:hover::after {
+  width: 90%;
+}
