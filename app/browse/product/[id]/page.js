@@ -1,4 +1,5 @@
 "use client";
+
 import muay1 from "@/public/muay1.png";
 import muay2 from "@/public/muay2.png";
 import Image from "next/image";
@@ -57,7 +58,7 @@ function Page({ params }) {
         <Image
           src={tempRequestedProductData.productImg[imageIndex]}
           alt={tempRequestedProductData.productName}
-          className="max-h-[700px] border border-black object-cover"
+          className="max-h-[700px] border border-black object-cover rounded-xl"
           width={600}
         />
 
@@ -111,9 +112,9 @@ function Page({ params }) {
             {tempRequestedProductData.productOptions.map((option) => (
               <li
                 key={option}
-                className={`hover:scale-110 hover:underline duration-150 cursor-pointer p-1 ${
+                className={`hover:scale-110 hover:underline duration-150 cursor-pointer p-1 relative box-border ${
                   option === selectedOption
-                    ? "border-2 border-orange-500 rounded-full bg-orange-300 text-black shadow-lg "
+                    ? "border-2 border-orange-500 rounded-full bg-orange-300 text-black shadow-lg"
                     : "text-gray-600"
                 }`}
                 onClick={() => setSelectedOption(option)}

@@ -16,10 +16,25 @@ module.exports = {
           "0%": { transform: "translateY(100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        slideFromLeft: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        slideUpModal: {
+          "0%": {
+            transform: "translateY(100%) translateX(-50%)",
+          },
+          "100%": {
+            transform: "translateY(-50%) translateX(-50%)",
+          },
+        },
       },
       animation: {
         slideDown: "slideDown 1s ease-out",
         slideUp: "slideUp 1.2s ease-out",
+        slideFromLeft: "slideFromLeft 1.2s ease-out",
+        slideFromLeftSlow: "slideFromLeft 1.5s ease-out",
+        slideUpModal: "slideUpModal 0.5s ease-out",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -28,5 +43,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };

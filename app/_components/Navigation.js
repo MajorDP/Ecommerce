@@ -12,19 +12,19 @@ function Navigation() {
           </Link>
         </div>
         <div className="flex justify-between gap-5 w-full sm:text-sm lg:text-xl">
-          <Link className="m-auto" href="/">
+          <Link className="underline-animation m-auto" href="/">
             Home
           </Link>
-          <Link className="m-auto" href="/browse">
+          <Link className="underline-animation m-auto" href="/browse">
             Browse
           </Link>
-          <Link className="m-auto" href="/account">
+          <Link className="underline-animation m-auto" href="/account/user">
             Account
           </Link>
-          <Link className="m-auto" href="/register">
+          <Link className="underline-animation m-auto" href="/register">
             Register
           </Link>
-          <Link className="m-auto" href="/login">
+          <Link className="underline-animation m-auto" href="/login">
             Login
           </Link>
         </div>

@@ -1,3 +1,6 @@
 Next.js Ecommerce website
 
-_NO FUNCTIONALITY ADDED YET, THIS IS ONLY THE INCOMPLETE INITIAL DESIGN OF THE WEBSITE_
+_Implemented database via supabase_
+_Implemented user's purchases/sales history with sample data_
+_Implemented browse page_
+_Home page fixes_

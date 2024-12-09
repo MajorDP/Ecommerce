@@ -8,44 +8,45 @@ import Link from "next/link";
 import ProductCard from "./ProductCard";
 import ScrollableProductList from "./ScrollableProductList";
 
-function PopularProducts({
-  tempPopularProductsData,
+function NewestProducts({
+  tempProductsData,
   searchValue = "",
   category = null,
   showAll = true,
 }) {
   const filteredProductsBySearch =
     searchValue !== ""
-      ? tempPopularProductsData.filter((product) =>
+      ? tempProductsData.filter((product) =>
           product.productName.toLowerCase().includes(searchValue.toLowerCase())
         )
-      : tempPopularProductsData;
+      : tempProductsData;
 
   const filteredProductsByCategory =
     category !== null
-      ? category === "all"
-        ? filteredProductsBySearch
-        : filteredProductsBySearch
-            .slice()
-            .filter((product) => product.categories.includes(category))
+      ? filteredProductsBySearch
+          .slice()
+          .filter((product) => product.categories.includes(category))
       : filteredProductsBySearch;
 
-  let sortedProductsByRating = filteredProductsByCategory
-    .filter((product) => product.productRating > 4.9)
-    .sort((a, b) => b.rating - a.rating);
+  let sortedProductsByDate = filteredProductsByCategory.sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+
+    return dateB.getTime() - dateA.getTime();
+  });
 
   if (showAll === false) {
-    sortedProductsByRating = sortedProductsByRating.slice(
+    sortedProductsByDate = sortedProductsByDate.slice(
       0,
-      Math.min(14, sortedProductsByRating.length)
+      Math.min(14, sortedProductsByDate.length)
     );
   }
 
   return (
     <div className="relative">
-      <ScrollableProductList products={sortedProductsByRating} />
+      <ScrollableProductList products={sortedProductsByDate} />
     </div>
   );
 }
 
-export default PopularProducts;
+export default NewestProducts;
