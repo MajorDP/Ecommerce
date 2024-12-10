@@ -1,6 +1,4 @@
 Next.js Ecommerce website
 
-_Implemented database via supabase_
-_Implemented user's purchases/sales history with sample data_
-_Implemented browse page_
-_Home page fixes_
+- implemented user auth
+- logged users can see their purchases/sales
