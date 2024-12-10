@@ -1,16 +1,22 @@
+"use client";
 import UserAccountInfo from "@/app/_components/UserAccountInfo";
-import { getUserInfo } from "@/app/_lib/_api/userServices";
-import { Suspense } from "react";
+import { getCurrentUser, getUserInfo } from "@/app/_lib/_api/userServices";
+import { Suspense, useEffect, useState } from "react";
 
-async function Page() {
-  const userData = await getUserInfo(0);
-  const tempUserData = {
-    id: 0,
-    email: "asura@abv.bg",
-    username: "asura",
-    password: "123a",
-    createdAt: "12-7-2024",
-  };
+function Page() {
+  const [userData, setUserData] = useState(null);
+
+  console.log(userData);
+  useEffect(function () {
+    async function getUser() {
+      const user = await getCurrentUser();
+      const userData = await getUserInfo(user.data.user.id);
+      setUserData(userData);
+    }
+
+    getUser();
+  }, []);
+
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <UserAccountInfo userData={userData} />;

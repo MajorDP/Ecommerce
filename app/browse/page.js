@@ -5,6 +5,7 @@ import BrowseProductsPage from "../_components/BrowseProductsPage";
 //   title: "ass"
 // }
 
+export const fetchCache = "force-no-store";
 async function Page() {
   const data = await getProducts();
 

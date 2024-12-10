@@ -25,3 +25,21 @@ export async function getPopularProducts() {
 
   return products;
 }
+
+export async function getProduct(id) {
+  let { data: product, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log(error.message);
+  }
+
+  return product;
+}
+
+export async function deleteProduct(id) {
+  const { error } = await supabase.from("products").delete().eq("id", id);
+}

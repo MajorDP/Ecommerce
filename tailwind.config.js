@@ -43,5 +43,6 @@ module.exports = {
       },
     },
   },
+  //Allows Tailwind CSS to work with scrollbars, npm i tailwild-scrollbar
   plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };

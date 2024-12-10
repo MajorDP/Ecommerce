@@ -1,20 +1,35 @@
+"use client";
 import SaleCard from "@/app/_components/SaleCard";
 import {
+  getCurrentUser,
   getUserPurchases,
   getUserSalesInfo,
 } from "@/app/_lib/_api/userServices";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
-async function page() {
-  const userSalesInfo = await getUserPurchases(0);
+//nextjs caches urls, this prevents it
+export const fetchCache = "force-no-store";
 
-  console.log(userSalesInfo.sales);
+function Page() {
+  const [userSalesData, setUserSalesData] = useState(null);
+  useEffect(function () {
+    async function getSales() {
+      const user = await getCurrentUser();
+      const userSalesInfo = await getUserPurchases(user.data.user.id);
+      setUserSalesData(userSalesInfo);
+    }
+    getSales();
+  }, []);
+
   return (
     <Suspense fallback={<p>Loading...</p>}>
+      <p className=" p-2 border-2 border-white w-[50%] rounded-3xl m-auto mt-6 text-center text-xl font-medium">
+        Your purchase history
+      </p>
       <div className="bg-blue-100 w-[95%] h-[90%] m-12 border rounded-xl overflow-y-scroll overflow-x-hidden shadow-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500">
         <ul>
-          {userSalesInfo.purchases.map((sale, index) => (
-            <SaleCard sale={sale} key={index} type="pruchases" />
+          {userSalesData?.purchases.map((purchase, index) => (
+            <SaleCard sale={purchase} key={index} type="pruchases" />
           ))}
         </ul>
       </div>
@@ -22,4 +37,4 @@ async function page() {
   );
 }
 
-export default page;
+export default Page;

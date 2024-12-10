@@ -5,9 +5,7 @@ import bgImg from "@/public/bg-1.jpg";
 import { useState } from "react";
 
 function UserAccountInfo({ userData }) {
-  console.log(userData);
   const [isModalOpen, setIsModalOpen] = useState(null);
-
   return (
     <>
       {isModalOpen && (
@@ -34,7 +32,7 @@ function UserAccountInfo({ userData }) {
                 id="email"
                 type="email"
                 className="border border-black rounded-md w-[50%] pl-1 pr-1"
-                value={userData.email.replace(/^[^@]+/, (match) =>
+                defaultValue={userData?.email.replace(/^[^@]+/, (match) =>
                   "*".repeat(match.length)
                 )}
               />
@@ -52,7 +50,7 @@ function UserAccountInfo({ userData }) {
               id="username"
               type="text"
               className="border border-black rounded-md w-[50%] pl-1 pr-1"
-              value={userData.username}
+              defaultValue={userData?.username}
             />
           </div>
           {/* <div className="flex flex-col text-xl text-start mb-5">

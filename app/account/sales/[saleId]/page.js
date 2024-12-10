@@ -1,5 +1,6 @@
 import CurrentSale from "@/app/_components/CurrentSale";
 import SaleCard from "@/app/_components/SaleCard";
+import { getProducts } from "@/app/_lib/_api/productServices";
 import { getUserSale } from "@/app/_lib/_api/userServices";
 import { Suspense } from "react";
 

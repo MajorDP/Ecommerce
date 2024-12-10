@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 function ProductCard({ product }) {
+  console.log(product);
   return (
     <li
       key={product.id}

@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { signout } from "../_lib/_api/userServices";
 
 function Layout({ children }) {
   return (
@@ -15,9 +17,11 @@ function Layout({ children }) {
           <Link href="/account/sales" className="underline-animation mt-5">
             Sales History
           </Link>
-          <Link href="" className="underline-animation mt-5">
-            Log out
-          </Link>
+          <form action={signout}>
+            <button type="submit" className="underline-animation mt-5">
+              Log out
+            </button>
+          </form>
         </div>
         <div className="w-full bg-slate-200 border border-black">
           {children}

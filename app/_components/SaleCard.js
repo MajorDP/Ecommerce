@@ -3,11 +3,8 @@
 import Link from "next/link";
 
 function SaleCard({ sale, type }) {
-  console.log(sale);
-  //TODO: ADD IMAGES TO SALES IN DATABASE
-  const tempImgData = [1, 2, 3, 4, 5, 6, 7, 8];
   const imgLength =
-    tempImgData.length === 1 ? 1 : tempImgData.length >= 4 ? 4 : 2;
+    sale.items.length === 1 ? 1 : sale.items.length >= 4 ? 4 : 2;
   return (
     <Link
       href={`/account/${type === "sales" ? "sales" : "purchases"}/${
@@ -16,7 +13,12 @@ function SaleCard({ sale, type }) {
       className="m-auto w-[60%] h-[30vh] flex flex-row justify-between border border-black rounded-xl p-3 mt-2 mb-6"
     >
       <div
-        className={`grid bg-red-200 w-[50%] ${
+        className={`grid bg-white border  ${
+          //singular size for pictures regardless of amount
+          "h-full w-[46%]"
+          // size of pictures based on amount:
+          // imgLength === 1 ? "w-1/3" : imgLength === 4 ? "h-full" : "w-[55%]"
+        } ${
           imgLength >= 4
             ? "grid-cols-2 grid-rows-2"
             : imgLength === 2
@@ -24,11 +26,19 @@ function SaleCard({ sale, type }) {
             : "grid-cols-1 grid-rows-1"
         }`}
       >
-        {tempImgData.map((el, index) =>
+        {sale.items.map((item, index) =>
           (index > 1 && imgLength === 2) || (index > 3 && imgLength === 4) ? (
             ""
           ) : (
-            <p className="border border-black w-[100%]">{el}</p>
+            <img
+              key={index}
+              src={item.productImg[0]}
+              alt="Product Image"
+              className={`border border-black object-contain w-full h-full ${
+                index % 2 === 1 ? "border-l-0" : ""
+              } ${index <= 1 && imgLength > 2 ? "border-b-0" : ""}
+              }`}
+            />
           )
         )}
       </div>
