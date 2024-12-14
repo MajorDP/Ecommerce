@@ -85,6 +85,8 @@ export async function signout() {
 
 export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
+
+  console.log(data);
   if (error) {
     console.error("Error getting user:", error);
   }
@@ -175,4 +177,17 @@ export async function getUserPurchase(id, orderId) {
   );
 
   return sale;
+}
+
+export async function getUserProducts(userId) {
+  let { data: products, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("listedBy", userId);
+
+  if (error) {
+    console.log("ERROR FETCHING USER PRODUCTS: ", error.message);
+  }
+
+  return products;
 }

@@ -1,17 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { getCurrentUser, getUserProducts } from "../_lib/_api/userServices";
 import Link from "next/link";
 
-function SaleCard({ sale, type }) {
+function UserProductCard({ product }) {
   const imgLength =
-    sale.items.length === 1 ? 1 : sale.items.length >= 4 ? 4 : 2;
+    product.productImg.length === 1
+      ? 1
+      : product.productImg.length >= 4
+      ? 4
+      : 2;
 
+  const normalizedTimestamp = product.created_at.split(".")[0] + "Z";
+  const date = new Date(normalizedTimestamp);
+  const formattedDate = date.toLocaleDateString();
+  console.log(formattedDate);
   return (
     <Link
-      href={`/account/${type === "sales" ? "sales" : "purchases"}/${
-        sale.orderId
-      }`}
-      className="m-auto bg-gradient-to-tr from-teal-100 to-teal-300  w-[60%] h-[30vh] flex flex-row justify-between border border-black rounded-xl p-3 mt-2 mb-6"
+      href={`/browse/product/${product.id}`}
+      className="m-auto bg-gradient-to-tr from-teal-100 to-teal-300 w-[60%] h-[30vh] flex flex-row justify-between border border-black rounded-xl p-3 mt-2 mb-6 "
     >
       <div
         className={`grid bg-white ${
@@ -27,13 +35,13 @@ function SaleCard({ sale, type }) {
             : "grid-cols-1 grid-rows-1"
         }`}
       >
-        {sale.items.map((item, index) =>
+        {product.productImg.map((img, index) =>
           (index > 1 && imgLength === 2) || (index > 3 && imgLength === 4) ? (
             ""
           ) : (
             <img
               key={index}
-              src={item.productImg[0]}
+              src={img}
               alt="Product Image"
               className={`border border-black object-contain w-full h-full  ${
                 index % 2 === 1 ? "border-l-0" : ""
@@ -45,31 +53,15 @@ function SaleCard({ sale, type }) {
       </div>
       <div className="w-[40%] flex flex-col justify-between text-xl border border-black p-5">
         <div>
-          <p>Sale ID: {sale.orderId}</p>
-          <p>Ordered on: {sale.orderDate}</p>
+          <p>Product ID: {product.id}</p>
+          <p>Listed on: {formattedDate}</p>
         </div>
         <div>
-          <p>
-            Status:{" "}
-            <span
-              className={`${
-                sale.status === "Delivered"
-                  ? "text-green-500"
-                  : sale.status === "Cancelled"
-                  ? "text-red-500"
-                  : sale.status === "Shipping"
-                  ? "text-orange-500"
-                  : ""
-              }`}
-            >
-              {sale.status}
-            </span>
-          </p>
-          <p>Total: {sale.totalPrice} 💲</p>
+          <p>Price: {product.productPrice} 💲</p>
         </div>
       </div>
     </Link>
   );
 }
 
-export default SaleCard;
+export default UserProductCard;

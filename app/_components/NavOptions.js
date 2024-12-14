@@ -5,7 +5,7 @@ import { getCurrentUser } from "../_lib/_api/userServices";
 
 function NavOptions() {
   const [user, setUser] = useState(null);
-  console.log(user);
+
   useEffect(function () {
     async function getUser() {
       const userData = await getCurrentUser();

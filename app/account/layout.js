@@ -11,6 +11,9 @@ function Layout({ children }) {
           <Link href="/account/user" className="underline-animation mt-5">
             Personal Information
           </Link>
+          <Link href="/account/products" className="underline-animation mt-5">
+            My products
+          </Link>
           <Link href="/account/purchases" className="underline-animation mt-5">
             Purchase History
           </Link>
