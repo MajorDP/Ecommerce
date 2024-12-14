@@ -36,7 +36,7 @@ function RegisterForm() {
     }
 
     setLoading(false);
-    router.push("/");
+    window.location.href = "/";
   }
 
   return (

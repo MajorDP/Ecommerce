@@ -157,6 +157,12 @@ function BrowseProductsPage({ products, showAll, category }) {
             </Link>
           </div>
         </div>
+        <Link
+          className="border ml-2 p-1 border-black rounded-xl bg-green-400 text-black font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
+          href="/browse/post"
+        >
+          List a product
+        </Link>
       </div>
       {browseDisplay.map((el) => el.component)}
       {/* <PopularProducts

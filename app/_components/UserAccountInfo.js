@@ -2,10 +2,23 @@
 import Image from "next/image";
 import UserInfoUpdater from "./UserInfoUpdater";
 import bgImg from "@/public/bg-1.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCurrentUser, getUserInfo } from "../_lib/_api/userServices";
 
-function UserAccountInfo({ userData }) {
+function UserAccountInfo() {
   const [isModalOpen, setIsModalOpen] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(function () {
+    async function getUser() {
+      const user = await getCurrentUser();
+      console.log(user);
+      const userData = await getUserInfo(user.user.id);
+      setUserData(userData);
+    }
+
+    getUser();
+  }, []);
   return (
     <>
       {isModalOpen && (

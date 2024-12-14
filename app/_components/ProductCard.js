@@ -13,7 +13,7 @@ function ProductCard({ product }) {
           <img
             src={product.productImg}
             alt="Product Image"
-            className="object-cover"
+            className="object-cover w-full h-full"
           />
         </div>
         <p className="text-start p-1 text-sm">{product.productName}</p>

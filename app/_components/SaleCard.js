@@ -10,10 +10,10 @@ function SaleCard({ sale, type }) {
       href={`/account/${type === "sales" ? "sales" : "purchases"}/${
         sale.orderId
       }`}
-      className="m-auto w-[60%] h-[30vh] flex flex-row justify-between border border-black rounded-xl p-3 mt-2 mb-6"
+      className="m-auto bg-gradient-to-tr from-teal-100 to-teal-300  w-[60%] h-[30vh] flex flex-row justify-between border border-black rounded-xl p-3 mt-2 mb-6"
     >
       <div
-        className={`grid bg-white border  ${
+        className={`grid bg-white ${
           //singular size for pictures regardless of amount
           "h-full w-[46%]"
           // size of pictures based on amount:
@@ -34,7 +34,7 @@ function SaleCard({ sale, type }) {
               key={index}
               src={item.productImg[0]}
               alt="Product Image"
-              className={`border border-black object-contain w-full h-full ${
+              className={`border border-black object-contain w-full h-full  ${
                 index % 2 === 1 ? "border-l-0" : ""
               } ${index <= 1 && imgLength > 2 ? "border-b-0" : ""}
               }`}
@@ -42,7 +42,7 @@ function SaleCard({ sale, type }) {
           )
         )}
       </div>
-      <div className="w-[40%] flex flex-col justify-between text-xl">
+      <div className="w-[40%] flex flex-col justify-between text-xl border border-black p-5">
         <div>
           <p>Sale ID: {sale.orderId}</p>
           <p>Ordered on: {sale.orderDate}</p>
