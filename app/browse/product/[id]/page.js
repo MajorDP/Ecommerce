@@ -69,7 +69,10 @@ async function Page({ params }) {
             <SizeSelector />
             <div className="m-2 p-2 w-1/3">
               <p className="text-2xl">{product.productPrice}💲</p>
-              <ButtonActions />
+              <ButtonActions
+                listedBy={product.listedBy}
+                productId={product.id}
+              />
             </div>
           </div>
         </div>

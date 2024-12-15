@@ -43,6 +43,8 @@ export async function getProduct(id) {
 
 export async function deleteProduct(id) {
   const { error } = await supabase.from("products").delete().eq("id", id);
+
+  window.location.href = "/browse";
 }
 
 export async function postProduct(product) {
@@ -87,5 +89,8 @@ export async function postProduct(product) {
     return;
   }
 
-  window.location.href = `/browse/product/${data.id}`;
+  //time for image posting query to take effect so that the image of the product can be visualized properly on page change
+  setTimeout(() => {
+    window.location.href = `/browse/product/${data.id}`;
+  }, 200);
 }

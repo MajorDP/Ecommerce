@@ -8,16 +8,6 @@ import muay2 from "@/public/muay2.png";
 function ProductImgSlider({ product }) {
   console.log(product);
   const [imageIndex, setImageIndex] = useState(0);
-  const tempRequestedProductData = {
-    productId: 1,
-    productName: "Muay thai shorts",
-    productImg: [muay1, muay2],
-    productPrice: 55.55,
-    productDescription: "Boxing and Muay thai shorts, sport shorts",
-    productRating: 5.5,
-    productOptions: ["S", "M", "L", "XL"],
-    isShippingFree: true,
-  };
 
   function changeImage(direction) {
     if (direction === "right" && product.productImg.length - 1 === imageIndex) {
@@ -48,7 +38,7 @@ function ProductImgSlider({ product }) {
       {/* Image */}
       <img
         src={product.productImg[imageIndex]}
-        alt={tempRequestedProductData.productName}
+        alt={product.productName}
         className="max-h-[700px] border border-black object-cover rounded-xl"
         width={600}
       />
