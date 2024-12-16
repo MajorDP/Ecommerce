@@ -94,3 +94,43 @@ export async function postProduct(product) {
     window.location.href = `/browse/product/${data.id}`;
   }, 200);
 }
+
+export async function editProduct(newProduct, id) {
+  //UPLOADING PRODUCT IMAGE TO SUPABASE:
+  console.log(newProduct);
+
+  // imageName for supabase's storage bucket and imagePath for the link to the image in products table
+  if (typeof newProduct.productImg[0] !== "string") {
+    console.log("not string");
+    const imageName = `${Math.random()}-${
+      newProduct.productImg[0].name || Math.random()
+    }`.replaceAll("/", "");
+
+    const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
+    const { error: storageError } = supabase.storage
+      .from("productImages")
+      .upload(imageName, newProduct.productImg[0]);
+
+    //if the image isnt posted, don't post the product (PRODUCTS WITHOUT IMAGE CANNOT EXIST)
+    if (storageError) {
+      console.log("ERROR UPLOADING IMAGE: ", storageError.message);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("products")
+      .update({ ...newProduct, productImg: [imagePath] })
+      .eq("id", id)
+      .select();
+  } else {
+    const { data, error } = await supabase
+      .from("products")
+      .update({ ...newProduct, productImg: [newProduct.productImg[0]] })
+      .eq("id", id)
+      .select();
+  }
+
+  setTimeout(() => {
+    window.location.href = `/browse/product/${id}`;
+  }, 1000);
+}

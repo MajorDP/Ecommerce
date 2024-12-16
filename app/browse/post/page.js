@@ -1,5 +1,5 @@
 "use client";
-import PostProductForm from "@/app/_components/PostProductForm";
+import CreateEditProductForm from "@/app/_components/CreateEditProductForm";
 import { postProduct } from "@/app/_lib/_api/productServices";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ function Page() {
       <p className="p-4 border-2 border-slate-400 rounded-3xl w-[50%] m-auto mt-6 mb-12 text-center text-xl font-medium shadow-md">
         List a product
       </p>
-      <PostProductForm handlePost={handleSubmit} />
+      <CreateEditProductForm handleSubmit={handleSubmit} />
     </div>
   );
 }

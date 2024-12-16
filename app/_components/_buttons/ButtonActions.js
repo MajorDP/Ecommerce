@@ -34,11 +34,6 @@ function ButtonActions({ listedBy, productId }) {
     } catch (error) {}
   };
 
-  const handleEditProduct = async (params) => {
-    try {
-      console.log("edit function here");
-    } catch (error) {}
-  };
   return (
     <Suspense fallback={<p>Loading</p>}>
       <div className="flex flex-row w-56 justify-between">
@@ -46,7 +41,7 @@ function ButtonActions({ listedBy, productId }) {
           <BuyButton handleBuy={handleBuyProduct} />
         ) : (
           <div className="w-[70%] flex justify-between">
-            <EditButton />
+            <EditButton productId={productId} />
             <DeleteButton
               isModalOpen={isModalOpen}
               onClose={() => setIsModalOpen(null)}
