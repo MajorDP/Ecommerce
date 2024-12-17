@@ -1,5 +1,5 @@
 import { getProducts } from "../_lib/_api/productServices";
-import BrowseProductsPage from "../_components/BrowseProductsPage";
+import BrowseProductsPage from "../_components/_products/BrowseProductsPage";
 
 // export const metadata = {
 //   title: "ass"

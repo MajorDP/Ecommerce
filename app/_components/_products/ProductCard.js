@@ -2,12 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 function ProductCard({ product }) {
-  console.log(product);
   return (
-    <li
-      key={product.id}
-      className="cursor-pointer m-3 border-4 border-black rounded-md bg-gray-200 flex flex-col w-42"
-    >
+    <li className="cursor-pointer m-3 border-4 border-black rounded-md bg-gray-200 flex flex-col w-42">
       <Link href={`/browse/product/${product.id}`}>
         <div className="z-10 h-44 w-44 mb-2 relative">
           <img

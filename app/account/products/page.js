@@ -6,7 +6,6 @@ import { Suspense, useEffect, useState } from "react";
 
 function Page() {
   const [userProducts, setUserProducts] = useState(null);
-  console.log(userProducts);
   useEffect(function (param) {
     async function getUser() {
       const data = await getCurrentUser();

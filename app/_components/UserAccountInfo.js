@@ -12,7 +12,6 @@ function UserAccountInfo() {
   useEffect(function () {
     async function getUser() {
       const user = await getCurrentUser();
-      console.log(user);
       const userData = await getUserInfo(user.user.id);
       setUserData(userData);
     }

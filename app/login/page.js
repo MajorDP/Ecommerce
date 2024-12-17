@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import LoginForm from "../_components/LoginForm";
+import LoginForm from "../_components/_userAuth/LoginForm";
 
 function Page() {
   return (

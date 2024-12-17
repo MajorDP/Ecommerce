@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { login } from "../_lib/_api/userServices";
+import { login } from "../../_lib/_api/userServices";
 import { useRouter } from "next/navigation";
 
 function LoginForm() {
@@ -23,7 +23,6 @@ function LoginForm() {
     const { data, error } = await login(userData);
     setLoading(false);
 
-    console.log(data);
     if (error !== null) {
       setError(error.message);
       return;

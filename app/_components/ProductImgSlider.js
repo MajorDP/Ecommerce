@@ -6,7 +6,6 @@ import muay1 from "@/public/muay1.png";
 import muay2 from "@/public/muay2.png";
 
 function ProductImgSlider({ product }) {
-  console.log(product);
   const [imageIndex, setImageIndex] = useState(0);
 
   function changeImage(direction) {

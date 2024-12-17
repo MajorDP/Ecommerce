@@ -29,7 +29,6 @@ function RegisterForm() {
     };
 
     const { data, error } = await register(userData);
-    console.log(data);
     if (error?.message) {
       setError(error.message);
       return;

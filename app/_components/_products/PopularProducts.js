@@ -7,6 +7,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import ProductCard from "./ProductCard";
 import ScrollableProductList from "./ScrollableProductList";
+import PaginatedProductList from "./PaginatedProductList";
 
 function PopularProducts({
   tempPopularProductsData,
@@ -43,7 +44,11 @@ function PopularProducts({
 
   return (
     <div className="relative">
-      <ScrollableProductList products={sortedProductsByRating} />
+      {showAll === false ? (
+        <ScrollableProductList products={sortedProductsByRating} />
+      ) : (
+        <PaginatedProductList products={sortedProductsByRating} />
+      )}
     </div>
   );
 }

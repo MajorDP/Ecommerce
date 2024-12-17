@@ -1,13 +1,14 @@
 "use client";
 import { deleteProduct } from "@/app/_lib/_api/productServices";
 import DeleteButton from "./DeleteButton";
-import BuyButton from "./BuyButton";
+import AddToCartButton from "./AddToCartButton";
 import EditButton from "./EditButton";
 import { getCurrentUser } from "@/app/_lib/_api/userServices";
 import { Suspense, useEffect, useState } from "react";
 import ConfirmationModal from "../ConfirmationModal";
+import { addToCart, initCart } from "@/app/_lib/_api/cart";
 
-function ButtonActions({ listedBy, productId }) {
+function ButtonActions({ listedBy, product, productId }) {
   const [user, setUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(null);
 
@@ -28,8 +29,9 @@ function ButtonActions({ listedBy, productId }) {
     }
   };
 
-  const handleBuyProduct = async (params) => {
+  const handleAddToCart = async (params) => {
     try {
+      addToCart(product);
       console.log("buy function here");
     } catch (error) {}
   };
@@ -38,7 +40,10 @@ function ButtonActions({ listedBy, productId }) {
     <Suspense fallback={<p>Loading</p>}>
       <div className="flex flex-row w-56 justify-between">
         {listedBy !== user?.user.id ? (
-          <BuyButton handleBuy={handleBuyProduct} />
+          <AddToCartButton
+            handleAddToCart={handleAddToCart}
+            productId={productId}
+          />
         ) : (
           <div className="w-[70%] flex justify-between">
             <EditButton productId={productId} />

@@ -49,8 +49,6 @@ export async function deleteProduct(id) {
 
 export async function postProduct(product) {
   const currentUser = await getCurrentUser();
-  console.log(currentUser.user.id);
-  console.log(product);
 
   //UPLOADING PRODUCT IMAGE TO SUPABASE:
 
@@ -82,7 +80,6 @@ export async function postProduct(product) {
     })
     .select()
     .single();
-  console.log(data);
 
   if (error) {
     console.log("ERROR: ", error);
@@ -97,11 +94,9 @@ export async function postProduct(product) {
 
 export async function editProduct(newProduct, id) {
   //UPLOADING PRODUCT IMAGE TO SUPABASE:
-  console.log(newProduct);
 
   // imageName for supabase's storage bucket and imagePath for the link to the image in products table
   if (typeof newProduct.productImg[0] !== "string") {
-    console.log("not string");
     const imageName = `${Math.random()}-${
       newProduct.productImg[0].name || Math.random()
     }`.replaceAll("/", "");

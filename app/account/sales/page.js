@@ -36,7 +36,7 @@ function Page() {
                 You don&apos;t have any sales yet.
               </p>
               <Link
-                className="p-2 mt-4 border-2 border-black rounded-full bg-orange-400 text-black font-semibold hover:bg-orange-500 transition-all duration-300 ease-in-out"
+                className="p-2 mt-4 border-2 border-black rounded-full bg-orange-400 text-black font-semibold hover:bg-orange-500 hover:scale-105 transition-all duration-300 ease-in-out"
                 href="/browse"
               >
                 See my products
@@ -44,7 +44,7 @@ function Page() {
               <p className="mt-4 text-lg text-gray-600">or</p>
 
               <Link
-                className="p-2 mt-4 border-2 border-black rounded-full bg-green-400 text-black font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
+                className="p-2 mt-4 border-2 border-black rounded-full bg-green-400 text-black font-semibold hover:bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out"
                 href="/browse/post"
               >
                 List a product

@@ -1,6 +1,7 @@
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import Navigation from "./_components/Navigation";
+import { Toaster } from "react-hot-toast";
 
 const font = Rubik({
   subsets: ["latin"],
@@ -21,6 +22,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${font.className} bg-white`}>
         <Navigation />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              border: "1px solid black",
+            },
+          }}
+        />
         <main>{children}</main>
       </body>
     </html>

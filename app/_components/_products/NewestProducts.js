@@ -7,6 +7,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import ProductCard from "./ProductCard";
 import ScrollableProductList from "./ScrollableProductList";
+import PaginatedProductList from "./PaginatedProductList";
 
 function NewestProducts({
   tempProductsData,
@@ -44,7 +45,11 @@ function NewestProducts({
 
   return (
     <div className="relative">
-      <ScrollableProductList products={sortedProductsByDate} />
+      {showAll === false ? (
+        <ScrollableProductList products={sortedProductsByDate} />
+      ) : (
+        <PaginatedProductList products={sortedProductsByDate} />
+      )}
     </div>
   );
 }

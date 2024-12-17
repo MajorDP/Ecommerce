@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import PopularProducts from "../_components/PopularProducts";
-import BrowseProducts from "../_components/BrowseProducts";
+import PopularProducts from "./PopularProducts";
+import BrowseProducts from "./BrowseProducts";
 import bg from "@/public/bg-1.jpg";
 import logo from "@/public/logo.png";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import NewestProducts from "../_components/NewestProducts";
-import ProductBrowser from "../_components/ProductBrowser";
+import NewestProducts from "./NewestProducts";
+import ProductBrowser from "./ProductBrowser";
 
 // export const metadata = {
 //   title: "ass"
@@ -16,7 +16,6 @@ import ProductBrowser from "../_components/ProductBrowser";
 function BrowseProductsPage({ products, showAll, category }) {
   const [searchValue, setSearchValue] = useState("");
   const searchParams = useSearchParams();
-  console.log(category);
 
   const browseDisplay = [
     {
@@ -76,7 +75,6 @@ function BrowseProductsPage({ products, showAll, category }) {
   ].sort((a, b) => {
     const sortByValue = searchParams.get("sortBy");
     if (category) {
-      console.log("categorrr");
       if (a.sortBy === category && b.sortBy !== category) {
         return -1;
       }

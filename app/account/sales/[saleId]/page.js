@@ -7,8 +7,6 @@ import { Suspense } from "react";
 export const fetchCache = "force-no-store";
 async function page({ params }) {
   const currentSale = await getUserSale(0, params.saleId);
-  console.log(params);
-  console.log(currentSale);
 
   return (
     <Suspense fallback={<p>Loading...</p>}>

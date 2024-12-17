@@ -1,4 +1,5 @@
 import ButtonActions from "@/app/_components/_buttons/ButtonActions";
+import ProductRatingSetter from "@/app/_components/_products/ProductRatingSetter";
 import ProductImgSlider from "@/app/_components/ProductImgSlider";
 import SizeSelector from "@/app/_components/SizeSelector";
 import { getProduct } from "@/app/_lib/_api/productServices";
@@ -61,10 +62,10 @@ async function Page({ params }) {
               <span className="flex flex-col w-full break-words hyphens-auto">
                 {product.productName}
               </span>
-              <p className="text-xl">{product.productRating}⭐</p>
+              <ProductRatingSetter product={product} />
             </div>
             <p className="border border-black my-2 p-2">
-              Description: {product.productDescription}
+              Description: {product.productDesc}
             </p>
             <SizeSelector />
             <div className="m-2 p-2 w-1/3">
@@ -72,6 +73,7 @@ async function Page({ params }) {
               <ButtonActions
                 listedBy={product.listedBy}
                 productId={product.id}
+                product={product}
               />
             </div>
           </div>

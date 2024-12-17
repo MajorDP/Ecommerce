@@ -15,7 +15,6 @@ function UserProductCard({ product }) {
   const normalizedTimestamp = product.created_at.split(".")[0] + "Z";
   const date = new Date(normalizedTimestamp);
   const formattedDate = date.toLocaleDateString();
-  console.log(formattedDate);
   return (
     <Link
       href={`/browse/product/${product.id}`}

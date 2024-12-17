@@ -1,5 +1,9 @@
 Next.js Ecommerce website
 
+_CURRENTLY WORKING ON:_
+
+- cart functionality
+
 _NEWEST CHANGES:_
 
 - users can now edit their own products

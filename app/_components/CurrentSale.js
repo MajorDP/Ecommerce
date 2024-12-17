@@ -11,10 +11,8 @@ import DeleteBtn from "./_buttons/ButtonActions";
 import ButtonActions from "./_buttons/ButtonActions";
 function CurrentSale({ sale }) {
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(sale);
 
   function changeImage(direction) {
-    console.log("aa");
     if (direction === "right" && sale.items.length - 1 === imageIndex) {
       setImageIndex(0);
     } else if (direction === "right" && sale.items.length - 1 > imageIndex) {

@@ -22,7 +22,6 @@ function Page() {
     getSales();
   }, []);
 
-  console.log(userSalesData);
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <p className="p-4 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 border border-black text-white w-[50%] rounded-3xl m-auto mt-6 text-center text-2xl font-semibold shadow-lg">
@@ -41,7 +40,7 @@ function Page() {
                 You haven&apos;t made any purchases yet.
               </p>
               <Link
-                className="p-2 mt-4 border-2 border-black rounded-full bg-orange-400 text-black font-semibold hover:bg-orange-500 transition-all duration-300 ease-in-out"
+                className="p-2 mt-4 border-2 border-black rounded-full bg-orange-400 text-black font-semibold hover:bg-orange-500 hover:scale-105 transition-all duration-300 ease-in-out"
                 href="/browse"
               >
                 See available products

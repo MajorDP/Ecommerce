@@ -37,10 +37,6 @@ export async function register(userData) {
     password: userData.password,
   });
 
-  console.log(data);
-  console.log(data);
-  console.log(data);
-  console.log(data);
   if (error) {
     console.log("ERROR:");
     console.log(error.message);
@@ -54,7 +50,6 @@ export async function register(userData) {
     sales: [],
     purchases: [],
   };
-  console.log(userObj);
 
   const { data: regData, error: regError } = await supabase
     .from("userInfoEcoms")
@@ -73,8 +68,6 @@ export async function login(userData) {
     password: userData.password,
   });
 
-  console.log(data);
-  console.log(error);
   return { data, error };
 }
 
@@ -86,7 +79,6 @@ export async function signout() {
 export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
 
-  console.log(data);
   if (error) {
     console.error("Error getting user:", error);
   }
@@ -117,8 +109,6 @@ export async function getUserSalesInfo(id) {
   if (error) {
     console.log(error.message);
   }
-  console.log("aaa");
-  console.log(userSalesInfo);
   return userSalesInfo[0];
 }
 
@@ -129,18 +119,10 @@ export async function getUserSale(id, orderId) {
     .eq("id", id)
     .limit();
 
-  console.log("1");
-  console.log(orderId);
-
   if (error) {
     console.log(error.message);
   }
-  console.log();
-  console.log();
-  console.log();
-  console.log("sale");
-  console.log("sale");
-  console.log(userSalesInfo);
+
   const sale = userSalesInfo[0].sales.find((sale) => sale.orderId == orderId);
 
   return sale;
@@ -170,7 +152,6 @@ export async function getUserPurchase(id, orderId) {
   if (error) {
     console.log(error.message);
   }
-  console.log(userPurchaseInfo);
 
   const sale = userPurchaseInfo[0].purchases.find(
     (sale) => sale.orderId == orderId

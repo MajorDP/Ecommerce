@@ -5,11 +5,9 @@ import { useState } from "react";
 import { editProduct, postProduct } from "../_lib/_api/productServices";
 
 function CreateEditProductForm({ product = null }) {
-  console.log(product);
   const [image, setImage] = useState(
     product !== null ? product?.productImg[0] : null
   );
-  console.log(typeof image);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -23,7 +21,6 @@ function CreateEditProductForm({ product = null }) {
         typeof image === "string" ? image : formData.get("productImg"),
       ],
     };
-    console.log(productObj);
     product === null
       ? await postProduct(productObj)
       : await editProduct(productObj, product?.id);
@@ -86,8 +83,6 @@ function CreateEditProductForm({ product = null }) {
                 defaultValue={image || ""}
                 accept="image/*"
                 onChange={(e) => {
-                  console.log("dasdjhasd");
-                  console.log(e);
                   setImage(
                     e.target.files[0].type &&
                       e.target.files[0]?.type.startsWith("image/")
