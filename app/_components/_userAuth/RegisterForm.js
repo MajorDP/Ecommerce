@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { register } from "../_lib/_api/userServices";
 import { useRouter } from "next/navigation";
+import { register } from "@/app/_lib/_api/userServices";
 
 function RegisterForm() {
   const [error, setError] = useState(null);

@@ -73,6 +73,7 @@ export async function login(userData) {
 
 export async function signout() {
   let { error } = await supabase.auth.signOut();
+  sessionStorage.clear();
   window.location.href = "/";
 }
 

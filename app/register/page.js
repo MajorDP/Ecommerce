@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import RegisterForm from "../_components/RegisterForm";
+import RegisterForm from "../_components/_userAuth/RegisterForm";
 
 function Page() {
   return (

@@ -2,7 +2,7 @@ Next.js Ecommerce website
 
 _CURRENTLY WORKING ON:_
 
-- cart functionality
+- cart and orders functionality
 
 _NEWEST CHANGES:_
 
