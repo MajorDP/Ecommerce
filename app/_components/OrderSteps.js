@@ -28,19 +28,6 @@ function OrderSteps() {
     }
   }, [searchParams]);
 
-  function onRemove(productId) {
-    removeFromCart(productId);
-    toast.success(
-      <ToastMessage
-        message={"Product removed from cart!"}
-        link={`/account/cart`}
-        linkMessage={"See your cart"}
-      />,
-      {
-        duration: 5000,
-      }
-    );
-  }
   return (
     <>
       <div className="flex items-center justify-center flex-col mb-2 h-[20%]">
