@@ -10,11 +10,11 @@ function CartCard({ product, onRemove }) {
         href={`/browse/product/${product.id}`}
         className="flex flex-row justify-start "
       >
-        <div className="z-10 h-full w-[50%] relative">
+        <div className="z-10 h-[11rem] w-[50%] relative bg-white">
           <img
             src={product.productImg}
             alt="Product Image"
-            className="object-cover w-full h-full border-r-2 border-black"
+            className="object-fit w-full h-full border-r-2 border-black"
           />
         </div>
         <div className="flex flex-col justify-between w-[50%]">

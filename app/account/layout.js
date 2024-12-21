@@ -7,9 +7,9 @@ function Layout({ children }) {
     <div>
       <div className="h-[4rem] bg-gradient-to-l from-white to-slate-200"></div>
       <div className="flex h-screen">
-        <div className="w-[20%] bg-gradient-to-b from-slate-200 to-slate-300 flex flex-col pl-6 md:text-sm lg:text-xl border-t-black border">
+        <div className="w-[20%] bg-gradient-to-b from-slate-200 to-slate-300 flex flex-col pl-6 md:text-sm lg:text-xl border-t-black border border-b-black">
           <Link href="/account/user" className="underline-animation mt-5">
-            Personal Information
+            My account
           </Link>
           <Link href="/account/products" className="underline-animation mt-5">
             My products
