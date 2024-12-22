@@ -8,7 +8,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function Map() {
@@ -24,7 +24,7 @@ function Map() {
   ];
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    if (typeof window !== "undefined" && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setPosition([position.coords.latitude, position.coords.longitude]);
@@ -60,24 +60,26 @@ function Map() {
     });
   }
   return (
-    <MapContainer
-      center={position}
-      zoom={zoom}
-      minZoom={8}
-      scrollWheelZoom={false}
-      style={{ height: "100%", width: "100%" }}
-      maxBounds={bounds} // Set map bounds to Bulgaria
-      maxBoundsViscosity={1.0} // Prevent panning outside of the bounds
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <MapEventHandler />
-      <Marker position={position} icon={customIcon} draggable={true}>
-        <Popup>You are here</Popup>
-      </Marker>
-    </MapContainer>
+    <Suspense fallback={<div>Loading Map...</div>}>
+      <MapContainer
+        center={position}
+        zoom={zoom}
+        minZoom={8}
+        scrollWheelZoom={false}
+        style={{ height: "100%", width: "100%" }}
+        maxBounds={bounds}
+        maxBoundsViscosity={1.0}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <MapEventHandler />
+        <Marker position={position} icon={customIcon} draggable={true}>
+          <Popup>You are here</Popup>
+        </Marker>
+      </MapContainer>
+    </Suspense>
   );
 }
 

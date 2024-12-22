@@ -1,14 +1,11 @@
 "use client";
-import Link from "next/link";
-import Map from "./_map/Map";
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("../_components/_map/Map"), { ssr: false });
+
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import OrderForm from "./OrderForm";
-import { initCart, removeFromCart } from "../_lib/_api/cart";
-import CartCard from "./CartCard";
-import CartCardMini from "./CartCardMini";
-import ToastMessage from "./ToastMessage";
-import toast from "react-hot-toast";
+import { initCart } from "../_lib/_api/cart";
 import CartDetailsMini from "./CartDetailsMini";
 
 function OrderSteps() {

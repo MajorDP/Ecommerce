@@ -28,7 +28,6 @@ function CartCardMini({ product, onRemove }) {
               <div className="w-[20%] bg-red-500">
                 <p className="w-full flex justify-between items-center  text-start font-semibold">
                   <span
-                    clas
                     onClick={(e) => {
                       e.preventDefault();
                       onRemove(product.id);

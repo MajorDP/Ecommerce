@@ -2,8 +2,7 @@ import Map from "@/app/_components/_map/Map";
 import OrderSteps from "@/app/_components/OrderSteps";
 import Link from "next/link";
 
-function page({ params }) {
-  console.log(params);
+function Page() {
   return (
     <div className="text-center flex flex-col h-full">
       <OrderSteps />
@@ -11,4 +10,4 @@ function page({ params }) {
   );
 }
 
-export default page;
+export default Page;
