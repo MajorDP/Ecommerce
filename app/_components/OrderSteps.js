@@ -26,7 +26,7 @@ function OrderSteps() {
   }, [searchParams]);
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <>
       <div className="flex items-center justify-center flex-col mb-2 h-[20%]">
         <p>
           {step === 1
@@ -69,7 +69,7 @@ function OrderSteps() {
           </div>
         )}
       </div>
-    </Suspense>
+    </>
   );
 }
 
