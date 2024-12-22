@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 const Map = dynamic(() => import("../_components/_map/Map"), { ssr: false });
 
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import OrderForm from "./OrderForm";
 import { initCart } from "../_lib/_api/cart";
 import CartDetailsMini from "./CartDetailsMini";
@@ -26,7 +26,7 @@ function OrderSteps() {
   }, [searchParams]);
 
   return (
-    <>
+    <Suspense fallback={<p>Loading...</p>}>
       <div className="flex items-center justify-center flex-col mb-2 h-[20%]">
         <p>
           {step === 1
@@ -69,7 +69,7 @@ function OrderSteps() {
           </div>
         )}
       </div>
-    </>
+    </Suspense>
   );
 }
 
