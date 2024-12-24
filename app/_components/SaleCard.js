@@ -8,9 +8,7 @@ function SaleCard({ sale, type }) {
 
   return (
     <Link
-      href={`/account/${type === "sales" ? "sales" : "purchases"}/${
-        sale.orderId
-      }`}
+      href={`/account/${type === "sales" ? "sales" : "purchases"}/${sale.id}`}
       className="m-auto bg-gradient-to-tr from-teal-100 to-teal-300  w-[60%] h-[30vh] flex flex-row justify-between border border-black rounded-xl p-3 mt-2 mb-6"
     >
       <div
@@ -45,8 +43,8 @@ function SaleCard({ sale, type }) {
       </div>
       <div className="w-[40%] flex flex-col justify-between text-xl border border-black p-5">
         <div>
-          <p>Sale ID: {sale.orderId}</p>
-          <p>Ordered on: {sale.orderDate}</p>
+          <p>Sale ID: {sale.id}</p>
+          <p>Ordered on: {sale.orderDate || sale.created_at}</p>
         </div>
         <div>
           <p>
@@ -58,6 +56,8 @@ function SaleCard({ sale, type }) {
                   : sale.status === "Cancelled"
                   ? "text-red-500"
                   : sale.status === "Shipping"
+                  ? "text-orange-500"
+                  : sale.status === "Unconfirmed"
                   ? "text-orange-500"
                   : ""
               }`}

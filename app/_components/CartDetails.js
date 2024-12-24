@@ -34,15 +34,17 @@ function CartDetails() {
   console.log(cart);
   return (
     <div>
-      <div className="w-[50%] m-auto flex flex-col items-center justify-center">
-        <p className="text-xl">Your total: {totalCost}$</p>
-        <Link
-          href="/account/cart/checkout"
-          className="p-2 mt-2 border-2 border-black rounded-full bg-green-400 text-black font-semibold hover:bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out"
-        >
-          Checkout
-        </Link>
-      </div>
+      {cart.length > 0 && (
+        <div className="w-[50%] m-auto flex flex-col items-center justify-center">
+          <p className="text-xl">Your total: {totalCost}$</p>
+          <Link
+            href="/account/cart/checkout"
+            className="p-2 mt-2 border-2 border-black rounded-full bg-green-400 text-black font-semibold hover:bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out"
+          >
+            Checkout
+          </Link>
+        </div>
+      )}
       {cart.length > 0 ? (
         <ul className="flex flex-wrap justify-center items-center text-ellipsis whitespace-nowrap overflow-x-hidden">
           {cart.map((product, index) => (

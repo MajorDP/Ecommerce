@@ -12,7 +12,11 @@ function CartCardMini({ product, onRemove }) {
           href={`/browse/product/${product.id}`}
         >
           <img
-            src={product.productImg}
+            src={
+              product.options !== null
+                ? product.options.img
+                : product.productImg
+            }
             alt="Product Image"
             className="object-fit w-full h-full border-r-2 border-black"
           />

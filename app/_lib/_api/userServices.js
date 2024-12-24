@@ -80,9 +80,13 @@ export async function signout() {
 export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
 
+  console.log(data);
+  console.log(error);
   if (error) {
-    console.error("Error getting user:", error);
+    console.log("Error getting user:", error);
+    return null;
   }
+
   return data;
 }
 
@@ -102,61 +106,54 @@ export async function getUserInfo(id) {
 
 export async function getUserSalesInfo(id) {
   let { data: userSalesInfo, error } = await supabase
-    .from("userInfoEcoms")
-    .select("sales")
-    .eq("userId", id)
-    .limit();
+    .from("sales")
+    .select("*")
+    // Filters
+    .eq("soldBy", id);
 
   if (error) {
     console.log(error.message);
   }
-  return userSalesInfo[0];
+  return userSalesInfo;
 }
 
 export async function getUserSale(id, orderId) {
-  let { data: userSalesInfo, error } = await supabase
-    .from("userInfoEcoms")
-    .select("sales")
-    .eq("id", id)
-    .limit();
+  let { data: sale, error } = await supabase
+    .from("sales")
+    .select("*")
+    .eq("id", orderId)
+    .single();
 
   if (error) {
     console.log(error.message);
   }
-
-  const sale = userSalesInfo[0].sales.find((sale) => sale.orderId == orderId);
 
   return sale;
 }
 
 export async function getUserPurchases(id) {
   let { data: userPurchasesInfo, error } = await supabase
-    .from("userInfoEcoms")
-    .select("purchases")
-    .eq("userId", id)
-    .limit();
+    .from("orders")
+    .select("*")
+    .eq("orderedBy", id);
 
   if (error) {
     console.log(error.message);
   }
 
-  return userPurchasesInfo[0];
+  return userPurchasesInfo;
 }
 
 export async function getUserPurchase(id, orderId) {
-  let { data: userPurchaseInfo, error } = await supabase
-    .from("userInfoEcoms")
-    .select("purchases")
-    .eq("id", id)
-    .limit();
+  let { data: sale, error } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("id", orderId)
+    .single();
 
   if (error) {
     console.log(error.message);
   }
-
-  const sale = userPurchaseInfo[0].purchases.find(
-    (sale) => sale.orderId == orderId
-  );
 
   return sale;
 }

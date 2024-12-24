@@ -7,6 +7,8 @@ import { useState, useEffect, Suspense } from "react";
 import OrderForm from "./OrderForm";
 import { initCart } from "../_lib/_api/cart";
 import CartDetailsMini from "./CartDetailsMini";
+import { getCurrentUser } from "../_lib/_api/userServices";
+import { submitOrder } from "../_lib/_api/productServices";
 
 function OrderSteps() {
   const searchParams = useSearchParams();
@@ -25,6 +27,28 @@ function OrderSteps() {
     }
   }, [searchParams]);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const user = await getCurrentUser();
+    const order = {
+      orderedBy: user.user.id,
+      items: cart,
+      mapLocation: [{ lat: lat, lng: lng }],
+      orderDetails: [
+        {
+          fullName: formData.get("fullName"),
+          email: formData.get("email"),
+          physicalAddress: formData.get("physicalAddress"),
+          postalCode: formData.get("postalCode"),
+          phone: formData.get("phone"),
+          wayOfPayment: formData.get("wayOfPayment"),
+        },
+      ],
+    };
+
+    await submitOrder(order);
+  }
   return (
     <>
       <div className="flex items-center justify-center flex-col mb-2 h-[20%]">
@@ -64,7 +88,7 @@ function OrderSteps() {
           <Map setLat={setLat} setLng={setLng} />
         ) : (
           <div className="bg-gray-50 flex flex-row justify-between">
-            <OrderForm />
+            <OrderForm handleSubmit={handleSubmit} />
             <CartDetailsMini />
           </div>
         )}

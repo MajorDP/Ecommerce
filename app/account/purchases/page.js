@@ -13,6 +13,7 @@ export const fetchCache = "force-no-store";
 
 function Page() {
   const [userSalesData, setUserSalesData] = useState(null);
+  console.log(userSalesData);
   useEffect(function () {
     async function getSales() {
       const user = await getCurrentUser();
@@ -31,10 +32,10 @@ function Page() {
       <div className="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 w-[95%] h-[80%] m-12 border rounded-xl overflow-y-scroll overflow-x-hidden shadow-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500">
         <ul className="space-y-4">
           {" "}
-          {userSalesData?.purchases.map((purchase, index) => (
+          {userSalesData?.map((purchase, index) => (
             <SaleCard sale={purchase} key={index} type="purchases" />
           ))}
-          {userSalesData?.purchases.length === 0 && (
+          {userSalesData?.items?.length === 0 && (
             <div className="flex flex-col items-center mt-10">
               <p className="text-center text-lg text-gray-700 font-medium">
                 You haven&apos;t made any purchases yet.

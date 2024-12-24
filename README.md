@@ -6,6 +6,7 @@ _CURRENTLY WORKING ON:_
 
 _NEWEST CHANGES:_
 
+- added route protection for browsing products and account pages
 - users can now edit their own products
 - users can now delete their own products from the store
 - users can now see their listed products

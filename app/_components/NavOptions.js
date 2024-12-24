@@ -15,7 +15,7 @@ function NavOptions() {
   }, []);
   return (
     <>
-      {user?.user !== null ? (
+      {user !== null ? (
         <>
           <Link className="underline-animation m-auto" href="/browse">
             Browse

@@ -1,10 +1,11 @@
-"use client";
 import Link from "next/link";
 import { signout } from "../_lib/_api/userServices";
+import SignOutButton from "../_components/_userAuth/SignOutButton";
+import ProtectedRoute from "../_components/_userAuth/ProtectedRoute";
 
 function Layout({ children }) {
   return (
-    <div>
+    <ProtectedRoute>
       <div className="h-[4rem] bg-gradient-to-l from-white to-slate-200"></div>
       <div className="flex h-screen">
         <div className="w-[20%] bg-gradient-to-b from-slate-200 to-slate-300 flex flex-col pl-6 md:text-sm lg:text-xl border-t-black border border-b-black">
@@ -23,17 +24,13 @@ function Layout({ children }) {
           <Link href="/account/sales" className="underline-animation mt-5">
             Sales History
           </Link>
-          <form action={signout}>
-            <button type="submit" className="underline-animation mt-5">
-              Log out
-            </button>
-          </form>
+          <SignOutButton />
         </div>
         <div className="w-full bg-slate-200 border border-black">
           {children}
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }
 

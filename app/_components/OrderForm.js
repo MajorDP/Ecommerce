@@ -6,7 +6,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { initCart } from "../_lib/_api/cart";
 
-function OrderForm() {
+function OrderForm({ handleSubmit }) {
   const [user, setUser] = useState(null);
   const [value, setValue] = useState();
   useEffect(function () {
@@ -18,8 +18,12 @@ function OrderForm() {
 
     getUser();
   }, []);
+
   return (
-    <form className="flex flex-col items-center justify-center border-1 border-black p-5 text-xl w-full max-w-md">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center justify-center border-1 border-black p-5 text-xl w-full max-w-md"
+    >
       {/* Full Name Field */}
       <div className="flex flex-col items-center mb-2 w-[20rem]">
         <label htmlFor="fullName" className="mb-1">
@@ -42,6 +46,7 @@ function OrderForm() {
         <input
           name="email"
           id="email"
+          defaultValue={user?.email}
           className="p-1 border rounded w-[20rem]"
           placeholder="asura@abv.bg"
           required
@@ -92,12 +97,12 @@ function OrderForm() {
         />
       </div>
       <div className="flex flex-col items-center mb-2 w-[20rem]">
-        <label htmlFor="role" className="mb-1">
+        <label htmlFor="wayOfPayment" className="mb-1">
           Select way of payment
         </label>
         <select
-          id="role"
-          name="role"
+          id="wayOfPayment"
+          name="wayOfPayment"
           className="p-2 border rounded w-full"
           required
         >

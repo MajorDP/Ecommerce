@@ -129,3 +129,13 @@ export async function editProduct(newProduct, id) {
     window.location.href = `/browse/product/${id}`;
   }, 1000);
 }
+
+export async function submitOrder(order) {
+  const { data, error } = await supabase.from("orders").insert(order);
+
+  if (error) {
+    console.log("ERROR WHEN SUBMITTING ORDER:", error.message);
+    return;
+  }
+  console.log("SUBMITTED");
+}
