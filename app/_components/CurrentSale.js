@@ -9,6 +9,7 @@ import Link from "next/link";
 import { getProducts } from "../_lib/_api/productServices";
 import DeleteBtn from "./_buttons/ButtonActions";
 import ButtonActions from "./_buttons/ButtonActions";
+import { formatDate } from "../_lib/helpers";
 function CurrentSale({ sale }) {
   console.log(sale);
   const [imageIndex, setImageIndex] = useState(0);
@@ -24,6 +25,12 @@ function CurrentSale({ sale }) {
       setImageIndex(sale.items.length - 1);
     }
   }
+
+  const totalPrice = sale?.items.reduce(
+    (acc, item) => acc + item.productPrice,
+    0
+  );
+
   return (
     <div className="flex justify-around items-center bg-blue-100 border border-black rounded-md w-[90%] m-auto h-[80vh] mt-5">
       <div className="relative mb-10 flex items-center justify-center w-full">
@@ -64,7 +71,7 @@ function CurrentSale({ sale }) {
       <div className="flex flex-col justify-between h-[50%] w-[60%] mb-20">
         <div>
           <p className="text-xl">Sale ID: {sale?.id}</p>
-          <p>Ordered on: {sale?.created_at}</p>
+          <p>Ordered on: {formatDate(sale?.created_at)}</p>
         </div>
         <div>
           <p>Item: {sale.items[imageIndex].productName}</p>
@@ -72,7 +79,7 @@ function CurrentSale({ sale }) {
           <p>Price per unit: {sale.items[imageIndex].productPrice} 💲</p>
         </div>
         <div>
-          <p>Total: {sale?.totalPrice} 💲</p>
+          <p>Total: {totalPrice} 💲</p>
           <p className="bg-orange-300 border border-black rounded-md w-[6rem] text-center">
             <Link href={`/browse/product/${sale.items[imageIndex].id}`}>
               See in store

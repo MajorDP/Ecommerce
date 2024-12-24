@@ -23,7 +23,7 @@ function ProtectedRoute({ children }) {
   }, [router]);
 
   if (!user) {
-    return null;
+    return <div></div>;
   }
 
   return <div>{children}</div>;

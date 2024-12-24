@@ -30,8 +30,6 @@ function CartDetails() {
     .reduce((acc, curr) => acc + curr.productPrice, 0)
     .toFixed(2);
 
-  console.log(totalCost);
-  console.log(cart);
   return (
     <div>
       {cart.length > 0 && (

@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { formatDate } from "../_lib/helpers";
 
 function SaleCard({ sale, type }) {
+  console.log(sale);
   const imgLength =
     sale.items.length === 1 ? 1 : sale.items.length >= 4 ? 4 : 2;
+
+  const totalPrice = sale.items.reduce(
+    (acc, item) => acc + item.productPrice,
+    0
+  );
 
   return (
     <Link
@@ -41,10 +48,10 @@ function SaleCard({ sale, type }) {
           )
         )}
       </div>
-      <div className="w-[40%] flex flex-col justify-between text-xl border border-black p-5">
+      <div className="w-[40%] flex flex-col justify-between lg:text-[1rem] border border-black p-5 md:text-xs sm:text-xs">
         <div>
           <p>Sale ID: {sale.id}</p>
-          <p>Ordered on: {sale.orderDate || sale.created_at}</p>
+          <p>Ordered on: {formatDate(sale.created_at)}</p>
         </div>
         <div>
           <p>
@@ -65,7 +72,7 @@ function SaleCard({ sale, type }) {
               {sale.status}
             </span>
           </p>
-          <p>Total: {sale.totalPrice} 💲</p>
+          <p>Total: {totalPrice} 💲</p>
         </div>
       </div>
     </Link>

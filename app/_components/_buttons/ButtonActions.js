@@ -8,7 +8,13 @@ import { Suspense, useEffect, useState } from "react";
 import ConfirmationModal from "../ConfirmationModal";
 import { addToCart, initCart } from "@/app/_lib/_api/cart";
 
-function ButtonActions({ selectedOption, listedBy, product, productId }) {
+function ButtonActions({
+  quantity,
+  selectedOption,
+  listedBy,
+  product,
+  productId,
+}) {
   const [user, setUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(null);
 
@@ -32,7 +38,11 @@ function ButtonActions({ selectedOption, listedBy, product, productId }) {
   const handleAddToCart = async (params) => {
     try {
       console.log(selectedOption);
-      const newProduct = { ...product, options: selectedOption };
+      const newProduct = {
+        ...product,
+        options: selectedOption,
+        quantity: quantity,
+      };
       addToCart(newProduct);
       console.log("buy function here");
     } catch (error) {

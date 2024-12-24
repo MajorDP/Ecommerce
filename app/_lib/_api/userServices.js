@@ -91,10 +91,13 @@ export async function getCurrentUser() {
 }
 
 export async function getUserInfo(id) {
+  const { data: userData, error: userDataError } =
+    await supabase.auth.getUser();
+
   let { data: userInfo, error } = await supabase
     .from("userInfoEcoms")
-    .select("email, username, created_at")
-    .eq("userId", id)
+    .select("email, username, created_at, isPartner")
+    .eq("userId", userData.user.id)
     .single();
 
   if (error) {
@@ -144,7 +147,7 @@ export async function getUserPurchases(id) {
   return userPurchasesInfo;
 }
 
-export async function getUserPurchase(id, orderId) {
+export async function getUserPurchase(orderId) {
   let { data: sale, error } = await supabase
     .from("orders")
     .select("*")
@@ -169,4 +172,67 @@ export async function getUserProducts(userId) {
   }
 
   return products;
+}
+
+export async function getOrder(id) {
+  let { data: order, error } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error.message);
+    return;
+  }
+
+  return order;
+}
+
+export async function requestPartnership(userData) {
+  const { data, error } = await supabase
+    .from("partnershipRequests")
+    .insert(userData)
+    .select();
+
+  if (error) {
+    console.error(error.message);
+    return;
+  }
+
+  return data;
+}
+
+export async function checkForPartnerShip() {
+  const user = await getCurrentUser();
+
+  if (user.user.id) {
+    let { data: partnership, error } = await supabase
+      .from("partnershipRequests")
+      .select("*")
+      .eq("userId", user.user.id)
+      .single();
+
+    if (error) {
+      console.log("ERROR CHECKING PARTNERSHIP: ", error.message);
+      return null;
+    }
+
+    return partnership;
+  }
+}
+
+export async function revokePartnership() {
+  const user = await getCurrentUser();
+
+  if (user.user.id) {
+    const { error } = await supabase
+      .from("partnershipRequests")
+      .delete()
+      .eq("userId", user.user.id);
+
+    if (error) {
+      console.log(error.message);
+    }
+  }
 }

@@ -23,6 +23,8 @@ function Page() {
     getSales();
   }, []);
 
+  console.log(userSalesData);
+
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <p className="p-4 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 border border-black text-white w-[50%] rounded-3xl m-auto mt-6 text-center text-2xl font-semibold shadow-lg">
@@ -35,7 +37,7 @@ function Page() {
           {userSalesData?.map((purchase, index) => (
             <SaleCard sale={purchase} key={index} type="purchases" />
           ))}
-          {userSalesData?.items?.length === 0 && (
+          {userSalesData?.length === 0 && (
             <div className="flex flex-col items-center mt-10">
               <p className="text-center text-lg text-gray-700 font-medium">
                 You haven&apos;t made any purchases yet.

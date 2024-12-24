@@ -5,7 +5,7 @@ export function initCart() {
     sessionStorage.setItem("cart", JSON.stringify([]));
   }
 
-  return JSON.parse(cart) || [];
+  return cart ? JSON.parse(cart) : [];
 }
 
 export function addToCart(product) {
@@ -22,4 +22,8 @@ export function removeFromCart(productId) {
   const cart = initCart().filter((product) => product.id !== productId);
   console.log(cart);
   sessionStorage.setItem("cart", JSON.stringify(cart));
+}
+
+export function clearCart() {
+  sessionStorage.setItem("cart", []);
 }

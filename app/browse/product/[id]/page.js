@@ -53,22 +53,7 @@ async function Page({ params }) {
                 Description: {product.productDesc}
               </p>
             )}
-            {product.options.length > 0 ? (
-              <TypeSelector
-                product={product}
-                productOptions={product.options}
-              />
-            ) : (
-              <div className="m-2 p-2 w-1/3">
-                <p className="text-2xl">{product.productPrice}💲</p>
-                <ButtonActions
-                  selectedOption={null}
-                  listedBy={product.listedBy}
-                  productId={product.id}
-                  product={product}
-                />
-              </div>
-            )}
+            <TypeSelector product={product} productOptions={product.options} />
           </div>
         </div>
       </div>

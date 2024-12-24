@@ -4,10 +4,11 @@ import PopularProducts from "./PopularProducts";
 import BrowseProducts from "./BrowseProducts";
 import bg from "@/public/bg-1.jpg";
 import logo from "@/public/logo.png";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import NewestProducts from "./NewestProducts";
 import ProductBrowser from "./ProductBrowser";
+import { getCurrentUser, getUserInfo } from "@/app/_lib/_api/userServices";
 
 // export const metadata = {
 //   title: "ass"
@@ -15,6 +16,15 @@ import ProductBrowser from "./ProductBrowser";
 
 function BrowseProductsPage({ products, showAll, category }) {
   const [searchValue, setSearchValue] = useState("");
+  const [user, setUser] = useState(null);
+  console.log(user);
+  useEffect(function () {
+    async function getUser() {
+      const user = await getUserInfo();
+      setUser(user);
+    }
+    getUser();
+  }, []);
   const searchParams = useSearchParams();
 
   const browseDisplay = [
@@ -155,12 +165,14 @@ function BrowseProductsPage({ products, showAll, category }) {
             </Link>
           </div>
         </div>
-        <Link
-          className="border ml-2 p-1 border-black rounded-xl bg-green-400 text-black font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
-          href="/browse/post"
-        >
-          List a product
-        </Link>
+        {user?.isPartner && (
+          <Link
+            className="border ml-2 p-1 border-black rounded-xl bg-green-400 text-black font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
+            href="/browse/post"
+          >
+            List a product
+          </Link>
+        )}
       </div>
       {browseDisplay.map((el) => el.component)}
       {/* <PopularProducts

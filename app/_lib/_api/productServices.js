@@ -131,11 +131,17 @@ export async function editProduct(newProduct, id) {
 }
 
 export async function submitOrder(order) {
-  const { data, error } = await supabase.from("orders").insert(order);
+  const { data, error } = await supabase
+    .from("orders")
+    .insert(order)
+    .select()
+    .single();
 
   if (error) {
     console.log("ERROR WHEN SUBMITTING ORDER:", error.message);
     return;
   }
   console.log("SUBMITTED");
+
+  return data;
 }

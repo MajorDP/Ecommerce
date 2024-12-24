@@ -5,13 +5,17 @@ const Map = dynamic(() => import("../_components/_map/Map"), { ssr: false });
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
 import OrderForm from "./OrderForm";
-import { initCart } from "../_lib/_api/cart";
+import { clearCart, initCart } from "../_lib/_api/cart";
 import CartDetailsMini from "./CartDetailsMini";
 import { getCurrentUser } from "../_lib/_api/userServices";
 import { submitOrder } from "../_lib/_api/productServices";
+import toast from "react-hot-toast";
+import ToastMessage from "./ToastMessage";
+import { useRouter } from "next/navigation";
 
 function OrderSteps() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [lat, setLat] = useState(searchParams.get("lat"));
   const [lng, setLng] = useState(searchParams.get("lng"));
   const [step, setStep] = useState(1);
@@ -47,7 +51,15 @@ function OrderSteps() {
       ],
     };
 
-    await submitOrder(order);
+    const data = await submitOrder(order);
+
+    if (data.id) {
+      toast.success(<ToastMessage message={"Order placed successfully!"} />, {
+        duration: 5000,
+      });
+      clearCart();
+      router.replace(`/account/cart/checkout/success/${data.id}`);
+    }
   }
   return (
     <>
