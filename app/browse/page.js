@@ -1,6 +1,7 @@
 import { getProducts } from "../_lib/_api/productServices";
 import BrowseProductsPage from "../_components/_products/BrowseProductsPage";
 import { Suspense } from "react";
+import Loading from "./loading";
 
 // export const metadata = {
 //   title: "ass"
@@ -11,7 +12,7 @@ async function Page() {
   const data = await getProducts();
 
   return (
-    <Suspense fallback={<p>Loading items...</p>}>
+    <Suspense>
       <BrowseProductsPage products={data} showAll={false} />
     </Suspense>
   );

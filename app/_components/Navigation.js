@@ -5,7 +5,7 @@ import NavOptions from "./NavOptions";
 
 function Navigation() {
   return (
-    <header className="animate-slideDown bg-white relative w-[100%] p-4">
+    <header className="bg-white relative w-[100%] p-4">
       <div className="flex justify-between w-[70%] m-auto">
         <div className="w-[20%] mr-[10%]">
           <Link href="/">
@@ -13,9 +13,6 @@ function Navigation() {
           </Link>
         </div>
         <div className="flex justify-between gap-5 w-full sm:text-sm lg:text-xl">
-          <Link className="underline-animation m-auto" href="/">
-            Home
-          </Link>
           <NavOptions />
         </div>
       </div>

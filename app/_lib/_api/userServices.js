@@ -80,8 +80,6 @@ export async function signout() {
 export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
 
-  console.log(data);
-  console.log(error);
   if (error) {
     console.log("Error getting user:", error);
     return null;
@@ -235,4 +233,108 @@ export async function revokePartnership() {
       console.log(error.message);
     }
   }
+}
+export async function updateEmail(currentUser, oldEmail, newEmail) {
+  console.log(newEmail);
+  try {
+    const { data: userEmail, error: error1 } = await supabase
+      .from("userInfoEcoms")
+      .select("email")
+      .eq("email", oldEmail)
+      .eq("userId", currentUser.id)
+      .single();
+
+    if (error1 || !userEmail) {
+      return {
+        data: null,
+        error: { message: "Email provided was not valid." },
+      };
+    }
+
+    const { data: updatedUser, error: error2 } = await supabase
+      .from("userInfoEcoms")
+      .update({ email: newEmail })
+      .eq("email", oldEmail)
+      .eq("userId", currentUser.id);
+
+    if (error2) {
+      return {
+        data: null,
+        error: { message: "Failed to update email." },
+      };
+    }
+
+    const { data, error3 } = await supabase.auth.updateUser({
+      email: newEmail,
+    });
+
+    if (error3) {
+      return {
+        data: null,
+        error: { message: "Failed to update email." },
+      };
+    }
+
+    return { updatedUser, error: null };
+  } catch (error) {
+    return {
+      data: null,
+      error: { message: "An unexpected error occurred." },
+    };
+  }
+}
+
+export async function updatePassword(email, oldPass, newPass) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: oldPass,
+  });
+  console.log(email, oldPass);
+
+  if (error) {
+    return {
+      data,
+      error: {
+        message: "The password you entered is incorrect.",
+      },
+    };
+  }
+
+  const { data: updatedUser, error1 } = await supabase.auth.updateUser({
+    password: newPass,
+  });
+
+  if (error) {
+    return {
+      data: null,
+      error: { message: "Failed to update password." },
+    };
+  }
+  console.log("YES");
+  return { data, error: null };
+}
+
+export async function updateUsername(id, oldUsername, newUsername) {
+  const { data, error } = await supabase
+    .from("userInfoEcoms")
+    .update({ username: newUsername })
+    .eq("username", oldUsername)
+    .eq("userId", id)
+    .select();
+
+  if (error) {
+    return {
+      data: null,
+      error: { message: "An error occurred while updating the username." },
+    };
+  }
+
+  if (data.length === 0) {
+    return {
+      data: null,
+      error: { message: "Please enter your current username correctly." },
+    };
+  }
+
+  return { data, error: null };
 }

@@ -102,7 +102,7 @@ function BrowseProductsPage({ products, showAll, category }) {
   });
 
   return (
-    <div className=" rounded-3xl p-4 bg-slate-300 flex flex-col items-center w-[90%] m-auto ">
+    <div className="rounded-3xl p-4 bg-slate-300 flex flex-col items-center w-[90%] m-auto ">
       <div className="flex flex-row">
         <div className="relative w-54">
           <input

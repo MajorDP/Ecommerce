@@ -8,11 +8,10 @@ import { getCurrentUser, getUserInfo } from "../_lib/_api/userServices";
 function UserAccountInfo() {
   const [isModalOpen, setIsModalOpen] = useState(null);
   const [userData, setUserData] = useState(null);
-
+  console.log(userData);
   useEffect(function () {
     async function getUser() {
-      const user = await getCurrentUser();
-      const userData = await getUserInfo(user.user.id);
+      const userData = await getUserInfo();
       setUserData(userData);
     }
 
@@ -58,30 +57,32 @@ function UserAccountInfo() {
           </div>
           <div className="flex flex-col text-xl text-start mb-5">
             <label>Username:</label>
-            <input
-              id="username"
-              type="text"
-              className="border border-black rounded-md w-[50%] pl-1 pr-1"
-              defaultValue={userData?.username}
-            />
-          </div>
-          {/* <div className="flex flex-col text-xl text-start mb-5">
-            <label>Password:</label>
             <div className="flex flex-row">
               <input
-                id="password"
-                type="password"
+                id="username"
+                type="text"
                 className="border border-black rounded-md w-[50%] pl-1 pr-1"
-                value={userData.password}
+                defaultValue={userData?.username}
               />
               <button
-                onClick={() => setIsModalOpen("password")}
+                onClick={() => setIsModalOpen("username")}
                 className="border border-black rounded-xl text-sm font-sm ml-5 text-center p-1 pt-1 bg-orange-300"
+              >
+                Change Username
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-col text-xl text-start mb-5">
+            <label>Password</label>
+            <div className="flex flex-row justify-start">
+              <button
+                onClick={() => setIsModalOpen("password")}
+                className="border border-black rounded-xl text-sm font-sm  text-center p-1 pt-1 bg-orange-300"
               >
                 Change Password
               </button>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </>

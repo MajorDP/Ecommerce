@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import PartnershipDetails from "./PartnershipDetails";
 import { checkForPartnerShip } from "../_lib/_api/userServices";
+import Spinner from "./Spinner";
 
 function Partnership() {
   const [isModalOpen, setIsModalOpen] = useState(null);
@@ -49,7 +50,7 @@ function Partnership() {
             </button>
           )
         ) : (
-          <p>Loading...</p>
+          <Spinner />
         )}
       </div>
     </>
