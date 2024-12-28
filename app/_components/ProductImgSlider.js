@@ -23,12 +23,12 @@ function ProductImgSlider({ product }) {
     }
   }
   return (
-    <div className="relative w-[30%] mb-10 flex items-center justify-center">
+    <div className="relative lg:m-0 m-auto w-full sm:w-[50%] md:w-[40%] lg:w-[30%] mb-10 flex items-center justify-center">
       {/* Left Button */}
       {product.productImg.length > 1 && (
         <button
           onClick={() => changeImage("left")}
-          className="z-10 absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+          className="z-10 absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
         >
           &lt;
         </button>
@@ -38,15 +38,14 @@ function ProductImgSlider({ product }) {
       <img
         src={product.productImg[imageIndex]}
         alt={product.productName}
-        className="max-h-[700px] border border-black object-cover rounded-xl"
-        width={600}
+        className="border border-black p-1 max-h-[700px] w-auto object-cover rounded-xl"
       />
 
       {/* Right Button */}
       {product.productImg.length > 1 && (
         <button
           onClick={() => changeImage("right")}
-          className="z-10 absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+          className="z-10 absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
         >
           &gt;
         </button>

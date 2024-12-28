@@ -14,45 +14,46 @@ async function Page({ params }) {
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <div className="flex justify-around">
+      <div className="flex flex-col lg:flex-row justify-around px-4">
+        {/* Product Image Slider */}
         <ProductImgSlider product={product} />
 
-        <div className="w-[50%] my-auto">
-          <p className="border border-black p-1 bg-slate-200">
+        {/* Product Info Section */}
+        <div className="w-full lg:w-1/2 my-auto space-y-4">
+          {/* Shipping Fee */}
+          <p className="border border-black p-3 bg-slate-100 rounded-lg text-sm">
             {product.shippingFee === null ? (
-              <span className="text-green-500 p-1">
+              <span className="text-green-500 font-semibold">
                 ✔ <span className="text-black">Includes free shipping</span>
               </span>
             ) : (
               <span>
-                {" "}
-                Shipping fee: {product.shippingFee}💲
-                <span>
-                  {" "}
-                  (
-                  <span className="text-red-500 p-1">
-                    ❌{" "}
-                    <span className="text-black font-semibold">
-                      Does not include free shipping
-                    </span>
-                  </span>
-                  )
+                Shipping fee: {product.shippingFee} 💲{" "}
+                <span className="text-red-500 font-semibold">
+                  ❌ Does not include free shipping
                 </span>
               </span>
             )}
           </p>
-          <div className="border border-black my-2 p-2 bg-slate-200">
-            <div className="border border-black p-2 text-xl w-full">
-              <span className="flex flex-col w-full break-words hyphens-auto">
+
+          {/* Product Info Section */}
+          <div className="border border-black p-4 bg-slate-100 rounded-lg space-y-4">
+            <div className="pb-2">
+              <span className="text-xl font-semibold text-black break-words hyphens-auto block">
                 {product.productName}
               </span>
               <ProductRatingSetter product={product} />
             </div>
+
+            {/* Description */}
             {product.productDesc && (
-              <p className="border border-black my-2 p-2">
-                Description: {product.productDesc}
+              <p className="text-sm border-t border-black pt-2">
+                <span className="font-semibold">Description:</span>{" "}
+                {product.productDesc}
               </p>
             )}
+
+            {/* Type Selector */}
             <TypeSelector product={product} productOptions={product.options} />
           </div>
         </div>

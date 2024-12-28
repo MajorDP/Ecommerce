@@ -94,7 +94,7 @@ export async function getUserInfo(id) {
 
   let { data: userInfo, error } = await supabase
     .from("userInfoEcoms")
-    .select("email, username, created_at, isPartner")
+    .select("email, username, created_at, isPartner, userId")
     .eq("userId", userData.user.id)
     .single();
 

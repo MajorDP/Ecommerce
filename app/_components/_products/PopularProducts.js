@@ -10,17 +10,17 @@ import ScrollableProductList from "./ScrollableProductList";
 import PaginatedProductList from "./PaginatedProductList";
 
 function PopularProducts({
-  tempPopularProductsData,
+  productsData,
   searchValue = "",
   category = null,
   showAll = true,
 }) {
   const filteredProductsBySearch =
     searchValue !== ""
-      ? tempPopularProductsData.filter((product) =>
+      ? productsData.filter((product) =>
           product.productName.toLowerCase().includes(searchValue.toLowerCase())
         )
-      : tempPopularProductsData;
+      : productsData;
 
   const filteredProductsByCategory =
     category !== null

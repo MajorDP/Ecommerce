@@ -8,21 +8,21 @@ import ScrollableProductList from "./ScrollableProductList";
 import PaginatedProductList from "./PaginatedProductList";
 
 function BrowseProducts({
-  tempProductsData,
+  productsData,
   searchValue = "",
   category = null,
   showAll = true,
 }) {
   const filteredProductsBySearch =
     searchValue !== ""
-      ? tempProductsData
+      ? productsData
           .slice()
           .filter((product) =>
             product.productName
               .toLowerCase()
               .includes(searchValue.toLowerCase())
           )
-      : tempProductsData;
+      : productsData;
 
   let filteredProductsByCategory =
     category !== null

@@ -35,7 +35,7 @@ function BrowseProductsPage({ products, showAll, category }) {
           key={0}
           component={
             <PopularProducts
-              tempPopularProductsData={products}
+              productsData={products}
               searchValue={searchValue}
               showAll={showAll}
             />
@@ -53,7 +53,7 @@ function BrowseProductsPage({ products, showAll, category }) {
           key={1}
           component={
             <BrowseProducts
-              tempProductsData={products}
+              productsData={products}
               searchValue={searchValue}
               showAll={showAll}
             />
@@ -71,7 +71,7 @@ function BrowseProductsPage({ products, showAll, category }) {
           key={2}
           component={
             <NewestProducts
-              tempProductsData={products}
+              productsData={products}
               searchValue={searchValue}
               showAll={showAll}
             />

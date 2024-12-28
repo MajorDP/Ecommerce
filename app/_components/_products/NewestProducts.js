@@ -10,17 +10,17 @@ import ScrollableProductList from "./ScrollableProductList";
 import PaginatedProductList from "./PaginatedProductList";
 
 function NewestProducts({
-  tempProductsData,
+  productsData,
   searchValue = "",
   category = null,
   showAll = true,
 }) {
   const filteredProductsBySearch =
     searchValue !== ""
-      ? tempProductsData.filter((product) =>
+      ? productsData.filter((product) =>
           product.productName.toLowerCase().includes(searchValue.toLowerCase())
         )
-      : tempProductsData;
+      : productsData;
 
   const filteredProductsByCategory =
     category !== null

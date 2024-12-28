@@ -5,7 +5,8 @@ import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ToastMessage from "../ToastMessage";
 
-function AddToCartButton({ handleAddToCart, productId }) {
+function AddToCartButton({ handleAddToCart, productId, children }) {
+  console.log(productId);
   const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
@@ -44,13 +45,17 @@ function AddToCartButton({ handleAddToCart, productId }) {
           );
         }
       }}
-      className={`border border-black rounded-md ${
-        isAdded
-          ? "bg-orange-500 hover:bg-orange-600"
-          : "bg-green-500 hover:bg-green-600"
-      } p-2 w-22 mt-2 hover:text-white hover:scale-110 duration-100`}
+      className={` ${
+        !children
+          ? isAdded
+            ? "bg-orange-500 hover:bg-orange-600"
+            : "bg-green-500 hover:bg-green-600"
+          : ""
+      } ${
+        !children && " border border-black rounded-md p-2"
+      } w-22 mt-2 hover:text-white hover:scale-110 duration-100`}
     >
-      {isAdded ? "Remove from cart" : "Add to cart"}
+      {children ? children : isAdded ? "Remove from cart" : "Add to cart"}
     </button>
   );
 }

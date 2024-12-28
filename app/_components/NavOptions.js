@@ -7,8 +7,6 @@ import Spinner from "./Spinner";
 function NavOptions() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  console.log("user::");
-  console.log(user);
 
   useEffect(() => {
     let isMounted = true;

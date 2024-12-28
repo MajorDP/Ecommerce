@@ -7,6 +7,7 @@ import { getCurrentUser } from "@/app/_lib/_api/userServices";
 import { Suspense, useEffect, useState } from "react";
 import ConfirmationModal from "../ConfirmationModal";
 import { addToCart, initCart } from "@/app/_lib/_api/cart";
+import toast from "react-hot-toast";
 
 function ButtonActions({
   quantity,
@@ -46,7 +47,7 @@ function ButtonActions({
       addToCart(newProduct);
       console.log("buy function here");
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
