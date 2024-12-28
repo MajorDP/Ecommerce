@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 function CartCard({ product, onRemove }) {
+  console.log(product);
   return (
     <li
       key={product.id}
@@ -12,11 +13,7 @@ function CartCard({ product, onRemove }) {
       >
         <div className="z-10 h-[11rem] w-[50%] relative bg-white">
           <img
-            src={
-              product.options !== null
-                ? product.options.img
-                : product.productImg
-            }
+            src={product?.options ? product.options.img : product.productImg}
             alt="Product Image"
             className="object-fit w-full h-full border-r-2 border-black"
           />
