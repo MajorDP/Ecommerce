@@ -6,7 +6,7 @@ import { Suspense } from "react";
 async function Page() {
   return (
     <Suspense>
-      <div>
+      <div className="h-full overflow-y-scroll">
         <Partnership />
         <UserAccountInfo />;
       </div>

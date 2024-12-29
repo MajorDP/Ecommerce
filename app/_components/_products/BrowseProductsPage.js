@@ -103,11 +103,11 @@ function BrowseProductsPage({ products, showAll, category }) {
 
   return (
     <div className="rounded-3xl p-4 bg-slate-300 flex flex-col items-center w-[90%] m-auto ">
-      <div className="flex flex-row">
-        <div className="relative w-54">
+      <div className="flex sm:flex-row flex-col items-center">
+        <div className="relative w-54 mb-2 sm:mb-0">
           <input
             placeholder="Search for products here..."
-            className="w-full border-2 border-black rounded-xl p-1 pl-10"
+            className="w-full border-2 border-black rounded-xl p-1 pl-10 text-sm sm:text-xl"
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <div className="absolute left-2 top-4 transform -translate-y-1/3 text-gray-500">
@@ -126,8 +126,8 @@ function BrowseProductsPage({ products, showAll, category }) {
             </svg>
           </div>
         </div>
-        <div className="cursor-pointer bg-gray-100 shadow-lg group ml-2 p-1 m-auto border border-black rounded-xl">
-          <span className="flex items-center cursor-pointer">
+        <div className="cursor-pointer bg-gray-100 shadow-lg group ml-2 p-1 mb-2 sm:mb-0 border border-black rounded-xl">
+          <span className="flex items-center cursor-pointer text-sm sm:text-xl">
             Categories
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +167,7 @@ function BrowseProductsPage({ products, showAll, category }) {
         </div>
         {user?.isPartner && (
           <Link
-            className="border ml-2 p-1 border-black rounded-xl bg-green-400 text-black font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
+            className="border ml-2 p-1 border-black rounded-xl bg-green-400 text-black text-sm sm:text-xl hover:bg-green-500 transition-all duration-300 ease-in-out"
             href="/browse/post"
           >
             List a product

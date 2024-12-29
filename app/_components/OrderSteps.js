@@ -63,7 +63,7 @@ function OrderSteps() {
   }
   return (
     <>
-      <div className="flex items-center justify-center flex-col mb-2 h-[20%]">
+      <div className="flex items-center justify-center flex-col mb-10 sm:mb-4 h-[20%]">
         <p>
           {step === 1
             ? "Step 1: Choose your location"
@@ -90,16 +90,16 @@ function OrderSteps() {
             step === 1
               ? "bg-green-400 hover:bg-green-500"
               : "bg-red-400 hover:bg-red-500"
-          } disabled:bg-gray-400 p-2 text-center mt-2 w-[10%] border-2 border-black rounded-full text-black font-semibold hover:scale-105 transition-all duration-300 ease-in-out`}
+          } disabled:bg-gray-400 p-2 text-center mt-2 mb-2 sm:mb-0 w-[100%] md:w-[20%] sm:w-[10%] border-2 border-black rounded-full text-black font-semibold hover:scale-105 transition-all duration-300 ease-in-out`}
         >
           {step === 2 ? "Previous" : "Next"}
         </button>
       </div>
-      <div className="border border-black border-l-0 border-r-0 h-full">
+      <div className="border-t border-black h-[80%] sm:h-full">
         {step === 1 ? (
           <Map setLat={setLat} setLng={setLng} />
         ) : (
-          <div className="bg-gray-50 flex flex-row justify-between">
+          <div className="bg-gray-50 flex flex-col sm:flex-row h-[92%] sm:h-[96.2%] overflow-scroll sm:overflow-hidden justify-between">
             <OrderForm handleSubmit={handleSubmit} />
             <CartDetailsMini />
           </div>

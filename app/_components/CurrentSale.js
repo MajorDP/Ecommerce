@@ -32,13 +32,13 @@ function CurrentSale({ sale }) {
   );
 
   return (
-    <div className="flex justify-around items-center bg-blue-100 border border-black rounded-md w-[90%] m-auto h-[80vh] mt-5">
+    <div className="flex flex-col sm:flex-row justify-around items-center bg-blue-100 border border-black rounded-md w-[90%] m-auto h-[80vh] mt-5 overflow-scroll sm:overflow-hidden">
       <div className="relative mb-10 flex items-center justify-center w-full">
         {/* Left Button */}
         {sale.items.length > 1 && (
           <button
             onClick={() => changeImage("left")}
-            className="z-10 absolute left-[25%] top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+            className="z-10 absolute left-0 sm:left-[25%] top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
           >
             &lt;
           </button>
@@ -48,12 +48,12 @@ function CurrentSale({ sale }) {
         <div className="w-[400px] h-[400px] flex flex-col items-center justify-center ">
           <img
             src={
-              sale.items[imageIndex].options !== null
+              sale.items[imageIndex].options
                 ? sale.items[imageIndex].options.img
                 : sale.items[imageIndex].productImg[0]
             }
             alt={sale.items[imageIndex]}
-            className="border m-auto border-black rounded-xl bg-white h-full max-w-[400px]"
+            className="border m-auto border-black rounded-xl bg-white  sm:h-full sm:max-w-[400px]"
           />
         </div>
 
@@ -61,7 +61,7 @@ function CurrentSale({ sale }) {
         {sale.items.length > 1 && (
           <button
             onClick={() => changeImage("right")}
-            className="z-10 absolute right-[25%] top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+            className="z-10 absolute right-0 sm:right-[25%] top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
           >
             &gt;
           </button>

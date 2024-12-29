@@ -73,49 +73,53 @@ function UserInfoUpdater({ type, userId, onClose }) {
     }
   }
   return (
-    <div className="animate-slideUpModal absolute z-20 bg-white shadow-md border border-black rounded-xl w-[30%] h-[40%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-      <p className="text-center mt-5 text-xl">Change {type}</p>
+    <div
+      className={`animate-slideUpModal absolute z-20 bg-white shadow-md border border-black rounded-xl w-[80%] sm:w-[50%] md:w-[30%] ${
+        type === "password" ? "h-[70%]" : "h-[60%]"
+      } sm:h-[40%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-5`}
+    >
+      <p className="text-center sm:mt-5 text-xl">Change {type}</p>
       <form
         onSubmit={(e) => handleUpdate(e, type)}
         className="flex flex-col justify-between h-[80%]"
       >
         <div className="flex flex-col justify-between items-center box-border">
-          <div className=" flex flex-col mt-5 ">
+          <div className="flex flex-col mt-5 w-full">
             <label>Old {type}</label>
             <input
               name="old"
-              className="w-[100%] border border-black rounded-md"
+              className="w-full border border-black rounded-md p-2"
             />
           </div>
-          <div className="flex flex-col mt-2">
+          <div className="flex flex-col mt-2 w-full">
             <label>New {type}</label>
             <input
               name="new"
-              className="w-[100%] border border-black rounded-md"
+              className="w-full border border-black rounded-md p-2"
             />
           </div>
           {type === "password" && (
-            <div className=" flex flex-col">
+            <div className="flex flex-col mt-2 w-full">
               <label>Repeat New {type}</label>
               <input
                 name="repeat"
-                className="w-[100%] border border-black rounded-md"
+                className="w-full border border-black rounded-md p-2"
               />
             </div>
           )}
         </div>
-        <div className="flex justify-around">
+        <div className="flex justify-around mt-4 space-x-2">
           <button
             onClick={() => onClose()}
-            className="border border-black rounded-md bg-red-500 pl-1 pr-1"
+            className="w-1/3 border border-black rounded-md bg-red-500 pl-1 pr-1 py-2 text-white"
           >
             Cancel
           </button>
-          <button className="border border-black rounded-md bg-green-500 pl-1 pr-1">
+          <button className="border border-black rounded-md bg-green-500 pl-1 pr-1 text-white">
             Update {type}
           </button>
         </div>
-        <p className="text-center text-red-500 font-medium">
+        <p className="text-center text-red-500 font-medium mt-2">
           {error !== null && error}
         </p>
       </form>

@@ -26,8 +26,8 @@ function UserAccountInfo() {
           onClose={() => setIsModalOpen(null)}
         />
       )}
-      <div className="flex justify-between mt-10 ml-[20%] mr-[20%]">
-        <div className="border border-black rounded-[50%] w-52 h-52 overflow-hidden relative">
+      <div className="flex flex-col lg:flex-row justify-between mt-10 mx-5 lg:mx-[20%]">
+        <div className="border border-black rounded-[50%] w-44 h-44 overflow-hidden relative mx-auto lg:mx-0">
           <Image
             src={bgImg}
             alt="aa"
@@ -35,49 +35,54 @@ function UserAccountInfo() {
           />
           <input type="image" placeholder="aa" />
         </div>
-        <div className="flex flex-col">
-          <div className="flex flex-col text-xl text-start mb-5">
+
+        <div className="flex flex-col mt-10 lg:mt-0 lg:ml-10 h-full overflow-y-auto">
+          <div className="flex flex-col text-lg sm:text-xl text-start mb-5">
             <label>Email:</label>
-            <div className="flex flex-row">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
               <input
                 id="email"
                 type="email"
-                className="border border-black rounded-md w-[50%] pl-1 pr-1"
+                readOnly
+                className="border border-black rounded-md w-full sm:w-[50%] pl-1 pr-1 mb-3 sm:mb-0"
                 defaultValue={userData?.email.replace(/^[^@]+/, (match) =>
                   "*".repeat(match.length)
                 )}
               />
               <button
                 onClick={() => setIsModalOpen("email")}
-                className="border border-black rounded-xl text-sm font-sm ml-5 text-center p-1 pt-1 bg-orange-300"
+                className="border border-black rounded-xl text-sm font-medium sm:ml-5 text-center p-1 bg-orange-300 w-full sm:w-auto"
               >
                 Change Email
               </button>
             </div>
           </div>
-          <div className="flex flex-col text-xl text-start mb-5">
+
+          <div className="flex flex-col text-lg sm:text-xl text-start mb-5">
             <label>Username:</label>
-            <div className="flex flex-row">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
               <input
                 id="username"
                 type="text"
-                className="border border-black rounded-md w-[50%] pl-1 pr-1"
+                readOnly
+                className="border border-black rounded-md w-full sm:w-[50%] pl-1 pr-1 mb-3 sm:mb-0"
                 defaultValue={userData?.username}
               />
               <button
                 onClick={() => setIsModalOpen("username")}
-                className="border border-black rounded-xl text-sm font-sm ml-5 text-center p-1 pt-1 bg-orange-300"
+                className="border border-black rounded-xl text-sm font-medium sm:ml-5 text-center p-1 bg-orange-300 w-full sm:w-auto"
               >
                 Change Username
               </button>
             </div>
           </div>
-          <div className="flex flex-col text-xl text-start mb-5">
+
+          <div className="flex flex-col text-lg sm:text-xl text-start mb-5">
             <label>Password</label>
-            <div className="flex flex-row justify-start">
+            <div className="flex justify-start">
               <button
                 onClick={() => setIsModalOpen("password")}
-                className="border border-black rounded-xl text-sm font-sm  text-center p-1 pt-1 bg-orange-300"
+                className="border border-black rounded-xl text-sm font-medium text-center p-1 bg-orange-300 w-full sm:w-auto"
               >
                 Change Password
               </button>

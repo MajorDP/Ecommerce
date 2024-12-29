@@ -32,9 +32,10 @@ function CartDetails() {
 
   return (
     <div>
+      {/* Cart Summary and Checkout Button */}
       {cart.length > 0 && (
-        <div className="w-[50%] m-auto flex flex-col items-center justify-center">
-          <p className="text-xl">Your total: {totalCost}$</p>
+        <div className="w-full sm:w-[50%] m-auto flex flex-col items-center justify-center">
+          <p className="text-xl mb-2">Your total: {totalCost}$</p>
           <Link
             href="/account/cart/checkout"
             className="p-2 mt-2 border-2 border-black rounded-full bg-green-400 text-black font-semibold hover:bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out"
@@ -43,19 +44,21 @@ function CartDetails() {
           </Link>
         </div>
       )}
+
+      {/* Cart Items */}
       {cart.length > 0 ? (
-        <ul className="flex flex-wrap justify-center items-center text-ellipsis whitespace-nowrap overflow-x-hidden">
+        <ul className="flex flex-wrap justify-center items-center gap-4 text-ellipsis whitespace-nowrap overflow-x-hidden max-h-[70vh] overflow-y-auto">
           {cart.map((product, index) => (
             <CartCard product={product} key={index} onRemove={onRemove} />
           ))}
         </ul>
       ) : (
-        <div className="flex flex-col items-center mt-10">
-          <p className="text-center text-lg text-gray-700 font-medium">
+        <div className="flex flex-col items-center mt-10 px-6 sm:px-8">
+          <p className="text-center text-lg sm:text-xl text-gray-700 font-medium leading-tight">
             Your cart is currently empty.
           </p>
           <Link
-            className="p-2 mt-4 border-2 border-black rounded-full bg-green-400 text-black font-semibold hover:bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out"
+            className="p-3 mt-6 border-2 border-black rounded-full bg-green-400 text-center text-black font-semibold hover:bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out text-sm sm:text-base w-full sm:w-auto"
             href="/browse"
           >
             Start by adding products.

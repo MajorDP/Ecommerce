@@ -47,7 +47,7 @@ function CartDetailsMini() {
             &lt;
           </button>
         )}
-        <ul className={`grid grid-rows-2 grid-cols-2`}>
+        <ul className={`sm:grid sm:grid-rows-2 sm:grid-cols-2 flex flex-col`}>
           {cart.slice(startIndex, endIndex).map((product, index) => (
             <CartCardMini product={product} key={index} onRemove={onRemove} />
           ))}

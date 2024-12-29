@@ -17,13 +17,12 @@ function Page() {
   }, []);
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <p className="p-4 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 border border-black text-white w-[50%] rounded-3xl m-auto mt-6 text-center text-2xl font-semibold shadow-lg">
+      <p className="p-4 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 border border-black text-white w-[90%] sm:w-[50%] rounded-3xl m-auto mt-6 text-center text-sm sm:text-2xl font-semibold shadow-lg">
         Your purchase history
       </p>
 
-      <div className="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 w-[95%] h-[80%] m-12 border rounded-xl overflow-y-scroll overflow-x-hidden shadow-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500">
+      <div className="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 w-[90%] sm:w-[95%] h-[70vh] sm:h-[80%] m-4 sm:m-12 border rounded-xl overflow-y-scroll overflow-x-hidden shadow-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500">
         <ul className="space-y-4">
-          {" "}
           {userProducts &&
             userProducts.map((product, index) => (
               <UserProductCard product={product} key={index} />

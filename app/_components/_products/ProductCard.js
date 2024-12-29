@@ -23,12 +23,12 @@ function ProductCard({ product, userId }) {
   };
 
   return (
-    <li className="cursor-pointer m-3 border-2 border-black rounded-lg bg-white shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300 flex flex-col w-44">
+    <li className="cursor-pointer m-2 border-2 border-black rounded-lg bg-white shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 flex flex-col w-28 sm:w-44">
       <Link
         href={`/browse/product/${product.id}`}
-        className="flex flex-col items-center"
+        className="flex flex-col items-center "
       >
-        <div className="z-10 h-44 w-44 mb-2 relative overflow-hidden border-2 border-t-0 rounded-b-none border-black rounded-lg">
+        <div className="z-10 h-28 w-28 sm:h-44 sm:w-44 mb-2 relative overflow-hidden border-2 border-t-0 rounded-b-none border-black rounded-lg">
           <img
             src={product.productImg}
             alt="Product Image"
@@ -36,7 +36,7 @@ function ProductCard({ product, userId }) {
           />
         </div>
 
-        <p className="text-start px-2 text-sm text-gray-700 font-medium truncate w-44">
+        <p className="text-start px-2 text-xs sm:text-sm text-gray-700 font-medium truncate w-full">
           {product.productName}
         </p>
 
@@ -44,13 +44,17 @@ function ProductCard({ product, userId }) {
           <span className="hover:scale-110 duration-150">
             {product.discountedPrice ? (
               <span className="flex flex-col">
-                <span className="line-through text-gray-400 text-[0.8rem] mr-1">
+                <span className="line-through text-gray-400 text-[0.7rem] sm:text-xs mr-1">
                   ${product.productPrice}
                 </span>
-                <span>${product.discountedPrice}</span>
+                <span className="text-xs sm:text-sm">
+                  ${product.discountedPrice}
+                </span>
               </span>
             ) : (
-              `$${product.productPrice}`
+              <span className="text-xs sm:text-sm">
+                ${product.productPrice}
+              </span>
             )}
           </span>
           {userId !== product.listedBy ? (
@@ -63,10 +67,10 @@ function ProductCard({ product, userId }) {
               />
             </span>
           ) : (
-            <span className="mt-2 cursor-pointer text-blue-600 border-2 border-blue-600 mb-2 p-2 rounded-xl hover:bg-gray-200 hover:scale-110 duration-150 flex items-center">
+            <span className="mt-2 cursor-pointer text-blue-600 border-2 border-blue-600 mb-2 p-1 sm:p-2 rounded-xl hover:bg-gray-200 hover:scale-110 duration-150 flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-4 w-4 sm:h-5 sm:w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

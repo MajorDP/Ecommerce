@@ -30,7 +30,7 @@ function ScrollableProductList({ products }) {
       {products.length > 5 && (
         <button
           onClick={() => scroll("left")}
-          className="z-50 absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+          className="z-50 absolute sm:left-0 left-[-1rem] top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
         >
           &lt;
         </button>
@@ -38,8 +38,10 @@ function ScrollableProductList({ products }) {
       <ul
         ref={scrollContainerRef}
         className={`w-[95%] p-2 px-10 flex flex-row ${
-          products.length < 6 ? "justify-center" : "justify-start"
-        } overflow-x-hidden whitespace-nowrap scroll-smooth m-auto`}
+          products.length < 6
+            ? "justify-start sm:justify-center"
+            : "justify-start"
+        } overflow-x-scroll sm:overflow-x-hidden whitespace-nowrap scroll-smooth m-auto`}
       >
         {products.length > 0
           ? products.map((product, index) => (
@@ -54,7 +56,7 @@ function ScrollableProductList({ products }) {
       {products.length > 5 && (
         <button
           onClick={() => scroll("right")}
-          className="z-50 absolute right-0 top-1/2 transform -translate-y-1/2  bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+          className="z-50 absolute sm:right-0 right-[-1rem] top-1/2 transform -translate-y-1/2  bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
         >
           &gt;
         </button>
