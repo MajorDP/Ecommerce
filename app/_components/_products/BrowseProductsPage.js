@@ -2,22 +2,27 @@
 import Link from "next/link";
 import PopularProducts from "./PopularProducts";
 import BrowseProducts from "./BrowseProducts";
-import bg from "@/public/bg-1.jpg";
-import logo from "@/public/logo.png";
-import { Suspense, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import NewestProducts from "./NewestProducts";
 import ProductBrowser from "./ProductBrowser";
-import { getCurrentUser, getUserInfo } from "@/app/_lib/_api/userServices";
+import { getUserInfo } from "@/app/_lib/_api/userServices";
+import { useRouter } from "next/navigation";
 
 // export const metadata = {
 //   title: "ass"
 // }
 
-function BrowseProductsPage({ products, showAll, category }) {
+function BrowseProductsPage({ products, category = null }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
-  console.log(user);
+  const searchParams = useSearchParams();
+
+  //if we press the Show all button inside the ProductBrowse component, we get a sortBy search param in the URL (==> sortBy !== null ==> ShowAll = true)
+  const showAll = category !== null || searchParams.get("order") !== null;
+
   useEffect(function () {
     async function getUser() {
       const user = await getUserInfo();
@@ -25,17 +30,34 @@ function BrowseProductsPage({ products, showAll, category }) {
     }
     getUser();
   }, []);
-  const searchParams = useSearchParams();
+
+  const filteredProducts =
+    category !== null
+      ? products.filter((product) =>
+          product.productCategories?.includes(category)
+        )
+      : products;
+
+  const filteredProductsBySearch =
+    searchValue !== ""
+      ? filteredProducts
+          .slice()
+          .filter((product) =>
+            product.productName
+              .toLowerCase()
+              .includes(searchValue.toLowerCase())
+          )
+      : filteredProducts;
 
   const browseDisplay = [
     {
-      sortBy: "popular",
+      orderValue: "popular",
       component: (
         <ProductBrowser
           key={0}
           component={
             <PopularProducts
-              productsData={products}
+              productsData={filteredProductsBySearch}
               searchValue={searchValue}
               showAll={showAll}
             />
@@ -47,13 +69,13 @@ function BrowseProductsPage({ products, showAll, category }) {
       ),
     },
     {
-      sortBy: null,
+      orderValue: "all",
       component: (
         <ProductBrowser
           key={1}
           component={
             <BrowseProducts
-              productsData={products}
+              productsData={filteredProductsBySearch}
               searchValue={searchValue}
               showAll={showAll}
             />
@@ -65,13 +87,13 @@ function BrowseProductsPage({ products, showAll, category }) {
       ),
     },
     {
-      sortBy: "newest",
+      orderValue: "newest",
       component: (
         <ProductBrowser
           key={2}
           component={
             <NewestProducts
-              productsData={products}
+              productsData={filteredProductsBySearch}
               searchValue={searchValue}
               showAll={showAll}
             />
@@ -83,20 +105,12 @@ function BrowseProductsPage({ products, showAll, category }) {
       ),
     },
   ].sort((a, b) => {
-    const sortByValue = searchParams.get("sortBy");
-    if (category) {
-      if (a.sortBy === category && b.sortBy !== category) {
-        return -1;
-      }
-      if (b.sortBy === category && a.sortBy !== category) {
-        return 1; // b comes first
-      }
-    }
+    const order = searchParams.get("order");
 
-    if (a.sortBy === sortByValue && b.sortBy !== sortByValue) {
+    if (a.orderValue === order && b.orderValue !== order) {
       return -1;
     }
-    if (b.sortBy === sortByValue && a.sortBy !== sortByValue) {
+    if (b.orderValue === order && a.orderValue !== order) {
       return 1; // b comes first
     }
   });

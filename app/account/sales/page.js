@@ -20,11 +20,11 @@ function Page() {
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <p className="p-4 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 border border-black text-white w-[90%] sm:w-[45%] lg:w-[45%] rounded-3xl m-auto mt-6 text-center text-sm sm:text-2xl font-semibold shadow-lg">
+      <p className="p-4 bg-gradient-to-r from-slate-500 via-blue-400 to-slate-500 border border-black text-white w-[90%] sm:w-[45%] lg:w-[45%] rounded-3xl m-auto mt-6 text-center text-sm sm:text-2xl font-semibold shadow-lg">
         Your sales history
       </p>
 
-      <div className="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 w-[90%] m-auto sm:w-[95%] lg:w-[95%] sm:h-[30%] lg:h-[80%] sm:m-6 mt-2 sm:mt-0 border rounded-xl overflow-y-scroll overflow-x-hidden shadow-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500">
+      <div className="g-gradient-to-r from-gray-50 via-gray-100 to-gray-200 w-[90%] m-auto sm:w-[95%] lg:w-[95%] sm:h-[30%] lg:h-[80%] sm:m-6 mt-2 sm:mt-0 border rounded-xl overflow-y-scroll overflow-x-hidden shadow-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 hover:scrollbar-thumb-gray-500">
         <ul className="space-y-4">
           {userSalesData?.map((sale, index) => (
             <SaleCard sale={sale} key={index} type="sales" />

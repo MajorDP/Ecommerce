@@ -40,7 +40,12 @@ export async function register(userData) {
   if (error) {
     console.log("ERROR:");
     console.log(error.message);
-    return;
+    return {
+      data: username,
+      error: {
+        message: error.message,
+      },
+    };
   }
 
   const userObj = {

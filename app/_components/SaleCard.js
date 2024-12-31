@@ -16,7 +16,7 @@ function SaleCard({ sale, type }) {
   return (
     <Link
       href={`/account/${type === "sales" ? "sales" : "purchases"}/${sale.id}`}
-      className="m-auto bg-gradient-to-tr from-teal-200 to-blue-300 w-[90%] sm:w-[60%] h-full sm:h-[30vh] flex flex-col sm:flex-row justify-between border border-gray-300 rounded-xl p-3 mt-2 mb-6 transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105"
+      className="m-auto bg-gradient-to-bl from-slate-300 to-blue-300 w-[90%] sm:w-[60%] h-full sm:h-[30vh] flex flex-col sm:flex-row justify-between border border-gray-500 rounded-xl p-3 mt-2 mb-6 transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105"
     >
       <div
         className={`grid bg-white ${
@@ -45,18 +45,21 @@ function SaleCard({ sale, type }) {
           )
         )}
       </div>
-      <div className="w-full sm:w-[54%] flex flex-col justify-between text-sm sm:text-base lg:text-[1rem] border border-gray-300 p-5">
+      <div className="w-full sm:w-[54%] flex flex-col justify-between text-sm sm:text-base lg:text-[1rem] border rounded-tr-xl rounded-br-xl border-gray-300 p-5">
         <div>
-          <p className="text-gray-700">Sale ID: {sale.id}</p>
           <p className="text-gray-700">
-            Ordered on: {formatDate(sale.created_at)}
+            <span className="font-semibold">Sale ID:</span> {sale.id}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold">Ordered on:</span>{" "}
+            {formatDate(sale.created_at)}
           </p>
         </div>
         <div>
           <p className="text-gray-700">
-            Status:{" "}
+            <span className="font-semibold">Status:</span>{" "}
             <span
-              className={`${
+              className={`font-semibold ${
                 sale.status === "Delivered"
                   ? "text-green-500"
                   : sale.status === "Cancelled"
@@ -71,7 +74,11 @@ function SaleCard({ sale, type }) {
               {sale.status}
             </span>
           </p>
-          <p className="text-gray-700">Total: {totalPrice.toFixed(2)} 💲</p>
+          <p className="text-gray-700">
+            <span className="font-semibold">Total:</span>{" "}
+            {totalPrice.toFixed(2)}{" "}
+            <span className="text-green-600 font-semibold">$</span>
+          </p>
         </div>
       </div>
     </Link>

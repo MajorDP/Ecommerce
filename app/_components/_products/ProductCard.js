@@ -45,15 +45,15 @@ function ProductCard({ product, userId }) {
             {product.discountedPrice ? (
               <span className="flex flex-col">
                 <span className="line-through text-gray-400 text-[0.7rem] sm:text-xs mr-1">
-                  ${product.productPrice}
+                  {product.productPrice} $
                 </span>
                 <span className="text-xs sm:text-sm">
-                  ${product.discountedPrice}
+                  {product.discountedPrice} $
                 </span>
               </span>
             ) : (
               <span className="text-xs sm:text-sm">
-                ${product.productPrice}
+                {product.productPrice} $
               </span>
             )}
           </span>

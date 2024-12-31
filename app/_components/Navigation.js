@@ -9,7 +9,13 @@ function Navigation() {
       <div className="flex justify-between w-[70%] m-auto">
         <div className="w-[20%] mr-[10%]">
           <Link href="/">
-            <Image src={logo} alt="logo" width={150} height={150} />
+            <Image
+              src={logo}
+              alt="logo"
+              width={150}
+              height={150}
+              className="hidden sm:block"
+            />
           </Link>
         </div>
         <div className="flex justify-between gap-5 w-full sm:text-sm lg:text-xl">

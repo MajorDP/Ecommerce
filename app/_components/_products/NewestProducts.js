@@ -22,14 +22,7 @@ function NewestProducts({
         )
       : productsData;
 
-  const filteredProductsByCategory =
-    category !== null
-      ? filteredProductsBySearch
-          .slice()
-          .filter((product) => product.categories.includes(category))
-      : filteredProductsBySearch;
-
-  let sortedProductsByDate = filteredProductsByCategory.sort((a, b) => {
+  let sortedProductsByDate = filteredProductsBySearch.sort((a, b) => {
     const dateA = new Date(a.created_at);
     const dateB = new Date(b.created_at);
 

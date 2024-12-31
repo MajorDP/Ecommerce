@@ -20,10 +20,14 @@ Users can:
 
 _CURRENTLY WORKING ON:_
 
-- CSS / Responsive design
+- Filtering functionality for products via sort value, search value and category
+- Next changes:
+  1- Sign in via google
+  2- Updates to listing a product
 
 _NEWEST CHANGES:_
 
+- Added responsive design for phones/laptops
 - users can now change their username, email or password - verification with old credentials needed
 - added "partnership program", allowwing accepted users as "partners" to be able to list products on the website
 - added route protection for browsing products and account pages

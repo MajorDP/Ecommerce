@@ -13,7 +13,7 @@ async function Page() {
 
   return (
     <Suspense>
-      <BrowseProductsPage products={data} showAll={false} />
+      <BrowseProductsPage products={data} />
     </Suspense>
   );
 }

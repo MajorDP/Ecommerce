@@ -32,20 +32,20 @@ function CurrentSale({ sale }) {
   );
 
   return (
-    <div className="flex flex-col sm:flex-row justify-around items-center bg-blue-100 border border-black rounded-md w-[90%] m-auto h-[80vh] mt-5 overflow-scroll sm:overflow-hidden">
+    <div className="flex flex-col sm:flex-row justify-around items-center bg-gray-50 border-2 border-gray-300 rounded-md w-[90%] m-auto h-[80vh] mt-5 overflow-scroll sm:overflow-hidden shadow-lg">
       <div className="relative mb-10 flex items-center justify-center w-full">
         {/* Left Button */}
         {sale.items.length > 1 && (
           <button
             onClick={() => changeImage("left")}
-            className="z-10 absolute left-0 sm:left-[25%] top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+            className="z-10 absolute left-0 sm:left-[25%] top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-3 rounded-full hover:bg-gray-500 hover:text-black transition-all duration-200"
           >
             &lt;
           </button>
         )}
 
         {/* Image */}
-        <div className="w-[400px] h-[400px] flex flex-col items-center justify-center ">
+        <div className="w-[400px] h-[400px] flex flex-col items-center justify-center">
           <img
             src={
               sale.items[imageIndex].options
@@ -53,7 +53,7 @@ function CurrentSale({ sale }) {
                 : sale.items[imageIndex].productImg[0]
             }
             alt={sale.items[imageIndex]}
-            className="border m-auto border-black rounded-xl bg-white  sm:h-full sm:max-w-[400px]"
+            className="border-2 m-auto border-gray-400 rounded-xl bg-white sm:h-full sm:max-w-[400px] shadow-md"
           />
         </div>
 
@@ -61,7 +61,7 @@ function CurrentSale({ sale }) {
         {sale.items.length > 1 && (
           <button
             onClick={() => changeImage("right")}
-            className="z-10 absolute right-0 sm:right-[25%] top-1/2 transform -translate-y-1/2 bg-gray-600 text-white p-2 rounded-full hover:bg-gray-400 hover:text-black"
+            className="z-10 absolute right-0 sm:right-[25%] top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-3 rounded-full hover:bg-gray-500 hover:text-black transition-all duration-200"
           >
             &gt;
           </button>
@@ -70,18 +70,39 @@ function CurrentSale({ sale }) {
 
       <div className="flex flex-col justify-between h-[50%] w-[60%] mb-20">
         <div>
-          <p className="text-xl">Sale ID: {sale?.id}</p>
-          <p>Ordered on: {formatDate(sale?.created_at)}</p>
+          <p className="text-xl font-semibold text-gray-800">
+            <span className="font-bold">Sale ID:</span> {sale?.id}
+          </p>
+          <p className="text-gray-800">
+            <span className="font-bold">Ordered on:</span>{" "}
+            {formatDate(sale?.created_at)}
+          </p>
         </div>
         <div>
-          <p>Item: {sale.items[imageIndex].productName}</p>
-          <p>Quantity ordered: {sale.items[imageIndex].quantity}</p>
-          <p>Price per unit: {sale.items[imageIndex].productPrice} 💲</p>
+          <p className="text-gray-700">
+            <span className="font-bold">Item:</span>{" "}
+            {sale.items[imageIndex].productName}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-bold">Quantity ordered:</span>{" "}
+            {sale.items[imageIndex].quantity}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-bold">Price per unit:</span>{" "}
+            {sale.items[imageIndex].productPrice.toFixed(2)}{" "}
+            <span className="text-green-600 font-semibold">$</span>
+          </p>
         </div>
         <div>
-          <p>Total: {totalPrice} 💲</p>
-          <p className="bg-orange-300 border border-black rounded-md w-[6rem] text-center">
-            <Link href={`/browse/product/${sale.items[imageIndex].id}`}>
+          <p className="text-lg text-gray-800">
+            <span className="font-bold">Total:</span> {totalPrice.toFixed(2)}{" "}
+            <span className="text-green-600 font-semibold">$</span>
+          </p>
+          <p className="bg-orange-400 border border-black rounded-md w-[6rem] text-center mt-2 hover:bg-orange-500 transition-all duration-200">
+            <Link
+              href={`/browse/product/${sale.items[imageIndex].id}`}
+              className="text-black font-semibold"
+            >
               See in store
             </Link>
           </p>

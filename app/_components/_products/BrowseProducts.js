@@ -13,39 +13,16 @@ function BrowseProducts({
   category = null,
   showAll = true,
 }) {
-  const filteredProductsBySearch =
-    searchValue !== ""
-      ? productsData
-          .slice()
-          .filter((product) =>
-            product.productName
-              .toLowerCase()
-              .includes(searchValue.toLowerCase())
-          )
-      : productsData;
-
-  let filteredProductsByCategory =
-    category !== null
-      ? category === "all"
-        ? filteredProductsBySearch
-        : filteredProductsBySearch
-            .slice()
-            .filter((product) => product.categories.includes(category))
-      : filteredProductsBySearch;
-
   if (showAll === false) {
-    filteredProductsByCategory = filteredProductsByCategory.slice(
-      0,
-      Math.min(14, filteredProductsByCategory.length)
-    );
+    productsData = productsData.slice(0, Math.min(14, productsData.length));
   }
 
   return (
     <div className="relative">
       {showAll === false ? (
-        <ScrollableProductList products={filteredProductsByCategory} />
+        <ScrollableProductList products={productsData} />
       ) : (
-        <PaginatedProductList products={filteredProductsByCategory} />
+        <PaginatedProductList products={productsData} />
       )}
     </div>
   );

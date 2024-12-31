@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCurrentUser, getUserProducts } from "../_lib/_api/userServices";
+import { getCurrentUser, getUserProducts } from "../../_lib/_api/userServices";
 import Link from "next/link";
 
 function UserProductCard({ product }) {
@@ -18,7 +18,7 @@ function UserProductCard({ product }) {
   return (
     <Link
       href={`/browse/product/${product.id}`}
-      className="m-auto bg-gradient-to-tr from-teal-200 to-blue-300 w-[90%] sm:w-[60%] h-full sm:h-[30vh] flex flex-col sm:flex-row justify-between border border-gray-300 rounded-xl p-3 mt-2 mb-6 transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105"
+      className="m-auto bg-gradient-to-bl from-slate-300 to-blue-300  w-[90%] sm:w-[60%] h-full sm:h-[30vh] flex flex-col sm:flex-row justify-between border border-black  rounded-xl p-3 mt-2 mb-6 transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105"
     >
       <div
         className={`grid bg-white ${
@@ -47,18 +47,20 @@ function UserProductCard({ product }) {
           )
         )}
       </div>
-      <div className="w-full sm:w-[54%] flex flex-col justify-between text-xl border border-gray-300 p-5">
+      <div className="w-full sm:w-[54%] flex flex-col justify-between text-xl border border-gray-300 p-5 rounded-tr-xl rounded-br-xl">
         <div>
+          <p className="font-bold">{product.productName}</p>
           <p className="text-sm sm:text-base text-gray-700">
-            Product ID: {product.id}
+            <span className="font-semibold">Product ID:</span> {product.id}
           </p>
           <p className="text-sm sm:text-base text-gray-700">
-            Listed on: {formattedDate}
+            <span className="font-semibold">Listed on:</span> {formattedDate}
           </p>
         </div>
         <div>
           <p className="text-sm sm:text-base text-gray-700">
-            Price: {product.productPrice} 💲
+            <span className="font-semibold">Price:</span> {product.productPrice}{" "}
+            <span className="text-green-600 font-semibold">$</span>
           </p>
         </div>
       </div>

@@ -7,7 +7,7 @@ function ProductBrowser({ component, message, type, showAll }) {
         {message}
         {showAll === false && (
           <Link
-            href={`/browse/${type}`}
+            href={`/browse/?order=${type}`}
             className="border text-black border-black rounded-full ml-2 w-20 text-sm sm:text-xl  bg-orange-400 hover:bg-orange-500"
           >
             See All
