@@ -13,15 +13,32 @@ import { useRouter } from "next/navigation";
 //   title: "ass"
 // }
 
-function BrowseProductsPage({ products, category = null }) {
-  const router = useRouter();
-  const pathname = usePathname();
+function BrowseProductsPage({ products }) {
   const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
+
   const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState({
+    order: searchParams.get("order"),
+    category: searchParams.get("category"),
+    sort: searchParams.get("sort"),
+  });
+
+  console.log(searchQuery);
 
   //if we press the Show all button inside the ProductBrowse component, we get a sortBy search param in the URL (==> sortBy !== null ==> ShowAll = true)
-  const showAll = category !== null || searchParams.get("order") !== null;
+  const showAll = searchParams.get("order") !== "null";
+
+  useEffect(
+    function () {
+      setSearchQuery({
+        order: searchParams.get("order"),
+        category: searchParams.get("category"),
+        sort: searchParams.get("sort"),
+      });
+    },
+    [searchParams]
+  );
 
   useEffect(function () {
     async function getUser() {
@@ -31,23 +48,37 @@ function BrowseProductsPage({ products, category = null }) {
     getUser();
   }, []);
 
-  const filteredProducts =
-    category !== null
+  const filteredProductsByCategory =
+    searchQuery.category !== "null"
       ? products.filter((product) =>
-          product.productCategories?.includes(category)
+          product.productCategories?.includes(searchQuery.category)
         )
       : products;
 
   const filteredProductsBySearch =
     searchValue !== ""
-      ? filteredProducts
+      ? filteredProductsByCategory
           .slice()
           .filter((product) =>
             product.productName
               .toLowerCase()
               .includes(searchValue.toLowerCase())
           )
-      : filteredProducts;
+      : filteredProductsByCategory;
+
+  const sortedProducts = filteredProductsBySearch.sort((a, b) => {
+    if (searchQuery.sort === "Alphabetically-desc") {
+      return a.productName.localeCompare(b.productName);
+    } else if (searchQuery.sort === "Alphabetically-asc") {
+      return b.productName.localeCompare(a.productName);
+    } else if (searchQuery.sort === "Price-asc") {
+      return a.productPrice - b.productPrice;
+    } else if (searchQuery.sort === "Price-desc") {
+      return b.productPrice - a.productPrice;
+    } else {
+      return filteredProductsBySearch;
+    }
+  });
 
   const browseDisplay = [
     {
@@ -57,11 +88,12 @@ function BrowseProductsPage({ products, category = null }) {
           key={0}
           component={
             <PopularProducts
-              productsData={filteredProductsBySearch}
+              productsData={sortedProducts}
               searchValue={searchValue}
               showAll={showAll}
             />
           }
+          searchQuery={searchQuery}
           message={"Current most popular products"}
           type={"popular"}
           showAll={showAll}
@@ -75,11 +107,12 @@ function BrowseProductsPage({ products, category = null }) {
           key={1}
           component={
             <BrowseProducts
-              productsData={filteredProductsBySearch}
+              productsData={sortedProducts}
               searchValue={searchValue}
               showAll={showAll}
             />
           }
+          searchQuery={searchQuery}
           message={"Browse products"}
           type={"all"}
           showAll={showAll}
@@ -93,11 +126,12 @@ function BrowseProductsPage({ products, category = null }) {
           key={2}
           component={
             <NewestProducts
-              productsData={filteredProductsBySearch}
+              productsData={sortedProducts}
               searchValue={searchValue}
               showAll={showAll}
             />
           }
+          searchQuery={searchQuery}
           message={"Newest products"}
           type={"newest"}
           showAll={showAll}
@@ -105,7 +139,7 @@ function BrowseProductsPage({ products, category = null }) {
       ),
     },
   ].sort((a, b) => {
-    const order = searchParams.get("order");
+    const order = searchQuery.order;
 
     if (a.orderValue === order && b.orderValue !== order) {
       return -1;
@@ -143,6 +177,8 @@ function BrowseProductsPage({ products, category = null }) {
         <div className="cursor-pointer bg-gray-100 shadow-lg group ml-2 p-1 mb-2 sm:mb-0 border border-black rounded-xl">
           <span className="flex items-center cursor-pointer text-sm sm:text-xl">
             Categories
+            {searchQuery.category !== "null" &&
+              ": " + searchQuery.category.replaceAll("-", " ")}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 m-auto"
@@ -160,22 +196,82 @@ function BrowseProductsPage({ products, category = null }) {
           </span>
           <div className="z-50 hidden absolute text-md group-hover:flex flex-col bg-white border border-gray-300 rounded-md mt-1 shadow-lg w-40">
             <Link
-              href="/browse/home-supplies"
+              href={`/browse?order=${searchQuery.order}&category=null&sort=${searchQuery.sort}`}
+              className="px-4 py-2 hover:bg-gray-200 rounded-t-md"
+            >
+              All
+            </Link>
+            <Link
+              href={`/browse?order=${searchQuery.order}&category=home-supplies&sort=${searchQuery.sort}`}
               className="px-4 py-2 hover:bg-gray-200 rounded-t-md"
             >
               Home appliances
             </Link>
             <Link
-              href="/browse/workouts"
+              href={`/browse?order=${searchQuery.order}&category=workouts&sort=${searchQuery.sort}`}
               className="px-4 py-2 hover:bg-gray-200"
             >
               Workouts
             </Link>
             <Link
-              href="/browse/cleaning-supplies"
+              href={`/browse?order=${searchQuery.order}&category=cleaning-supplies&sort=${searchQuery.sort}`}
               className="px-4 py-2 hover:bg-gray-200 rounded-b-md"
             >
               Cleaning supplies
+            </Link>
+          </div>
+        </div>
+
+        <div className="cursor-pointer bg-gray-100 shadow-lg group ml-2 p-1 mb-2 sm:mb-0 border border-black rounded-xl">
+          <span className="flex items-center cursor-pointer text-sm sm:text-xl">
+            Sort
+            {searchQuery.sort !== "null" &&
+              ": " + searchQuery.sort.split("-")[0]}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 m-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </span>
+          <div className="z-50 hidden absolute text-md group-hover:flex flex-col bg-white border border-gray-300 rounded-md mt-1 shadow-lg w-40">
+            <Link
+              href={`/browse?order=${searchQuery.order}&category=${searchQuery.category}&sort=null`}
+              className="px-4 py-2 hover:bg-gray-200 rounded-t-md"
+            >
+              Default
+            </Link>
+            <Link
+              href={`/browse?order=${searchQuery.order}&category=${searchQuery.category}&sort=Alphabetically-desc`}
+              className="px-4 py-2 hover:bg-gray-200 rounded-t-md"
+            >
+              A-Z (Alphabetically)
+            </Link>
+            <Link
+              href={`/browse?order=${searchQuery.order}&category=${searchQuery.category}&sort=Alphabetically-asc`}
+              className="px-4 py-2 hover:bg-gray-200"
+            >
+              Z-A (Alphabetically)
+            </Link>
+            <Link
+              href={`/browse?order=${searchQuery.order}&category=${searchQuery.category}&sort=Price-asc`}
+              className="px-4 py-2 hover:bg-gray-200 rounded-b-md"
+            >
+              Price (Cheapest first)
+            </Link>
+            <Link
+              href={`/browse?order=${searchQuery.order}&category=${searchQuery.category}&sort=Price-desc`}
+              className="px-4 py-2 hover:bg-gray-200 rounded-b-md"
+            >
+              Price (Expensive first)
             </Link>
           </div>
         </div>

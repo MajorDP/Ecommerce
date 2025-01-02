@@ -31,7 +31,10 @@ function NavOptions() {
           <Link className="underline-animation m-auto" href="/">
             Home
           </Link>
-          <Link className="underline-animation m-auto" href="/browse">
+          <Link
+            className="underline-animation m-auto"
+            href="/browse?order=null&category=null&sort=null"
+          >
             Browse
           </Link>
           <Link className="underline-animation m-auto" href="/account/user">
