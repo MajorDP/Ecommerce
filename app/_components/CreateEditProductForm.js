@@ -8,6 +8,7 @@ import OptionsSelector from "./OptionsSelector";
 
 function CreateEditProductForm({ product = null }) {
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState(
     product !== null ? product?.productImg[0] : null
   );
@@ -16,9 +17,9 @@ function CreateEditProductForm({ product = null }) {
     product?.options ? product.options : []
   );
 
-  console.log(options);
   async function handleSubmit(event) {
     event.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(event.target);
 
     const isValid = options.every(
@@ -40,7 +41,7 @@ function CreateEditProductForm({ product = null }) {
         typeof image === "string" ? image : formData.get("productImg"),
       ],
     };
-    console.log(productObj);
+
     product === null
       ? await postProduct(productObj)
       : await editProduct(productObj, product?.id);
@@ -74,6 +75,7 @@ function CreateEditProductForm({ product = null }) {
             <input
               name="productName"
               type="text"
+              required={true}
               defaultValue={product?.productName || ""}
               placeholder="Tennis racket..."
               className="border border-slate-400 rounded-md px-4 py-2 shadow-sm focus:ring-2 focus:ring-slate-500 focus:outline-none transition w-fit"
@@ -87,6 +89,7 @@ function CreateEditProductForm({ product = null }) {
               id="price"
               name="productPrice"
               type="number"
+              required={true}
               defaultValue={product?.productPrice || ""}
               placeholder="22.00$..."
               className="border border-slate-400 rounded-md px-4 py-2 shadow-sm focus:ring-2 focus:ring-slate-500 focus:outline-none transition w-fit"
@@ -148,6 +151,7 @@ function CreateEditProductForm({ product = null }) {
                 id="productImg"
                 name="productImg"
                 type="file"
+                required={true}
                 defaultValue={image || ""}
                 accept="image/*"
                 onChange={(e) => {
@@ -203,10 +207,15 @@ function CreateEditProductForm({ product = null }) {
           Cancel
         </Link>
         <button
+          disabled={isLoading}
           type="submit"
           className="border mt-8 p-2 border-black rounded-xl bg-green-400 text-black text-xl font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
         >
-          {product === null ? "List product" : "Edit product"}
+          {isLoading
+            ? "Please wait..."
+            : product === null
+            ? "List product"
+            : "Edit product"}
         </button>
       </div>
     </form>
