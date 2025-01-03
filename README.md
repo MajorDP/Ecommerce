@@ -1,38 +1,74 @@
-Next.js Ecommerce website
+# Ecomms - Next.js E-commerce Website 🛍️
 
-Ecomms is an imaginary company located in Bulgaria, which sells their products on their own website,
+Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users can browse and purchase products. It also supports a **partnership program** that enables users to list their own products. The platform is built with Next.js for seamless performance and scalability.
 
-- users can sign in/up;
+---
 
-- browse the products listed
+## 🌟 Features
 
-Users can:
+### **General**
 
-- Search through the products via different filters
-- Place orders on certain products, supplying the company with information needed to deliver the ordered products (address, phone, etc.)
-- Track their orders' status through their account
-- Track their purchases
-- Track their sales (if the user is "partnered" with the imaginary company)
+- **User Authentication**: Users can **sign in** or **sign up** to access features.
+- **Product Browsing**: Explore and filter products with ease.
 
-* Users can become "partnered" with the imaginary company, allowing them to list their own products on the website
+### **Users' Capabilities**
 
-* Users' oders will be confirmed/rejected through an admin application for tracking and validating or rejecting orders(soon-to-be in-the-making)
+1. **Search and Filter Products**:
+   - Use advanced filters (category, price, etc.) for precise searches.
+2. **Place Orders**:
+   - Provide delivery details (address, phone, etc.) during checkout.
+3. **Track Orders**:
+   - Monitor order statuses directly in user accounts.
+4. **Track Purchases**:
+   - View purchase history at any time.
+5. **Partner Program**:
+   - Partnered users can list their own products with details like variations (color, size, etc.).
 
-_CURRENTLY WORKING ON:_
+---
 
-- Updates to listing a product
+## ✨ Latest Changes
 
-* Next changes:
-  1- Sign in via google
+- **Product Variations**:
+  - Partners can now list products with variations (e.g., color, size) and include pictures.
+- **Responsive Design**:
+  - Fully optimized for both **phones** and **laptops**.
+- **URL-Based Filtering**:
+  - Added URL parameter-based sorting, searching, and category filtering.
+- **User Account Updates**:
+  - Users can update their **username**, **email**, or **password** with verification.
+- **Partnership Program**:
+  - Approved users can list, edit, or delete their own products.
+- **Route Protection**:
+  - Secured routes for browsing and account management.
 
-_NEWEST CHANGES:_
+---
 
-- URL parameters-based filtering functionality for products via sort value, search value and category
-- Added responsive design for phones/laptops
-- users can now change their username, email or password - verification with old credentials needed
-- added "partnership program", allowwing accepted users as "partners" to be able to list products on the website
-- added route protection for browsing products and account pages
-- users can now edit their own products
-- users can now delete their own products from the store
-- users can now see their listed products
-- implemented posting of products
+## 🔧 Currently Working On
+
+- **Responsive Design**:
+  - Pages `/browse/product/post` and `/browse/product/edit` are being optimized for responsiveness.
+- **Google Sign-In**:
+  - Adding Google OAuth for a seamless sign-in experience.
+
+---
+
+## 🚀 Upcoming Features
+
+- **Admin Application**:
+  - Admins will manage and validate user orders (confirm/reject).
+- **Enhanced Tracking**:
+  - Users will be able to better track their sales if partnered with Ecomms.
+
+---
+
+## 📋 Summary of Functionality
+
+| Feature                      | Status         |
+| ---------------------------- | -------------- |
+| User Authentication          | ✅ Completed   |
+| Product Browsing & Filtering | ✅ Completed   |
+| Placing and Tracking Orders  | ✅ Completed   |
+| Partnership Program          | ✅ Completed   |
+| Responsive Design            | 🚧 In Progress |
+| Google Sign-In               | 🚧 In Progress |
+| Admin Order Management       | 🛠️ Planned     |

@@ -44,55 +44,11 @@ export async function getProduct(id) {
 export async function deleteProduct(id) {
   const { error } = await supabase.from("products").delete().eq("id", id);
 
-  window.location.href = "/browse";
-}
-
-export async function postProduct(product) {
-  const currentUser = await getCurrentUser();
-
-  //UPLOADING PRODUCT IMAGE TO SUPABASE:
-
-  //imageName for supabase's storage bucket and imagePath for the link to the image in products table
-  const imageName = `${Math.random()}-${product.productImg.name}`.replaceAll(
-    "/",
-    ""
-  );
-
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
-  const { error: storageError } = supabase.storage
-    .from("productImages")
-    .upload(imageName, product.productImg);
-
-  //if the image isnt posted, don't post the product (PRODUCTS WITHOUT IMAGE CANNOT EXIST)
-  if (storageError) {
-    console.log("ERROR UPLOADING IMAGE: ", storageError.message);
-    return;
-  }
-
-  //posting product
-  const { data, error } = await supabase
-    .from("products")
-    .insert({
-      ...product,
-      productImg: [imagePath],
-      productRating: 0,
-      listedBy: currentUser.user.id,
-    })
-    .select()
-    .single();
-
-  if (error) {
-    console.log("ERROR: ", error);
-    return;
-  }
-
-  //time for image posting query to take effect so that the image of the product can be visualized properly on page change
-  setTimeout(() => {
-    window.location.href = `/browse/product/${data.id}`;
-  }, 200);
+  window.location.href = "/browse?order=null&category=null&sort=null";
 }
 
 export async function editProduct(newProduct, id) {
+  console.log(newProduct);
   //UPLOADING PRODUCT IMAGE TO SUPABASE:
 
   // imageName for supabase's storage bucket and imagePath for the link to the image in products table
@@ -112,18 +68,45 @@ export async function editProduct(newProduct, id) {
       return;
     }
 
-    const { data, error } = await supabase
-      .from("products")
-      .update({ ...newProduct, productImg: [imagePath] })
-      .eq("id", id)
-      .select();
-  } else {
-    const { data, error } = await supabase
-      .from("products")
-      .update({ ...newProduct, productImg: [newProduct.productImg[0]] })
-      .eq("id", id)
-      .select();
+    newProduct.productImg[0] = imagePath;
   }
+
+  //UPDATING OPTIONS
+  const updatedOptions = newProduct.options.map(async (option) => {
+    if (typeof option.img !== "string") {
+      const optionImageName = `${Math.random()}-${option.img.name}`.replaceAll(
+        "/",
+        ""
+      );
+      const optionImagePath = `${supabaseUrl}/storage/v1/object/public/productOptionsImages/${optionImageName}`;
+
+      // Upload image for the option
+      const { error: optionStorageError } = await supabase.storage
+        .from("productOptionsImages")
+        .upload(optionImageName, option.img);
+
+      if (optionStorageError) {
+        console.log(
+          "ERROR UPLOADING OPTION IMAGE: ",
+          optionStorageError.message
+        );
+        return;
+        //NO OPTION ADDED IN CASE OF ERROR
+      }
+
+      return { ...option, img: optionImagePath };
+    }
+    return option;
+  });
+
+  newProduct.options = await Promise.all(updatedOptions); //AWAITING ALL IMAGE POSTS (IF ANY)
+
+  console.log(newProduct);
+  const { data, error } = await supabase
+    .from("products")
+    .update({ ...newProduct })
+    .eq("id", id)
+    .select();
 
   setTimeout(() => {
     window.location.href = `/browse/product/${id}`;
@@ -144,4 +127,100 @@ export async function submitOrder(order) {
   console.log("SUBMITTED");
 
   return data;
+}
+
+export async function postImg(imageFile) {
+  const imageName = `${Math.random()}-${imageFile.name}`.replaceAll("/", "");
+  const imagePath = `${supabaseUrl}/storage/v1/object/public/productOptionsImages/${imageName}`;
+
+  const { error: storageError } = supabase.storage
+    .from("productImages")
+    .upload(imageName, imageFile);
+
+  //if the image isnt posted, don't post the product (PRODUCTS WITHOUT IMAGE CANNOT EXIST)
+  if (storageError) {
+    console.log("ERROR UPLOADING OPTIONS IMAGES: ", storageError.message);
+    return;
+  }
+}
+
+export async function postProduct(product) {
+  const currentUser = await getCurrentUser();
+
+  console.log(product);
+
+  // imageName for supabase's storage bucket and imagePath for the link to the image in products table
+  const imageName = `${Math.random()}-${product.productImg.name}`.replaceAll(
+    "/",
+    ""
+  );
+  const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
+
+  const { error: storageError } = await supabase.storage
+    .from("productImages")
+    .upload(imageName, product.productImg[0]);
+
+  // If the product image isn't posted, don't post the product (PRODUCTS WITHOUT IMAGE CANNOT EXIST)
+  if (storageError) {
+    console.log("ERROR UPLOADING IMAGE: ", storageError.message);
+    return;
+  }
+
+  let optionImagePaths = [];
+
+  if (product.options.length > 0) {
+    const uploadedImagePaths = product.options.map(async (option) => {
+      const optionImageName = `${Math.random()}-${option.img.name}`.replaceAll(
+        "/",
+        ""
+      );
+      const optionImagePath = `${supabaseUrl}/storage/v1/object/public/productOptionsImages/${optionImageName}`;
+
+      const { error: optionStorageError } = await supabase.storage
+        .from("productOptionsImages")
+        .upload(optionImageName, option.img);
+
+      // If the option image isnt uploaded, skip adding it to the list
+      if (optionStorageError) {
+        console.log(
+          "ERROR UPLOADING OPTION IMAGE: ",
+          optionStorageError.message
+        );
+        return;
+      }
+
+      return {
+        type: option.type,
+        index: option.index,
+        img: optionImagePath,
+      };
+    });
+
+    // Wait for all upload promises to resolve
+    optionImagePaths = await Promise.all(uploadedImagePaths); // FILTERING OUT ALL NULL OPTIONS (FAILED IMAGE UPLOADS)
+  }
+
+  // Posting the product with the uploaded images and option paths
+  const { data, error } = await supabase
+    .from("products")
+    .insert({
+      ...product,
+      productImg: [imagePath], // Product's main image path
+      productRating: 0,
+      listedBy: currentUser.user.id,
+      options: optionImagePaths,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    console.log("ERROR: ", error);
+    return;
+  }
+  console.log(data);
+
+  // time for image posting query to take effect so that the image of the product can be visualized properly on page change
+  setTimeout(() => {
+    window.location.href = `/browse/product/${data.id}`;
+  }, 200);
 }

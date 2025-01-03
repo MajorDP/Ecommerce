@@ -9,6 +9,7 @@ import { initCart } from "../_lib/_api/cart";
 function OrderForm({ handleSubmit }) {
   const [user, setUser] = useState(null);
   const [value, setValue] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(function () {
     async function getUser() {
       const user = await getCurrentUser();
@@ -19,9 +20,18 @@ function OrderForm({ handleSubmit }) {
     getUser();
   }, []);
 
+  async function onSubmit(event) {
+    setIsLoading(true);
+    try {
+      await handleSubmit(event);
+    } catch (error) {
+      console.log(error.message);
+      return;
+    }
+  }
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       className="flex flex-col items-center justify-center border-1 border-black p-5 text-xl w-full max-w-md"
     >
       {/* Full Name Field */}
@@ -114,8 +124,11 @@ function OrderForm({ handleSubmit }) {
       </div>
 
       {/* Submit Button */}
-      <button className="border-2 border-black rounded-md bg-orange-300 mt-5 w-[80%] sm:w-[40%] text-xl py-2 text-black hover:bg-orange-400 transition-all duration-300 ease-in-out">
-        Submit order
+      <button
+        disabled={isLoading}
+        className="border-2 border-black rounded-md bg-orange-300 mt-5 w-[80%] sm:w-[40%] text-xl py-2 text-black hover:bg-orange-400 transition-all duration-300 ease-in-out"
+      >
+        {isLoading ? "Submitting..." : "Submit order"}
       </button>
     </form>
   );

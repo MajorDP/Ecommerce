@@ -59,7 +59,7 @@ function CartDetails() {
           </p>
           <Link
             className="p-3 mt-6 border-2 border-black rounded-full bg-green-400 text-center text-black font-semibold hover:bg-green-500 hover:scale-105 transition-all duration-300 ease-in-out text-sm sm:text-base w-full sm:w-auto"
-            href="/browse"
+            href="/browse?order=null&category=null&sort=null"
           >
             Start by adding products.
           </Link>
