@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { supabase } from "./supabase";
+import { signIn } from "next-auth/react";
 
 export async function register(userData) {
   //check for existing user with email
   let { data: email, emailError } = await supabase
-    .from("userAccounts")
+    .from("userInfoEcoms")
     .select("email")
     .eq("email", userData.email);
 
@@ -19,7 +20,7 @@ export async function register(userData) {
 
   //check for existing user with username
   let { data: username, usernameError } = await supabase
-    .from("userAccounts")
+    .from("userInfoEcoms")
     .select("username")
     .eq("username", userData.username);
 
@@ -38,8 +39,6 @@ export async function register(userData) {
   });
 
   if (error) {
-    console.log("ERROR:");
-    console.log(error.message);
     return {
       data: username,
       error: {
@@ -82,6 +81,7 @@ export async function signout() {
   window.location.href = "/";
 }
 
+//Supabase client-side function for retrieving user data
 export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
 
@@ -93,6 +93,7 @@ export async function getCurrentUser() {
   return data;
 }
 
+//User credentials info
 export async function getUserInfo(id) {
   const { data: userData, error: userDataError } =
     await supabase.auth.getUser();
@@ -110,7 +111,8 @@ export async function getUserInfo(id) {
   return userInfo;
 }
 
-export async function getUserSalesInfo(id) {
+//Sales, purchases and orders of user
+export async function getUserSales(id) {
   let { data: userSalesInfo, error } = await supabase
     .from("sales")
     .select("*")
@@ -192,6 +194,7 @@ export async function getOrder(id) {
   return order;
 }
 
+//Partnership
 export async function requestPartnership(userData) {
   const { data, error } = await supabase
     .from("partnershipRequests")
@@ -204,25 +207,6 @@ export async function requestPartnership(userData) {
   }
 
   return data;
-}
-
-export async function checkForPartnerShip() {
-  const user = await getCurrentUser();
-
-  if (user.user.id) {
-    let { data: partnership, error } = await supabase
-      .from("partnershipRequests")
-      .select("*")
-      .eq("userId", user.user.id)
-      .single();
-
-    if (error) {
-      console.log("ERROR CHECKING PARTNERSHIP: ", error.message);
-      return null;
-    }
-
-    return partnership;
-  }
 }
 
 export async function revokePartnership() {
@@ -239,8 +223,30 @@ export async function revokePartnership() {
     }
   }
 }
+
+export async function checkForPartnerShip() {
+  const user = await getCurrentUser();
+
+  if (user.user.id) {
+    const { data: partnership, error } = await supabase
+      .from("partnershipRequests")
+      .select("*")
+      .eq("userId", user.user.id)
+      .single()
+      .limit(1); // Fetch at most one row, rather than requiring exactly one
+
+    console.log(partnership);
+    if (error) {
+      console.log(error.message);
+      return null;
+    }
+
+    return partnership;
+  }
+}
+
+//User credentials
 export async function updateEmail(currentUser, oldEmail, newEmail) {
-  console.log(newEmail);
   try {
     const { data: userEmail, error: error1 } = await supabase
       .from("userInfoEcoms")
@@ -294,7 +300,6 @@ export async function updatePassword(email, oldPass, newPass) {
     email: email,
     password: oldPass,
   });
-  console.log(email, oldPass);
 
   if (error) {
     return {
@@ -315,7 +320,7 @@ export async function updatePassword(email, oldPass, newPass) {
       error: { message: "Failed to update password." },
     };
   }
-  console.log("YES");
+
   return { data, error: null };
 }
 

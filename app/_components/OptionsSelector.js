@@ -4,24 +4,24 @@ function OptionsSelector({ options, setOptions }) {
   if (options.length === 0) return <div></div>;
 
   return (
-    <div className="grid grid-cols-2 border border-slate-400 rounded-md px-4 py-2 shadow-sm w-full focus:ring-2 focus:ring-slate-500 focus:outline-none transition overflow-y-scroll h-[20rem]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 border border-slate-400 rounded-md px-4 py-2 shadow-sm w-full focus:ring-2 focus:ring-slate-500 focus:outline-none transition overflow-y-scroll h-[20rem]">
       {options.map((option, index) => (
         <div
           key={option.index} // Use a unique ID as the key
-          className="flex flex-col w-[90%] h-[20rem] justify-center"
+          className="flex flex-col w-full sm:w-[90%] h-[20rem] justify-center mb-6 sm:mb-0"
         >
           <div className="flex flex-col">
-            <div className="flex flex-row justify-between mb-1">
+            <div className="flex flex-row justify-between mb-2">
               <label
                 htmlFor={`type${index}`}
-                className="mb-2 text-slate-700 font-medium"
+                className="mb-2 text-slate-700 font-medium text-sm sm:text-base"
               >
                 Type
               </label>
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  //filtering out the removed option and resetting indexes
+                  // filtering out the removed option and resetting indexes
                   setOptions((prevOptions) => {
                     const newOptions = prevOptions.filter(
                       (currOption) => currOption.index !== option.index
@@ -33,7 +33,7 @@ function OptionsSelector({ options, setOptions }) {
                     }));
                   });
                 }}
-                className="bg-red-400 px-3 py-0 border border-slate-400 rounded-md"
+                className="bg-red-400 px-3 py-0 border border-slate-400 rounded-md text-white text-xs sm:text-sm"
               >
                 X
               </button>
@@ -56,14 +56,17 @@ function OptionsSelector({ options, setOptions }) {
               }}
             />
           </div>
-          <div className="flex flex-col pt-2">
-            <label htmlFor="img" className="mb-2 text-slate-700 font-medium">
+          <div className="flex flex-col pt-4">
+            <label
+              htmlFor="img"
+              className="mb-2 text-slate-700 font-medium text-sm sm:text-base"
+            >
               Image
             </label>
-            <div className="w-[100%] h-[10rem] flex flex-col items-center justify-center">
+            <div className="w-full h-[12rem] sm:h-[10rem] flex flex-col items-center justify-center">
               <label
                 htmlFor={`typeImg${index}`}
-                className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-slate-400 rounded-lg p-10 shadow-sm bg-slate-100 cursor-pointer"
+                className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-slate-400 rounded-lg shadow-sm bg-slate-100 cursor-pointer"
               >
                 {option.img ? (
                   <img
@@ -76,7 +79,7 @@ function OptionsSelector({ options, setOptions }) {
                     className="w-full h-full object-contain object-center rounded-md"
                   />
                 ) : (
-                  <span className="text-slate-500 text-center">
+                  <span className="text-slate-500 text-center text-xs sm:text-sm">
                     Upload image
                   </span>
                 )}

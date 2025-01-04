@@ -66,8 +66,8 @@ function CreateEditProductForm({ product = null }) {
 
   return (
     <form onSubmit={handleSubmit} className="w-full flex flex-col items-center">
-      <div className="flex flex-row justify-between w-[80%] gap-8">
-        <div className="flex flex-col text-lg w-[50%] pl-10">
+      <div className="flex flex-col sm:flex-row justify-between w-full gap-8 sm:w-[90%] lg:w-[80%] mx-auto">
+        <div className="flex flex-col w-full sm:w-[48%]">
           <div className="flex flex-col mb-6">
             <label htmlFor="name" className="mb-2 text-slate-700 font-medium">
               Name
@@ -78,7 +78,7 @@ function CreateEditProductForm({ product = null }) {
               required={true}
               defaultValue={product?.productName || ""}
               placeholder="Tennis racket..."
-              className="border border-slate-400 rounded-md px-4 py-2 shadow-sm focus:ring-2 focus:ring-slate-500 focus:outline-none transition w-fit"
+              className="border border-slate-400 rounded-md px-4 py-2 shadow-sm focus:ring-2 focus:ring-slate-500 focus:outline-none transition w-full"
             />
           </div>
           <div className="flex flex-col mb-6">
@@ -92,12 +92,12 @@ function CreateEditProductForm({ product = null }) {
               required={true}
               defaultValue={product?.productPrice || ""}
               placeholder="22.00$..."
-              className="border border-slate-400 rounded-md px-4 py-2 shadow-sm focus:ring-2 focus:ring-slate-500 focus:outline-none transition w-fit"
+              className="border border-slate-400 rounded-md px-4 py-2 shadow-sm focus:ring-2 focus:ring-slate-500 focus:outline-none transition w-full"
             />
           </div>
           <div className="flex flex-col mb-6">
             <label htmlFor="desc" className="mb-2 text-slate-700 font-medium">
-              Options{" "}
+              Options
               <button
                 className="border border-slate-400 rounded-md px-2 bg-slate-100 text-center"
                 onClick={(e) => {
@@ -114,7 +114,8 @@ function CreateEditProductForm({ product = null }) {
             <OptionsSelector options={options} setOptions={setOptions} />
           </div>
         </div>
-        <div className="w-[50%] flex flex-col items-center">
+
+        <div className="flex flex-col w-full sm:w-[48%] items-center">
           <div className="flex flex-col mb-6 w-full">
             <label htmlFor="desc" className="mb-2 text-slate-700 font-medium">
               Description
@@ -139,10 +140,11 @@ function CreateEditProductForm({ product = null }) {
               name="categories"
             />
           </div>
+
           {image === null ? (
             <label
               htmlFor="productImg"
-              className="flex flex-col items-center justify-center w-full h-[20rem] border-2 border-dashed border-slate-400 rounded-lg p-10 shadow-sm bg-slate-100 cursor-pointer "
+              className="flex flex-col items-center justify-center w-full h-[20rem] sm:h-[15rem] md:h-[25rem] lg:h-[30rem] border-2 border-dashed border-slate-400 rounded-lg shadow-sm bg-slate-100 cursor-pointer"
             >
               <span className="text-slate-500 text-center">
                 Click here to upload image
@@ -152,7 +154,6 @@ function CreateEditProductForm({ product = null }) {
                 name="productImg"
                 type="file"
                 required={true}
-                defaultValue={image || ""}
                 accept="image/*"
                 onChange={(e) => {
                   setImage(
@@ -168,14 +169,14 @@ function CreateEditProductForm({ product = null }) {
           ) : (
             <label
               htmlFor="productImg"
-              className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-slate-400 rounded-lg p-10 shadow-sm bg-slate-100 cursor-pointer"
+              className="flex flex-col items-center justify-center w-full h-[20rem] sm:h-[15rem] md:h-[25rem] lg:h-[30rem] border-2 border-dashed border-slate-400 rounded-lg p-10 shadow-sm bg-slate-100 cursor-pointer"
             >
               <img
                 src={
                   typeof image === "string" ? image : URL.createObjectURL(image)
                 }
-                alt="Please choose a valid image."
-                className="max-h-[300px] max-w-[400px] object-contain mb-4 rounded-md"
+                alt="Product image preview"
+                className="max-h-full max-w-full object-contain mb-4 rounded-md"
               />
               <input
                 id="productImg"
@@ -196,20 +197,22 @@ function CreateEditProductForm({ product = null }) {
           )}
         </div>
       </div>
+
       <p className="mt-2 text-red-700 font-semibold">
         {error !== null && error}
       </p>
-      <div className="flex flex-row w-[20%] justify-between ">
+
+      <div className="flex flex-col sm:flex-row w-full justify-center text-center mt-8 gap-4">
         <Link
           href={product === null ? "/browse" : `/browse/product/${product.id}`}
-          className="border mt-8 p-2 border-black rounded-xl bg-red-400 text-black text-xl font-semibold hover:bg-red-500 transition-all duration-300 ease-in-out"
+          className="border p-2 border-black rounded-xl bg-red-400 text-black text-xl font-semibold hover:bg-red-500 transition-all duration-300 ease-in-out"
         >
           Cancel
         </Link>
         <button
           disabled={isLoading}
           type="submit"
-          className="border mt-8 p-2 border-black rounded-xl bg-green-400 text-black text-xl font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
+          className="border p-2 border-black rounded-xl bg-green-400 text-black text-xl font-semibold hover:bg-green-500 transition-all duration-300 ease-in-out"
         >
           {isLoading
             ? "Please wait..."

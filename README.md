@@ -28,6 +28,8 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
 
 ## ✨ Latest Changes
 
+- **Responsive Design**:
+  - Pages `/browse/product/post` and `/browse/product/edit` are being optimized for responsiveness.
 - **Product Variations**:
   - Partners can now list products with variations (e.g., color, size) and include pictures.
 - **Responsive Design**:
@@ -45,10 +47,7 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
 
 ## 🔧 Currently Working On
 
-- **Responsive Design**:
-  - Pages `/browse/product/post` and `/browse/product/edit` are being optimized for responsiveness.
-- **Google Sign-In**:
-  - Adding Google OAuth for a seamless sign-in experience.
+- **Minor fixes throughout the app**
 
 ---
 

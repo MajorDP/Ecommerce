@@ -1,6 +1,6 @@
 "use client";
 import SaleCard from "@/app/_components/SaleCard";
-import { getCurrentUser, getUserSalesInfo } from "@/app/_lib/_api/userServices";
+import { getCurrentUser, getUserSales } from "@/app/_lib/_api/userServices";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 
@@ -12,7 +12,7 @@ function Page() {
   useEffect(function () {
     async function getSales() {
       const user = await getCurrentUser();
-      const userSalesInfo = await getUserSalesInfo(user.user.id);
+      const userSalesInfo = await getUserSales(user.user.id);
       setUserSalesData(userSalesInfo);
     }
     getSales();

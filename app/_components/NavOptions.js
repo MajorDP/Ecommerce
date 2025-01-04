@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCurrentUser } from "../_lib/_api/userServices";
 import Spinner from "./Spinner";
 

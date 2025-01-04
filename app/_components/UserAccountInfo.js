@@ -8,7 +8,7 @@ import { getCurrentUser, getUserInfo } from "../_lib/_api/userServices";
 function UserAccountInfo() {
   const [isModalOpen, setIsModalOpen] = useState(null);
   const [userData, setUserData] = useState(null);
-  console.log(userData);
+
   useEffect(function () {
     async function getUser() {
       const userData = await getUserInfo();
