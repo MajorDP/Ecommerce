@@ -1,6 +1,7 @@
 import ButtonActions from "@/app/_components/_buttons/ButtonActions";
 import ProductRatingSetter from "@/app/_components/_products/ProductRatingSetter";
 import ProductImgSlider from "@/app/_components/ProductImgSlider";
+import Spinner from "@/app/_components/Spinner";
 import TypeSelector from "@/app/_components/TypeSelector";
 import { getProduct } from "@/app/_lib/_api/productServices";
 import muay1 from "@/public/muay1.png";
@@ -13,7 +14,7 @@ async function Page({ params }) {
   const product = await getProduct(params.id);
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<Spinner />}>
       <div className="flex flex-col lg:flex-row justify-around px-4">
         <ProductImgSlider product={product} />
         <div className="w-full lg:w-1/2 my-auto space-y-4">
