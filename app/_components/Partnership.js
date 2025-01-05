@@ -9,7 +9,7 @@ function Partnership() {
   const [partnership, setPartnership] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(partnership?.isAccepted);
+
   useEffect(function () {
     async function checkPartnerShip() {
       const data = await checkForPartnerShip();

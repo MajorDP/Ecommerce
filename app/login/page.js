@@ -1,6 +1,11 @@
 import Link from "next/link";
 import LoginForm from "../_components/_userAuth/LoginForm";
 
+export const metadata = {
+  title: "Sign in",
+  description: "Sing into Ecomms and browse all kinds of products.",
+};
+
 function Page() {
   return (
     <div className=" rounded-3xl p-4 bg-slate-300 flex flex-col items-center w-[90%] sm:w-[50%] m-auto ">

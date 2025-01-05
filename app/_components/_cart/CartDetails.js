@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { initCart, removeFromCart } from "../_lib/_api/cart";
+import { initCart, removeFromCart } from "../../_lib/_api/cart";
 import CartCard from "./CartCard";
-import ToastMessage from "./ToastMessage";
+import ToastMessage from "../ToastMessage";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
@@ -32,7 +32,6 @@ function CartDetails() {
 
   return (
     <div>
-      {/* Cart Summary and Checkout Button */}
       {cart.length > 0 && (
         <div className="w-full sm:w-[50%] m-auto flex flex-col items-center justify-center">
           <p className="text-xl mb-2">Your total: {totalCost}$</p>
@@ -45,7 +44,6 @@ function CartDetails() {
         </div>
       )}
 
-      {/* Cart Items */}
       {cart.length > 0 ? (
         <ul className="flex flex-wrap justify-center items-center gap-4 text-ellipsis whitespace-nowrap overflow-x-hidden max-h-[70vh] overflow-y-auto">
           {cart.map((product, index) => (

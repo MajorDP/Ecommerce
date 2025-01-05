@@ -15,12 +15,8 @@ async function Page({ params }) {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <div className="flex flex-col lg:flex-row justify-around px-4">
-        {/* Product Image Slider */}
         <ProductImgSlider product={product} />
-
-        {/* Product Info Section */}
         <div className="w-full lg:w-1/2 my-auto space-y-4">
-          {/* Shipping Fee */}
           <p className="border border-black p-3 bg-slate-100 rounded-lg text-sm">
             {product.shippingFee === null ? (
               <span className="text-green-500 font-semibold">
@@ -36,7 +32,6 @@ async function Page({ params }) {
             )}
           </p>
 
-          {/* Product Info Section */}
           <div className="border border-black p-4 bg-slate-100 rounded-lg space-y-4">
             <div className="pb-2">
               <span className="text-xl font-semibold text-black break-words hyphens-auto block">
@@ -45,7 +40,6 @@ async function Page({ params }) {
               <ProductRatingSetter product={product} />
             </div>
 
-            {/* Description */}
             {product.productDesc && (
               <p className="text-sm border-t border-black pt-2">
                 <span className="font-semibold">Description:</span>{" "}
@@ -53,7 +47,6 @@ async function Page({ params }) {
               </p>
             )}
 
-            {/* Type Selector */}
             <TypeSelector product={product} productOptions={product.options} />
           </div>
         </div>

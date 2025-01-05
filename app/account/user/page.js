@@ -8,7 +8,7 @@ async function Page() {
     <Suspense>
       <div className="h-full overflow-y-scroll">
         <Partnership />
-        <UserAccountInfo />;
+        <UserAccountInfo />
       </div>
     </Suspense>
   );

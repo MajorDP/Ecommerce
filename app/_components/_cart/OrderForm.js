@@ -1,10 +1,10 @@
 "use client";
 
+import { getCurrentUser, getUserInfo } from "@/app/_lib/_api/userServices";
 import { useEffect, useState } from "react";
-import { getCurrentUser, getUserInfo } from "../_lib/_api/userServices";
+
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { initCart } from "../_lib/_api/cart";
 
 function OrderForm({ handleSubmit }) {
   const [user, setUser] = useState(null);
@@ -32,10 +32,9 @@ function OrderForm({ handleSubmit }) {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col items-center justify-center border-1 border-black p-5 text-xl w-full max-w-md"
+      className="flex flex-col items-center justify-center border-1 border-black p-5 mt-2 text-xl w-full max-w-md lg:overflow-y-scroll lg:h-[83%]"
     >
-      {/* Full Name Field */}
-      <div className="flex flex-col items-center mb-4 w-full sm:w-[20rem]">
+      <div className="flex flex-col items-center mb-4 w-full sm:w-[20rem] mt-10">
         <label htmlFor="fullName" className="mb-1 text-sm sm:text-base">
           Full Name
         </label>
@@ -43,12 +42,11 @@ function OrderForm({ handleSubmit }) {
           name="fullName"
           id="fullName"
           className="p-2 border rounded w-full sm:w-[20rem]"
-          placeholder="Pavel Nikolov"
+          placeholder="Your full name here..."
           required
         />
       </div>
 
-      {/* Email Field */}
       <div className="flex flex-col items-center mb-4 w-full sm:w-[20rem]">
         <label htmlFor="email" className="mb-1 text-sm sm:text-base">
           Email Address
@@ -58,12 +56,11 @@ function OrderForm({ handleSubmit }) {
           id="email"
           defaultValue={user?.email}
           className="p-2 border rounded w-full sm:w-[20rem]"
-          placeholder="asura@abv.bg"
+          placeholder="Your email here..."
           required
         />
       </div>
 
-      {/* Physical Address Field */}
       <div className="flex flex-col items-center mb-4 w-full sm:w-[20rem]">
         <label htmlFor="physicalAddress" className="mb-1 text-sm sm:text-base">
           Physical Address
@@ -72,12 +69,11 @@ function OrderForm({ handleSubmit }) {
           name="physicalAddress"
           id="physicalAddress"
           className="p-2 border rounded w-full sm:w-[20rem]"
-          placeholder="Bul. Bulgaria 68"
+          placeholder="Your address here..."
           required
         />
       </div>
 
-      {/* Postal Code Field */}
       <div className="flex flex-col items-center mb-4 w-full sm:w-[20rem]">
         <label htmlFor="postalCode" className="mb-1 text-sm sm:text-base">
           Your Postal Code
@@ -86,12 +82,11 @@ function OrderForm({ handleSubmit }) {
           name="postalCode"
           id="postalCode"
           className="p-2 border rounded w-full sm:w-[20rem]"
-          placeholder="5000"
+          placeholder="Your postal code here..."
           required
         />
       </div>
 
-      {/* Phone Number Field */}
       <div className="flex flex-col justify-center items-center mb-4 w-full sm:w-[20rem] p-1 rounded">
         <label htmlFor="phone" className="mb-1 text-sm sm:text-base">
           Phone Number
@@ -107,7 +102,6 @@ function OrderForm({ handleSubmit }) {
         />
       </div>
 
-      {/* Payment Method Field */}
       <div className="flex flex-col items-center mb-4 w-full sm:w-[20rem]">
         <label htmlFor="wayOfPayment" className="mb-1 text-sm sm:text-base">
           Select way of payment
@@ -123,10 +117,9 @@ function OrderForm({ handleSubmit }) {
         </select>
       </div>
 
-      {/* Submit Button */}
       <button
         disabled={isLoading}
-        className="border-2 border-black rounded-md bg-orange-300 mt-5 w-[80%] sm:w-[40%] text-xl py-2 text-black hover:bg-orange-400 transition-all duration-300 ease-in-out"
+        className="border-2 border-black rounded-md bg-orange-300 w-[80%] sm:w-[40%] text-xl py-2 text-black hover:bg-orange-400 transition-all duration-300 ease-in-out"
       >
         {isLoading ? "Submitting..." : "Submit order"}
       </button>

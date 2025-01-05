@@ -9,31 +9,10 @@ import ProductCard from "./ProductCard";
 import ScrollableProductList from "./ScrollableProductList";
 import PaginatedProductList from "./PaginatedProductList";
 
-function PopularProducts({
-  productsData,
-  searchValue = "",
-  category = null,
-  showAll = true,
-}) {
-  const filteredProductsBySearch =
-    searchValue !== ""
-      ? productsData.filter((product) =>
-          product.productName.toLowerCase().includes(searchValue.toLowerCase())
-        )
-      : productsData;
-
-  const filteredProductsByCategory =
-    category !== null
-      ? category === "all"
-        ? filteredProductsBySearch
-        : filteredProductsBySearch
-            .slice()
-            .filter((product) => product.categories.includes(category))
-      : filteredProductsBySearch;
-
-  let sortedProductsByRating = filteredProductsByCategory
+function PopularProducts({ productsData, userId, showAll = true }) {
+  let sortedProductsByRating = productsData
     .filter((product) => product.productRating > 4.9)
-    .sort((a, b) => b.rating - a.rating);
+    .sort((a, b) => b.productRating - a.productRating);
 
   if (showAll === false) {
     sortedProductsByRating = sortedProductsByRating.slice(
@@ -45,9 +24,15 @@ function PopularProducts({
   return (
     <div className="relative">
       {showAll === false ? (
-        <ScrollableProductList products={sortedProductsByRating} />
+        <ScrollableProductList
+          products={sortedProductsByRating}
+          userId={userId}
+        />
       ) : (
-        <PaginatedProductList products={sortedProductsByRating} />
+        <PaginatedProductList
+          products={sortedProductsByRating}
+          userId={userId}
+        />
       )}
     </div>
   );

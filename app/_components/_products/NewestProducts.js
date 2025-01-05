@@ -9,20 +9,8 @@ import ProductCard from "./ProductCard";
 import ScrollableProductList from "./ScrollableProductList";
 import PaginatedProductList from "./PaginatedProductList";
 
-function NewestProducts({
-  productsData,
-  searchValue = "",
-  category = null,
-  showAll = true,
-}) {
-  const filteredProductsBySearch =
-    searchValue !== ""
-      ? productsData.filter((product) =>
-          product.productName.toLowerCase().includes(searchValue.toLowerCase())
-        )
-      : productsData;
-
-  let sortedProductsByDate = filteredProductsBySearch.sort((a, b) => {
+function NewestProducts({ productsData, userId, showAll = true }) {
+  let sortedProductsByDate = productsData.sort((a, b) => {
     const dateA = new Date(a.created_at);
     const dateB = new Date(b.created_at);
 
@@ -39,9 +27,12 @@ function NewestProducts({
   return (
     <div className="relative">
       {showAll === false ? (
-        <ScrollableProductList products={sortedProductsByDate} />
+        <ScrollableProductList
+          products={sortedProductsByDate}
+          userId={userId}
+        />
       ) : (
-        <PaginatedProductList products={sortedProductsByDate} />
+        <PaginatedProductList products={sortedProductsByDate} userId={userId} />
       )}
     </div>
   );

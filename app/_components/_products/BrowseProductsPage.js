@@ -2,20 +2,18 @@
 import Link from "next/link";
 import PopularProducts from "./PopularProducts";
 import BrowseProducts from "./BrowseProducts";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import NewestProducts from "./NewestProducts";
 import ProductBrowser from "./ProductBrowser";
 import { getUserInfo } from "@/app/_lib/_api/userServices";
 import { useRouter } from "next/navigation";
-
-// export const metadata = {
-//   title: "ass"
-// }
+import Spinner from "../Spinner";
 
 function BrowseProductsPage({ products }) {
   const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState({
@@ -24,9 +22,7 @@ function BrowseProductsPage({ products }) {
     sort: searchParams.get("sort"),
   });
 
-  console.log(searchQuery);
-
-  //if we press the Show all button inside the ProductBrowse component, we get a sortBy search param in the URL (==> sortBy !== null ==> ShowAll = true)
+  //if we press the Show all button inside the ProductBrowse component, we get an order search param in the URL (==> order !== "null" ==> ShowAll === true)
   const showAll = searchParams.get("order") !== "null";
 
   useEffect(
@@ -44,6 +40,7 @@ function BrowseProductsPage({ products }) {
     async function getUser() {
       const user = await getUserInfo();
       setUser(user);
+      setIsLoading(false);
     }
     getUser();
   }, []);
@@ -89,8 +86,8 @@ function BrowseProductsPage({ products }) {
           component={
             <PopularProducts
               productsData={sortedProducts}
-              searchValue={searchValue}
               showAll={showAll}
+              userId={user?.userId}
             />
           }
           searchQuery={searchQuery}
@@ -108,8 +105,8 @@ function BrowseProductsPage({ products }) {
           component={
             <BrowseProducts
               productsData={sortedProducts}
-              searchValue={searchValue}
               showAll={showAll}
+              userId={user?.userId}
             />
           }
           searchQuery={searchQuery}
@@ -127,8 +124,8 @@ function BrowseProductsPage({ products }) {
           component={
             <NewestProducts
               productsData={sortedProducts}
-              searchValue={searchValue}
               showAll={showAll}
+              userId={user?.userId}
             />
           }
           searchQuery={searchQuery}
@@ -145,12 +142,13 @@ function BrowseProductsPage({ products }) {
       return -1;
     }
     if (b.orderValue === order && a.orderValue !== order) {
-      return 1; // b comes first
+      return 1;
     }
   });
 
+  if (isLoading) return <Spinner />;
   return (
-    <div className="rounded-3xl p-4 bg-slate-300 flex flex-col items-center w-[90%] m-auto ">
+    <Suspense fallback={<Spinner />}>
       <div className="flex sm:flex-row flex-col items-center">
         <div className="relative w-54 mb-2 sm:mb-0">
           <input
@@ -285,15 +283,7 @@ function BrowseProductsPage({ products }) {
         )}
       </div>
       {browseDisplay.map((el) => el.component)}
-      {/* <PopularProducts
-          tempPopularProductsData={tempPopularProductsData}
-          searchValue={searchValue}
-          />
-          <BrowseProducts
-          tempProductsData={tempProductsData}
-          searchValue={searchValue}
-          /> */}
-    </div>
+    </Suspense>
   );
 }
 

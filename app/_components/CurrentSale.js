@@ -11,7 +11,6 @@ import DeleteBtn from "./_buttons/ButtonActions";
 import ButtonActions from "./_buttons/ButtonActions";
 import { formatDate } from "../_lib/helpers";
 function CurrentSale({ sale }) {
-  console.log(sale);
   const [imageIndex, setImageIndex] = useState(0);
 
   function changeImage(direction) {
@@ -34,7 +33,6 @@ function CurrentSale({ sale }) {
   return (
     <div className="flex flex-col sm:flex-row justify-around items-center bg-gray-50 border-2 border-gray-300 rounded-md w-[90%] m-auto h-[80vh] mt-5 overflow-scroll sm:overflow-hidden shadow-lg">
       <div className="relative mb-10 flex items-center justify-center w-full">
-        {/* Left Button */}
         {sale.items.length > 1 && (
           <button
             onClick={() => changeImage("left")}
@@ -44,7 +42,6 @@ function CurrentSale({ sale }) {
           </button>
         )}
 
-        {/* Image */}
         <div className="w-[400px] h-[400px] flex flex-col items-center justify-center">
           <img
             src={
@@ -57,7 +54,6 @@ function CurrentSale({ sale }) {
           />
         </div>
 
-        {/* Right Button */}
         {sale.items.length > 1 && (
           <button
             onClick={() => changeImage("right")}

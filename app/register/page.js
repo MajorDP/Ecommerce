@@ -1,6 +1,11 @@
 import Link from "next/link";
 import RegisterForm from "../_components/_userAuth/RegisterForm";
 
+export const metadata = {
+  title: "Sign up",
+  description: "Sing up for Ecomms and browse all kinds of products.",
+};
+
 function Page() {
   return (
     <div className=" rounded-3xl p-4 bg-slate-300 flex flex-col items-center w-[90%] sm:w-[50%] m-auto ">

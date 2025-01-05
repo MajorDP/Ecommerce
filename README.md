@@ -28,6 +28,18 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
 
 ## ✨ Latest Changes
 
+- **Minor fixes throughout the app**
+
+  - Components sorted for improved comprehension
+  - Code refactoring for /account for proper use of server/client components
+  - Code refactoring for /browse to minimize amount of API requests
+  - Code refactoring for /browse/product/[id] to minimize props passed down to child components
+  - General code cleanup
+
+  - Added pagination for PaginatedProductList when displaying all products
+
+  - /browse/[category] replaced by search params-based category search
+
 - **Responsive Design**:
   - Pages `/browse/product/post` and `/browse/product/edit` are being optimized for responsiveness.
 - **Product Variations**:
@@ -55,8 +67,6 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
 
 - **Admin Application**:
   - Admins will manage and validate user orders (confirm/reject).
-- **Enhanced Tracking**:
-  - Users will be able to better track their sales if partnered with Ecomms.
 
 ---
 

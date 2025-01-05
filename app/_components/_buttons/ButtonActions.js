@@ -9,13 +9,7 @@ import ConfirmationModal from "../ConfirmationModal";
 import { addToCart, initCart } from "@/app/_lib/_api/cart";
 import toast from "react-hot-toast";
 
-function ButtonActions({
-  quantity,
-  selectedOption,
-  listedBy,
-  product,
-  productId,
-}) {
+function ButtonActions({ quantity, selectedOption, product }) {
   const [user, setUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(null);
 
@@ -29,7 +23,7 @@ function ButtonActions({
 
   const handleDeleteProduct = async (params) => {
     try {
-      await deleteProduct(productId);
+      await deleteProduct(product.id);
       setIsModalOpen(null);
     } catch (error) {
       console.log(error.message);
@@ -38,14 +32,12 @@ function ButtonActions({
 
   const handleAddToCart = async (params) => {
     try {
-      console.log(selectedOption);
       const newProduct = {
         ...product,
         options: selectedOption,
         quantity: quantity,
       };
       addToCart(newProduct);
-      console.log("buy function here");
     } catch (error) {
       toast.error(error.message);
     }
@@ -54,14 +46,14 @@ function ButtonActions({
   return (
     <Suspense fallback={<p>Loading</p>}>
       <div className="flex flex-row w-56 justify-between">
-        {listedBy !== user?.user.id ? (
+        {product.listedBy !== user?.user.id ? (
           <AddToCartButton
             handleAddToCart={handleAddToCart}
-            productId={productId}
+            productId={product.id}
           />
         ) : (
           <div className="w-[70%] flex justify-between">
-            <EditButton productId={productId} />
+            <EditButton productId={product.id} />
             <DeleteButton
               isModalOpen={isModalOpen}
               onClose={() => setIsModalOpen(null)}

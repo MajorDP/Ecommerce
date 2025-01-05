@@ -1,16 +1,17 @@
 "use client";
 import dynamic from "next/dynamic";
-const Map = dynamic(() => import("../_components/_map/Map"), { ssr: false });
+const Map = dynamic(() => import("../_map/Map"), { ssr: false });
+//lazy loading for map component, as it needs the browser in order to work (cant be rendered on the server)
 
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import OrderForm from "./OrderForm";
-import { clearCart, initCart } from "../_lib/_api/cart";
+import { clearCart, initCart } from "../../_lib/_api/cart";
 import CartDetailsMini from "./CartDetailsMini";
-import { getCurrentUser } from "../_lib/_api/userServices";
-import { submitOrder } from "../_lib/_api/productServices";
+import { getCurrentUser } from "../../_lib/_api/userServices";
+import { submitOrder } from "../../_lib/_api/productServices";
 import toast from "react-hot-toast";
-import ToastMessage from "./ToastMessage";
+import ToastMessage from "../ToastMessage";
 import { useRouter } from "next/navigation";
 
 function OrderSteps() {
@@ -99,7 +100,7 @@ function OrderSteps() {
         {step === 1 ? (
           <Map setLat={setLat} setLng={setLng} />
         ) : (
-          <div className="bg-gray-50 flex flex-col sm:flex-row h-[92%] sm:h-[96.2%] overflow-scroll sm:overflow-hidden justify-between">
+          <div className="bg-gray-50 flex flex-col sm:flex-row h-[92%] sm:h-full overflow-scroll sm:overflow-hidden justify-between">
             <OrderForm handleSubmit={handleSubmit} />
             <CartDetailsMini />
           </div>

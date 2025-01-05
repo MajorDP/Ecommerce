@@ -1,5 +1,5 @@
 import CurrentSale from "@/app/_components/CurrentSale";
-import OrderNotFound from "@/app/_components/OrderNotFound";
+import OrderNotFound from "@/app/_components/_account/OrderNotFound";
 import { getUserPurchase } from "@/app/_lib/_api/userServices";
 import { Suspense } from "react";
 

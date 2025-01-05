@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { initCart, removeFromCart } from "../_lib/_api/cart";
-import ToastMessage from "./ToastMessage";
+import { initCart, removeFromCart } from "../../_lib/_api/cart";
+import ToastMessage from "../ToastMessage";
 import CartCardMini from "./CartCardMini";
 import toast from "react-hot-toast";
 

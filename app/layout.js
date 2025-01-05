@@ -11,7 +11,6 @@ const font = Rubik({
 export const metadata = {
   title: {
     template: "%s - Ecoms",
-    default: "Welcome - Ecoms",
   },
   description:
     "Browse all kinds of products ranging from everyday appliances to uncommon solutions to problems",

@@ -2,20 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import { getUserInfo } from "@/app/_lib/_api/userServices";
+import Spinner from "../Spinner";
 
-function ScrollableProductList({ products }) {
+function ScrollableProductList({ products, userId }) {
   const scrollContainerRef = useRef(null);
-
-  const [user, setUser] = useState(null);
-
-  useEffect(function () {
-    async function getUser() {
-      const user = await getUserInfo();
-
-      setUser(user);
-    }
-    getUser();
-  }, []);
 
   function scroll(direction) {
     if (scrollContainerRef.current) {
@@ -25,6 +15,7 @@ function ScrollableProductList({ products }) {
       });
     }
   }
+
   return (
     <>
       {products.length > 5 && (
@@ -45,11 +36,7 @@ function ScrollableProductList({ products }) {
       >
         {products.length > 0
           ? products.map((product, index) => (
-              <ProductCard
-                product={product}
-                userId={user?.userId}
-                key={index}
-              />
+              <ProductCard product={product} userId={userId} key={index} />
             ))
           : "There are no items that match your search."}
       </ul>

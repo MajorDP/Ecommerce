@@ -3,6 +3,10 @@ import { signout } from "../_lib/_api/userServices";
 import SignOutButton from "../_components/_userAuth/SignOutButton";
 import ProtectedRoute from "../_components/_userAuth/ProtectedRoute";
 
+export const metadata = {
+  title: "Account",
+};
+
 function Layout({ children }) {
   return (
     <ProtectedRoute>

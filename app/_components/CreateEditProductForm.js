@@ -141,6 +141,7 @@ function CreateEditProductForm({ product = null }) {
             />
           </div>
 
+          {/*If there is an image, we present it with the option to change it via the input through the label's htmlFor prop */}
           {image === null ? (
             <label
               htmlFor="productImg"

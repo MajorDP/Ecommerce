@@ -48,7 +48,6 @@ export async function deleteProduct(id) {
 }
 
 export async function editProduct(newProduct, id) {
-  console.log(newProduct);
   //UPLOADING PRODUCT IMAGE TO SUPABASE:
 
   // imageName for supabase's storage bucket and imagePath for the link to the image in products table
@@ -101,16 +100,13 @@ export async function editProduct(newProduct, id) {
 
   newProduct.options = await Promise.all(updatedOptions); //AWAITING ALL IMAGE POSTS (IF ANY)
 
-  console.log(newProduct);
   const { data, error } = await supabase
     .from("products")
     .update({ ...newProduct })
     .eq("id", id)
     .select();
 
-  setTimeout(() => {
-    window.location.href = `/browse/product/${id}`;
-  }, 1000);
+  window.location.href = `/browse/product/${id}`;
 }
 
 export async function submitOrder(order) {
@@ -124,7 +120,6 @@ export async function submitOrder(order) {
     console.log("ERROR WHEN SUBMITTING ORDER:", error.message);
     return;
   }
-  console.log("SUBMITTED");
 
   return data;
 }
@@ -146,8 +141,6 @@ export async function postImg(imageFile) {
 
 export async function postProduct(product) {
   const currentUser = await getCurrentUser();
-
-  console.log(product);
 
   // imageName for supabase's storage bucket and imagePath for the link to the image in products table
   const imageName = `${Math.random()}-${product.productImg.name}`.replaceAll(
@@ -217,10 +210,6 @@ export async function postProduct(product) {
     console.log("ERROR: ", error);
     return;
   }
-  console.log(data);
 
-  // time for image posting query to take effect so that the image of the product can be visualized properly on page change
-  setTimeout(() => {
-    window.location.href = `/browse/product/${data.id}`;
-  }, 200);
+  window.location.href = `/browse/product/${data.id}`;
 }

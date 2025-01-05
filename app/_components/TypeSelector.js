@@ -14,7 +14,6 @@ function TypeSelector({ product, productOptions }) {
   useEffect(function () {
     async function getUser() {
       const user = await getUserInfo();
-      console.log(user);
       setUser(user);
     }
     getUser();
@@ -31,13 +30,13 @@ function TypeSelector({ product, productOptions }) {
               type="number"
               min="1"
               max={product.availableQuantity}
-              value={quantity} // Controlled by the `quantity` state
+              value={quantity}
               onChange={(e) => {
                 const value = Math.min(
                   Math.max(1, parseInt(e.target.value || "1", 10)),
                   product.availableQuantity
                 );
-                setQuantity(value); // Update state dynamically
+                setQuantity(value);
               }}
               className="w-20 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
@@ -49,7 +48,6 @@ function TypeSelector({ product, productOptions }) {
         </p>
       </div>
 
-      {/* Type Selector */}
       {product.options.length > 0 && (
         <div className="mt-4">
           <p className="p-2 text-lg font-medium">Select a type:</p>
@@ -78,14 +76,11 @@ function TypeSelector({ product, productOptions }) {
         </div>
       )}
 
-      {/* Price and Button Actions */}
       <div className="m-2 p-2 w-full sm:w-1/3">
         <p className="text-2xl font-semibold">{product.productPrice}💲</p>
         <ButtonActions
           selectedOption={selectedOption}
           quantity={quantity}
-          listedBy={product.listedBy}
-          productId={product.id}
           product={product}
         />
       </div>

@@ -125,7 +125,7 @@ export async function getUserSales(id) {
   return userSalesInfo;
 }
 
-export async function getUserSale(id, orderId) {
+export async function getUserSale(orderId) {
   let { data: sale, error } = await supabase
     .from("sales")
     .select("*")
