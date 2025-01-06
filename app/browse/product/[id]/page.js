@@ -10,6 +10,16 @@ import Image from "next/image";
 import { Suspense } from "react";
 
 export const fetchCache = "force-no-store";
+
+export async function generateMetadata({ params }) {
+  const product = await getProduct(params.id);
+
+  return {
+    title: product?.productName ? `${product.productName}` : "Product Page",
+    description: product?.productDesc || "Check out our amazing products",
+  };
+}
+
 async function Page({ params }) {
   const product = await getProduct(params.id);
 

@@ -213,3 +213,16 @@ export async function postProduct(product) {
 
   window.location.href = `/browse/product/${data.id}`;
 }
+
+export async function getCategories() {
+  let { data: categoriesEcoms, error } = await supabase
+    .from("categoriesEcoms")
+    .select("*");
+
+  if (error) {
+    console.log(error.message);
+    return [];
+  }
+
+  return categoriesEcoms;
+}

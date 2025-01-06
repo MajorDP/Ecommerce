@@ -50,7 +50,8 @@ function CreateEditProductForm({ product = null }) {
   const categoryOptions = [
     { value: "home-supplies", label: "Home supplies" },
     { value: "workouts", label: "Workouts" },
-    { value: "cleaning-supplies", label: "Cleaning supplies" },
+    { value: "toys", label: "Toys" },
+    { value: "for-kids", label: "For kids" },
   ];
 
   const currentProductCategories = product?.productCategories.map(
@@ -89,6 +90,7 @@ function CreateEditProductForm({ product = null }) {
               id="price"
               name="productPrice"
               type="number"
+              step="any" // Allows float numbers
               required={true}
               defaultValue={product?.productPrice || ""}
               placeholder="22.00$..."

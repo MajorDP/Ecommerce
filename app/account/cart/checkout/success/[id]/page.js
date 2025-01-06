@@ -5,6 +5,19 @@ import { getOrder } from "@/app/_lib/_api/userServices";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export async function generateMetadata({ params }) {
+  const order = await getOrder(params.id);
+
+  if (order) {
+    return {
+      title: "Order placed successfully",
+    };
+  } else {
+    return {
+      title: "Order was not found",
+    };
+  }
+}
 async function Page({ params }) {
   const order = await getOrder(params.id);
 

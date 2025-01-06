@@ -10,7 +10,8 @@ import { getUserInfo } from "@/app/_lib/_api/userServices";
 import { useRouter } from "next/navigation";
 import Spinner from "../Spinner";
 
-function BrowseProductsPage({ products }) {
+function BrowseProductsPage({ products, categories }) {
+  console.log(categories);
   const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -199,24 +200,15 @@ function BrowseProductsPage({ products }) {
             >
               All
             </Link>
-            <Link
-              href={`/browse?order=${searchQuery.order}&category=home-supplies&sort=${searchQuery.sort}`}
-              className="px-4 py-2 hover:bg-gray-200 rounded-t-md"
-            >
-              Home appliances
-            </Link>
-            <Link
-              href={`/browse?order=${searchQuery.order}&category=workouts&sort=${searchQuery.sort}`}
-              className="px-4 py-2 hover:bg-gray-200"
-            >
-              Workouts
-            </Link>
-            <Link
-              href={`/browse?order=${searchQuery.order}&category=cleaning-supplies&sort=${searchQuery.sort}`}
-              className="px-4 py-2 hover:bg-gray-200 rounded-b-md"
-            >
-              Cleaning supplies
-            </Link>
+            {categories.map((category, index) => (
+              <Link
+                key={index}
+                href={`/browse?order=${searchQuery.order}&category=${category.value}&sort=${searchQuery.sort}`}
+                className="px-4 py-2 hover:bg-gray-200 rounded-t-md"
+              >
+                {category.label}
+              </Link>
+            ))}
           </div>
         </div>
 
