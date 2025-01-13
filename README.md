@@ -30,6 +30,8 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
 
 - **Minor fixes throughout the app**
 
+  - Fixed product price calculation to include discount, quantity, and shipping fee
+
   - Components sorted for improved comprehension
   - Code refactoring for /account for proper use of server/client components
   - Code refactoring for /browse to minimize amount of API requests
