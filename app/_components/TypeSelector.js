@@ -1,9 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import muay1 from "@/public/muay1.png";
-import muay2 from "@/public/muay2.png";
-import ButtonActions from "./_buttons/ButtonActions";
 import { getUserInfo } from "../_lib/_api/userServices";
+import ButtonActions from "./_buttons/ButtonActions";
 
 function TypeSelector({ product, productOptions }) {
   const [selectedOption, setSelectedOption] = useState(null);

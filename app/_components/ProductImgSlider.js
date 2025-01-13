@@ -1,9 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import muay1 from "@/public/muay1.png";
-import muay2 from "@/public/muay2.png";
 
 function ProductImgSlider({ product }) {
   const [imageIndex, setImageIndex] = useState(0);
@@ -24,7 +21,6 @@ function ProductImgSlider({ product }) {
   }
   return (
     <div className="relative lg:m-0 m-auto w-full sm:w-[50%] md:w-[40%] lg:w-[30%] mb-10 flex items-center justify-center">
-      {/* Left Button */}
       {product.productImg.length > 1 && (
         <button
           onClick={() => changeImage("left")}
@@ -34,14 +30,12 @@ function ProductImgSlider({ product }) {
         </button>
       )}
 
-      {/* Image */}
       <img
         src={product.productImg[imageIndex]}
         alt={product.productName}
         className="border border-black p-1 max-h-[700px] w-auto object-cover rounded-xl"
       />
 
-      {/* Right Button */}
       {product.productImg.length > 1 && (
         <button
           onClick={() => changeImage("right")}
