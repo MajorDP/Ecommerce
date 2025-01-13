@@ -26,7 +26,10 @@ function CurrentSale({ sale }) {
   }
 
   const totalPrice = sale?.items.reduce(
-    (acc, item) => acc + item.productPrice,
+    (acc, item) =>
+      acc + item.discountedPrice
+        ? (item.discountedPrice + item.shippingFee) * item.quantity || 0
+        : (item.productPrice + item.shippingFee) * item.quantity,
     0
   );
 
@@ -85,7 +88,14 @@ function CurrentSale({ sale }) {
           </p>
           <p className="text-gray-700">
             <span className="font-bold">Price per unit:</span>{" "}
-            {sale.items[imageIndex].productPrice.toFixed(2)}{" "}
+            {(
+              sale.items[imageIndex].discountedPrice +
+                sale.items[imageIndex].shippingFee || 0
+            ).toFixed(2) ||
+              (
+                sale.items[imageIndex].productPrice +
+                  sale.items[imageIndex].shippingFee || 0
+              ).toFixed(2)}{" "}
             <span className="text-green-600 font-semibold">$</span>
           </p>
         </div>

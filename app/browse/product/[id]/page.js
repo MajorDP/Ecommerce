@@ -1,12 +1,9 @@
-import ButtonActions from "@/app/_components/_buttons/ButtonActions";
 import ProductRatingSetter from "@/app/_components/_products/ProductRatingSetter";
 import ProductImgSlider from "@/app/_components/ProductImgSlider";
 import Spinner from "@/app/_components/Spinner";
 import TypeSelector from "@/app/_components/TypeSelector";
 import { getProduct } from "@/app/_lib/_api/productServices";
-import muay1 from "@/public/muay1.png";
-import muay2 from "@/public/muay2.png";
-import Image from "next/image";
+import { formatDate } from "@/app/_lib/helpers";
 import { Suspense } from "react";
 
 export const fetchCache = "force-no-store";
@@ -48,6 +45,9 @@ async function Page({ params }) {
               <span className="text-xl font-semibold text-black break-words hyphens-auto block">
                 {product.productName}
               </span>
+              <p className="text-xs">
+                Last edited: {formatDate(product.created_at)}
+              </p>
               <ProductRatingSetter product={product} />
             </div>
 

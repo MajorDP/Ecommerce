@@ -59,7 +59,10 @@ function UserProductCard({ product }) {
         </div>
         <div>
           <p className="text-sm sm:text-base text-gray-700">
-            <span className="font-semibold">Price:</span> {product.productPrice}{" "}
+            <span className="font-semibold">Price:</span>{" "}
+            {product.discountedPrice
+              ? (product.discountedPrice + product.shippingFee).toFixed(2) || 0
+              : (product.productPrice + product.shippingFee).toFixed(2)}{" "}
             <span className="text-green-600 font-semibold">$</span>
           </p>
         </div>

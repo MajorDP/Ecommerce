@@ -9,7 +9,10 @@ function SaleCard({ sale, type }) {
     sale.items.length === 1 ? 1 : sale.items.length >= 4 ? 4 : 2;
 
   const totalPrice = sale.items.reduce(
-    (acc, item) => acc + item.productPrice,
+    (acc, item) =>
+      acc + item.discountedPrice
+        ? (item.discountedPrice + item.shippingFee) * item.quantity || 0
+        : (item.productPrice + item.shippingFee) * item.quantity,
     0
   );
 

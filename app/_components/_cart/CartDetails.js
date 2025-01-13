@@ -27,7 +27,11 @@ function CartDetails() {
   useEffect(() => setCart(initCart()), [onRemove]);
 
   const totalCost = cart
-    .reduce((acc, curr) => acc + curr.productPrice, 0)
+    .reduce((acc, curr) => {
+      return acc + curr.discountedPrice
+        ? (curr.discountedPrice + curr.shippingFee) * curr.quantity
+        : (curr.productPrice + curr.shippingFee) * curr.quantity;
+    }, 0)
     .toFixed(2);
 
   return (

@@ -13,7 +13,12 @@ function CartDetailsMini() {
   const endIndex = page + itemsPerPage - 1;
 
   const totalCost = cart
-    .reduce((acc, curr) => acc + curr.productPrice, 0)
+    .reduce(
+      (acc, curr) =>
+        acc + curr.discountedPrice * curr.quantity + curr.shippingFee ||
+        curr.productPrice * curr.quantity + curr.shippingFee,
+      0
+    )
     .toFixed(2);
 
   useEffect(() => {

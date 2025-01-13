@@ -30,7 +30,15 @@ function CartCard({ product, onRemove }) {
           {/* Price and Remove Button */}
           <div className="flex justify-between items-center mt-2">
             <p className="text-start ">
-              {product.productPrice}
+              {product.discountedPrice
+                ? (
+                    (product.discountedPrice + product.shippingFee) *
+                    product.quantity
+                  ).toFixed(2)
+                : (
+                    (product.productPrice + product.shippingFee) *
+                    product.quantity
+                  ).toFixed(2)}
               <span className="font-semibold text-green-600"> $</span>
             </p>
             <span

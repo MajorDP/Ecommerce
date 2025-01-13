@@ -40,6 +40,7 @@ function CreateEditProductForm({ product = null }) {
       productImg: [
         typeof image === "string" ? image : formData.get("productImg"),
       ],
+      created_at: new Date(),
     };
 
     product === null

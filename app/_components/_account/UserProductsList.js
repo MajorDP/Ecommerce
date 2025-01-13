@@ -25,7 +25,7 @@ function UserProductsList() {
   if (isLoading) return <Spinner />;
   return (
     <div className="bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 w-[90%] sm:w-[95%] h-[70vh] sm:h-[80%] m-4 sm:m-12 border border-gray-300 rounded-xl overflow-y-scroll overflow-x-hidden shadow-lg scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-500">
-      <ul className="space-y-4">
+      <ul className="space-y-4 mb-4">
         {userProducts &&
           userProducts.map((product, index) => (
             <UserProductCard product={product} key={index} />

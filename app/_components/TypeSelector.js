@@ -77,7 +77,17 @@ function TypeSelector({ product, productOptions }) {
       )}
 
       <div className="m-2 p-2 w-full sm:w-1/3">
-        <p className="text-2xl font-semibold">{product.productPrice}💲</p>
+        <p className="text-2xl font-semibold">
+          {product.discountedPrice
+            ? (
+                (product.discountedPrice + product.shippingFee) *
+                quantity
+              ).toFixed(2) || 0
+            : ((product.productPrice + product.shippingFee) * quantity).toFixed(
+                2
+              )}
+          💲
+        </p>
         <ButtonActions
           selectedOption={selectedOption}
           quantity={quantity}

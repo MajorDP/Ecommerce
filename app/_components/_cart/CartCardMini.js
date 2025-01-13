@@ -40,7 +40,9 @@ function CartCardMini({ product, onRemove }) {
               </div>
             </div>
             <span className="hover:scale-105 duration-150 text-green-500 text-start pl-1">
-              {product.productPrice}$
+              {(product.discountedPrice + product.shippingFee).toFixed(2) ||
+                (product.productPrice + product.shippingFee).toFixed(2)}
+              $
             </span>
           </div>
         </div>

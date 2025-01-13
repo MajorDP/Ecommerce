@@ -36,7 +36,9 @@ function OrderSteps() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const user = await getCurrentUser();
+
     const order = {
+      created_at: new Date(),
       orderedBy: user.user.id,
       items: cart,
       mapLocation: [{ lat: lat, lng: lng }],
@@ -50,6 +52,17 @@ function OrderSteps() {
           wayOfPayment: formData.get("wayOfPayment"),
         },
       ],
+      totalPrice: cart.reduce((acc, item) => {
+        const currItemPrice =
+          item.discountedPrice !== null
+            ? item.discountedPrice * item.quantity + item.shippingFee
+            : item.productPrice * quantity + item.shippingFee;
+
+        return acc + currItemPrice;
+      }, 0),
+      productsCount: cart.reduce((acc, curr) => {
+        return acc + curr.quantity;
+      }, 0),
     };
 
     const data = await submitOrder(order);
