@@ -226,3 +226,18 @@ export async function getCategories() {
 
   return categoriesEcoms;
 }
+
+export async function getUserPreferences(userId) {
+  let { data: userPreferences, error } = await supabase
+    .from("userPreferences")
+    .select("*")
+    .eq("userId", userId)
+    .single();
+
+  if (error) {
+    console.log(error.message);
+    return [];
+  }
+
+  return userPreferences;
+}

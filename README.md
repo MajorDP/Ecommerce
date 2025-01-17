@@ -26,6 +26,15 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
 
 ---
 
+## 🔧 Currently Working On
+
+- **User-Based Personalization Features**
+  - Implementing tailored product recommendations based on user activity, preferences, and browsing history.
+  - Developing a "For You" section that highlights products based on the user's recent views, cart additions, and purchases.
+  - Adding dynamic discounts personalized to user behavior, including similar product suggestions and activity-based promotions.
+
+---
+
 ## ✨ Latest Changes
 
 - **Minor fixes throughout the app**
@@ -56,12 +65,6 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
   - Approved users can list, edit, or delete their own products.
 - **Route Protection**:
   - Secured routes for browsing and account management.
-
----
-
-## 🔧 Currently Working On
-
-- **Minor fixes throughout the app**
 
 ---
 

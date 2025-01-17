@@ -63,6 +63,24 @@ export async function register(userData) {
     console.log(regError);
     return;
   }
+
+  const preferencesObj = {
+    userId: data.user.id,
+    categoryPrefs: [],
+    priceRangePrefs: [],
+    searchPrefs: [],
+    ratingPrefs: [{ from: 0, to: 10 }],
+  };
+
+  const { error: prefsError } = await supabase
+    .from("userPreferences")
+    .insert(preferencesObj);
+
+  if (prefsError) {
+    console.log(prefsError);
+    return;
+  }
+
   return { data, error };
 }
 

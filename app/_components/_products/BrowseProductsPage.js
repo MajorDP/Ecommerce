@@ -9,9 +9,9 @@ import ProductBrowser from "./ProductBrowser";
 import { getUserInfo } from "@/app/_lib/_api/userServices";
 import { useRouter } from "next/navigation";
 import Spinner from "../Spinner";
+import PersonalizedProducts from "./PersonalizedProducts";
 
 function BrowseProductsPage({ products, categories }) {
-  console.log(categories);
   const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,10 +80,29 @@ function BrowseProductsPage({ products, categories }) {
 
   const browseDisplay = [
     {
-      orderValue: "popular",
+      orderValue: "for-you",
       component: (
         <ProductBrowser
           key={0}
+          component={
+            <PersonalizedProducts
+              productsData={products}
+              showAll={showAll}
+              userId={user?.userId}
+            />
+          }
+          searchQuery={searchQuery}
+          message={"For you"}
+          type={"for-you"}
+          showAll={showAll}
+        />
+      ),
+    },
+    {
+      orderValue: "popular",
+      component: (
+        <ProductBrowser
+          key={1}
           component={
             <PopularProducts
               productsData={sortedProducts}
@@ -92,7 +111,7 @@ function BrowseProductsPage({ products, categories }) {
             />
           }
           searchQuery={searchQuery}
-          message={"Current most popular products"}
+          message={"Popular products"}
           type={"popular"}
           showAll={showAll}
         />
@@ -102,7 +121,7 @@ function BrowseProductsPage({ products, categories }) {
       orderValue: "all",
       component: (
         <ProductBrowser
-          key={1}
+          key={2}
           component={
             <BrowseProducts
               productsData={sortedProducts}
@@ -111,7 +130,7 @@ function BrowseProductsPage({ products, categories }) {
             />
           }
           searchQuery={searchQuery}
-          message={"Browse products"}
+          message={"Other products"}
           type={"all"}
           showAll={showAll}
         />
@@ -121,7 +140,7 @@ function BrowseProductsPage({ products, categories }) {
       orderValue: "newest",
       component: (
         <ProductBrowser
-          key={2}
+          key={3}
           component={
             <NewestProducts
               productsData={sortedProducts}
