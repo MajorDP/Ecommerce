@@ -37,6 +37,11 @@ Ecomms is an imaginary e-commerce platform based in **Bulgaria**, where users ca
 
 ## ✨ Latest Changes
 
+- **User-Based Personalization Features**
+
+  - User's preferences based on category are not updated in database upon placing an order
+  - Users can now see a "For You" section when browsing products catered to their latest preferences in category (from opening/ordering products with said categories)
+
 - **Minor fixes throughout the app**
 
   - Fixed product price calculation to include discount, quantity, and shipping fee

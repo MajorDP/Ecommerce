@@ -110,6 +110,10 @@ export async function editProduct(newProduct, id) {
 }
 
 export async function submitOrder(order) {
+  console.log(order);
+
+  await updateUserPrefs(order);
+
   const { data, error } = await supabase
     .from("orders")
     .insert(order)
@@ -240,4 +244,64 @@ export async function getUserPreferences(userId) {
   }
 
   return userPreferences;
+}
+
+export async function updateUserPrefs(order) {
+  //creating an array of objects containing new preferences from ordered products for personalized user experience
+  const lastestOrdersPrefs = order.items.reduce((acc, product) => {
+    return product.productCategories.reduce((innerAcc, category) => {
+      const existingCategory = innerAcc.find((item) => item.name === category);
+
+      if (existingCategory) {
+        existingCategory.searchCount += 1;
+      } else {
+        innerAcc.push({ name: category, searchCount: 1 });
+      }
+
+      return innerAcc;
+    }, acc);
+  }, []);
+
+  //getting user's current preferences
+  let { data: userPreferences, error } = await supabase
+    .from("userPreferences")
+    .select("categoryPrefs")
+    .eq("userId", order.orderedBy)
+    .single();
+
+  //updating users preferences to match his latest order:
+  //keeping a maximum of 5 objects to better track user's latest preferences
+  // sorting them based on searchCount (the higher the searchCount attribute, the more the user has opened/ordered products with such categories)
+  const updatedPrefs = [...lastestOrdersPrefs, ...userPreferences.categoryPrefs]
+    .reduce((acc, curr) => {
+      const existingPref = acc.find((pref) => pref.name === curr.name);
+
+      if (existingPref) {
+        existingPref.searchCount += 1;
+      } else {
+        acc.push(curr);
+      }
+      return acc;
+    }, [])
+    .sort((a, b) => b.searchCount - a.searchCount)
+    .slice(0, 5);
+
+  console.log(updatedPrefs);
+  // console.log(order.orderedBy);
+
+  const { data: updatedUserPrefs, error: updatedUserPrefsError } =
+    await supabase
+      .from("userPreferences")
+      .update({ categoryPrefs: updatedPrefs })
+      .eq("userId", order.orderedBy)
+      .select();
+
+  if (updatedUserPrefsError) {
+    console.log(
+      "Error updating user preferences: ",
+      updatedUserPrefsError.message
+    );
+  }
+
+  return;
 }
